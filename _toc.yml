@@ -76,10 +76,7 @@ chapters:
   - file: notebooks/namelist/documentation
   - file: notebooks/namelist/output
     sections:
-    - file: notebooks/namelist/output/output_cam
     - file: notebooks/namelist/output/output_clm
-    - file: notebooks/namelist/output/output_cice
-    - file: notebooks/namelist/output/output_mom
   - file: notebooks/namelist/exercises_overview
     sections:
     - file: notebooks/namelist/exercises/exercise_cam_interpolate
@@ -105,24 +102,6 @@ chapters:
 
 - file: notebooks/challenge/challenge
   sections:
-  - file: notebooks/challenge/cam/cam
-    sections:
-    - file: notebooks/challenge/cam/exercise_1
-    - file: notebooks/challenge/cam/exercise_2
-    - file: notebooks/challenge/cam/exercise_3
-    - file: notebooks/challenge/cam/exercise_4
-    - file: notebooks/challenge/cam/exercise_5
-  - file: notebooks/challenge/paleo/paleo
-    sections:
-    - file: notebooks/challenge/paleo/exercise_1
-    - file: notebooks/challenge/paleo/exercise_2
-    - file: notebooks/challenge/paleo/exercise_3
-  - file: notebooks/challenge/cam-chem_waccm/cam-chem_waccm
-    sections:
-    - file: notebooks/challenge/cam-chem_waccm/exercise_1
-    - file: notebooks/challenge/cam-chem_waccm/exercise_2
-    - file: notebooks/challenge/cam-chem_waccm/exercise_3
-    - file: notebooks/challenge/cam-chem_waccm/visualization
   - file: notebooks/challenge/clm_ctsm/clm_ctsm
     sections:
     - file: notebooks/challenge/clm_ctsm/clm_exercise_1
@@ -130,51 +109,16 @@ chapters:
     - file: notebooks/challenge/clm_ctsm/clm_exercise_3
     - file: notebooks/challenge/clm_ctsm/clm_exercise_4
     - file: notebooks/challenge/clm_ctsm/clm_exercise_5
-  - file: notebooks/challenge/mom/mom
-    sections:
-    - file: notebooks/challenge/mom/mom_exercise_1
-    - file: notebooks/challenge/mom/mom_exercise_2
-    - file: notebooks/challenge/mom/mom_exercise_3
-    - file: notebooks/challenge/mom/mom_exercise_4
-  - file: notebooks/challenge/cice/cice
-    sections:
-    - file: notebooks/challenge/cice/cice_exercise_1
-    - file: notebooks/challenge/cice/cice_exercise_2
-    - file: notebooks/challenge/cice/cice_exercise_3
-  - file: notebooks/challenge/cism/cism
-    sections:
-    - file: notebooks/challenge/cism/cism_exercise_1
-    - file: notebooks/challenge/cism/cism_exercise_2
-    - file: notebooks/challenge/cism/cism_exercise_3
-  - file: notebooks/challenge/bgc/bgc
-    sections:
-    - file: notebooks/challenge/bgc/bgc_exercise_1
-  - file: notebooks/challenge/ml/ml
-    sections:
-    - file: notebooks/challenge/ml/ml_exercise_1
 
 - file: notebooks/diagnostics/diagnostics
   sections:
-  - file: notebooks/diagnostics/cam/cam
-    sections:
-    - file: notebooks/diagnostics/cam/basics_cam
-    - file: notebooks/diagnostics/cam/advanced_cam
   - file: notebooks/diagnostics/clm_ctsm/clm_ctsm
     sections:
     - file: notebooks/diagnostics/clm_ctsm/basics_clm
-  - file: notebooks/diagnostics/mom/mom
-    sections:
-    - file: notebooks/diagnostics/mom/basics_mom
-    - file: notebooks/diagnostics/mom/advanced_mom
-  - file: notebooks/diagnostics/cice/cice
-    sections:
-    - file: notebooks/diagnostics/cice/basics_cice
-    - file: notebooks/diagnostics/cice/advanced_cice
   - file: notebooks/diagnostics/cupid
   - file: notebooks/diagnostics/additional/additional
     sections:
     - file: notebooks/diagnostics/additional/postprocessing
-    - file: notebooks/diagnostics/additional/cvdp
     - file: notebooks/diagnostics/additional/analysis_tools
     - file: notebooks/diagnostics/additional/adf
     - file: notebooks/diagnostics/additional/uxarray
