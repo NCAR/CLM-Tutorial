@@ -10,13 +10,14 @@ In 1983 NCAR created the _Community Climate Model_ (CCM) as a freely available g
 
 ## Goals of This Tutorial
 
-<strong>Through this tutorial, you will learn how to:
+### The overarching goal of the tutorial is to introduce the science and practice of using CLM as a research tool. Lecture and practicals aim to link science, model assumptions or hypotheses, and code structure.
 
-- Create and run CLM simulations.
-- Understand the structure and configuration of CLM experiments.
-- Modify model settings, forcings, and input datasets.
-- Analyze and interpret model output.
-- Design and perform simple scientific experiments using CLM.
+As a result of attending the CLM Tutorial, attendees will:
+• Gain a foundational scientific understanding of CLM and its features. 
+• Be able to run and modify the model and use the output. 
+• Have opportunities to network with peers and CLM scientists. 
+• Attain an understanding of High Performance Computing (HPC) needed for CLM. 
+• Perceive the tutorials to be an inclusive learning environment.
 
 The materials are primarily based on CLM6 concepts and workflows, although many of the principles apply to other versions of CLM as well.</strong>
 
@@ -38,7 +39,7 @@ Materials here were heavily borrowed from the CESM tutorial. A number of people 
 - Testers, others...
 
 Specific modification and development for the CLM tutorial were made by:
-- Will Wieder, Adrianna Foster, Linnia Hawkins, Sam Levis, Erik Kluzek, Sam Rabin, and Keith Oleson.
+- Will Wieder, Adrianna Foster, Linnia Hawkins, Sam Levis, Erik Kluzek, Samar Minallah, Danniel Kennedy, Sam Rabin, and Keith Oleson.
  
 <br>
 
