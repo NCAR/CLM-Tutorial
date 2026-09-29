@@ -10,7 +10,7 @@ In 1983 NCAR created the _Community Climate Model_ (CCM) as a freely available g
 
 ## Goals of This Tutorial
 
-### The overarching goal of the tutorial is to introduce the science and practice of using CLM as a research tool. Lecture and practicals aim to link science, model assumptions or hypotheses, and code structure.
+The overarching goal of the tutorial is to __introduce the science and practice of using CLM as a research tool.__ Lecture and practicals aim to link science and code  by highlighting model assumptions and hypotheses.
 
 As a result of attending the CLM Tutorial, attendees will:
 - Gain a foundational scientific understanding of CLM and its features. 
