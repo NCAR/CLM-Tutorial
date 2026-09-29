@@ -29,8 +29,8 @@ chapters:
   - file: notebooks/basics/cesm_workspaces
   - file: notebooks/basics/code_overview
     sections:
-    - file: notebooks/basics/code/git_download_cesm
-    - file: notebooks/basics/code/cesm_code_explore
+    - file: notebooks/basics/code/git_download_ctsm
+    - file: notebooks/basics/code/ctsm_code_explore
   - file: notebooks/basics/cesm_workflow
     sections:
     - file: notebooks/basics/cesm_workflow/create_newcase
