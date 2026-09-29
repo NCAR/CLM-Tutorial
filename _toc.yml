@@ -42,9 +42,9 @@ chapters:
     - file: notebooks/basics/cesm_workflow/create_clone
   - file: notebooks/basics/exercises_overview
     sections:
-    - file: notebooks/basics/exercises/first_B1850
-    - file: notebooks/basics/exercises/second_B1850
-    - file: notebooks/basics/exercises/examine_history_B1850
+    - file: notebooks/basics/exercises/first_I1850
+    - file: notebooks/basics/exercises/second_I1850
+    - file: notebooks/basics/exercises/examine_history_I1850
     - file: notebooks/basics/exercises/extra
     - file: notebooks/basics/exercises/review_questions
 
