@@ -83,9 +83,11 @@ chapters:
     - file: notebooks/namelist/exercises/exercise_cam_output
     - file: notebooks/namelist/exercises/exercise_tuning_parameter
 
-- file: notebooks/singlepoint/singlepoint
+- file: notebooks/singlepoint/singlepoint_overview
   sections:
-  - file: notebooks/singlepoint/FATESsp_at_NEON_site
+  - file: notebooks/singlepoint/exercises/runtower_NEON
+  - file: notebooks/singlepoint/exercises/runtower_PLUMBER2
+  - file: notebooks/singlepoint/exercises/FATESsp_NEON
 
 - file: notebooks/troubleshooting/troubleshooting
   sections:
