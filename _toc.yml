@@ -15,6 +15,8 @@ chapters:
     - file: notebooks/intro/project
     - file: notebooks/intro/getting_involved
     - file: notebooks/intro/getting_help
+  # IF UNCOMMENTING THE BELOW, MAKE SURE TO REMOVE THEIR ENTRIES
+  # FROM exclude_patterns IN _config.yml.
   #- file: notebooks/intro/community_experiments
   #  sections:
   #  - file: notebooks/intro/cesm_expts/clim_data_guide
@@ -49,6 +51,8 @@ chapters:
     - file: notebooks/basics/exercises/extra
     - file: notebooks/basics/exercises/review_questions
 
+# IF UNCOMMENTING THE BELOW, MAKE SURE TO REMOVE THEIR ENTRIES
+# FROM exclude_patterns IN _config.yml.
 #- file: notebooks/modifications/xml
 #  sections:
 #  - file: notebooks/modifications/xml/overview
@@ -71,6 +75,8 @@ chapters:
 #    - file: notebooks/modifications/xml/exercises/xml_runtype_exercise
 #    - file: notebooks/modifications/xml/exercises/xml_timestep_exercise
 
+# IF UNCOMMENTING THE BELOW, MAKE SURE TO REMOVE THEIR ENTRIES
+# FROM exclude_patterns IN _config.yml.
 #- file: notebooks/namelist/namelist
 #  sections:
 #  - file: notebooks/namelist/overview
@@ -145,6 +151,8 @@ chapters:
   - file: notebooks/resources/github
   - file: notebooks/resources/fortran
   - file: notebooks/resources/netcdf
+  # IF UNCOMMENTING THE BELOW, MAKE SURE TO REMOVE ITS ENTRY
+  # FROM exclude_patterns IN _config.yml.
   # - file: notebooks/resources/porting
 
 
