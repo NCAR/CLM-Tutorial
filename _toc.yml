@@ -15,10 +15,10 @@ chapters:
     - file: notebooks/intro/project
     - file: notebooks/intro/getting_involved
     - file: notebooks/intro/getting_help
-  - file: notebooks/intro/community_experiments
-    sections:
-    - file: notebooks/intro/cesm_expts/clim_data_guide
-    - file: notebooks/intro/cesm_expts/gdex
+  #- file: notebooks/intro/community_experiments
+  #  sections:
+  #  - file: notebooks/intro/cesm_expts/clim_data_guide
+  #  - file: notebooks/intro/cesm_expts/gdex
 
 - file: notebooks/prereqs/prereqs_overview
   sections:
@@ -48,40 +48,40 @@ chapters:
     - file: notebooks/basics/exercises/extra
     - file: notebooks/basics/exercises/review_questions
 
-- file: notebooks/modifications/xml
-  sections:
-  - file: notebooks/modifications/xml/overview
-  - file: notebooks/modifications/xml/model_control_files
-  - file: notebooks/modifications/xml/run_length
-    sections:
-    - file: notebooks/modifications/xml/run_length/starting_and_stopping
-    - file: notebooks/modifications/xml/run_length/restarting
-    - file: notebooks/modifications/xml/run_length/changing_run_length
-    - file: notebooks/modifications/xml/run_length/timing_files
-  - file: notebooks/modifications/xml/modify_run_type
-    sections:
-    - file: notebooks/modifications/xml/modify_run_type/hybrid_branch_restart
-    - file: notebooks/modifications/xml/modify_run_type/run_variables
-  - file: notebooks/modifications/xml/physics_timestep
-  - file: notebooks/modifications/xml/other_xml_variables
-  - file: notebooks/modifications/xml/exercises
-    sections:
-    - file: notebooks/modifications/xml/exercises/xml_length_exercise
-    - file: notebooks/modifications/xml/exercises/xml_runtype_exercise
-    - file: notebooks/modifications/xml/exercises/xml_timestep_exercise
+#- file: notebooks/modifications/xml
+#  sections:
+#  - file: notebooks/modifications/xml/overview
+#  - file: notebooks/modifications/xml/model_control_files
+#  - file: notebooks/modifications/xml/run_length
+#    sections:
+#    - file: notebooks/modifications/xml/run_length/starting_and_stopping
+#    - file: notebooks/modifications/xml/run_length/restarting
+#    - file: notebooks/modifications/xml/run_length/changing_run_length
+#    - file: notebooks/modifications/xml/run_length/timing_files
+#  - file: notebooks/modifications/xml/modify_run_type
+#    sections:
+#    - file: notebooks/modifications/xml/modify_run_type/hybrid_branch_restart
+#    - file: notebooks/modifications/xml/modify_run_type/run_variables
+#  - file: notebooks/modifications/xml/physics_timestep
+#  - file: notebooks/modifications/xml/other_xml_variables
+#  - file: notebooks/modifications/xml/exercises
+#    sections:
+#    - file: notebooks/modifications/xml/exercises/xml_length_exercise
+#    - file: notebooks/modifications/xml/exercises/xml_runtype_exercise
+#    - file: notebooks/modifications/xml/exercises/xml_timestep_exercise
 
-- file: notebooks/namelist/namelist
-  sections:
-  - file: notebooks/namelist/overview
-  - file: notebooks/namelist/documentation
-  - file: notebooks/namelist/output
-    sections:
-    - file: notebooks/namelist/output/output_clm
-  - file: notebooks/namelist/exercises_overview
-    sections:
-    - file: notebooks/namelist/exercises/exercise_cam_interpolate
-    - file: notebooks/namelist/exercises/exercise_cam_output
-    - file: notebooks/namelist/exercises/exercise_tuning_parameter
+#- file: notebooks/namelist/namelist
+#  sections:
+#  - file: notebooks/namelist/overview
+#  - file: notebooks/namelist/documentation
+#  - file: notebooks/namelist/output
+#    sections:
+#    - file: notebooks/namelist/output/output_clm
+#  - file: notebooks/namelist/exercises_overview
+#    sections:
+#    - file: notebooks/namelist/exercises/exercise_cam_interpolate
+#    - file: notebooks/namelist/exercises/exercise_cam_output
+#    - file: notebooks/namelist/exercises/exercise_tuning_parameter
 
 - file: notebooks/singlepoint/singlepoint_overview
   sections:
