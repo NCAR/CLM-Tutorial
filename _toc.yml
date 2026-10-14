@@ -46,6 +46,7 @@ chapters:
     sections:
     - file: notebooks/basics/exercises/first_I1850
     - file: notebooks/basics/exercises/second_I1850
+    - file: notebooks/basics/exercises/change_compsets
     - file: notebooks/basics/exercises/examine_history_I1850
     - file: notebooks/basics/exercises/extra
     - file: notebooks/basics/exercises/review_questions
