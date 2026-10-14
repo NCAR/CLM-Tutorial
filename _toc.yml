@@ -48,10 +48,10 @@ chapters:
     - file: notebooks/basics/exercises/extra
     - file: notebooks/basics/exercises/review_questions
 
-#- file: notebooks/modifications/xml
-#  sections:
-#  - file: notebooks/modifications/xml/overview
-#  - file: notebooks/modifications/xml/model_control_files
+- file: notebooks/modifications/modifications
+  sections:
+  - file: notebooks/modifications/xml/overview
+  - file: notebooks/modifications/xml/xml_basics
 #  - file: notebooks/modifications/xml/run_length
 #    sections:
 #    - file: notebooks/modifications/xml/run_length/starting_and_stopping
@@ -62,7 +62,6 @@ chapters:
 #    sections:
 #    - file: notebooks/modifications/xml/modify_run_type/hybrid_branch_restart
 #    - file: notebooks/modifications/xml/modify_run_type/run_variables
-#  - file: notebooks/modifications/xml/physics_timestep
 #  - file: notebooks/modifications/xml/other_xml_variables
 #  - file: notebooks/modifications/xml/exercises
 #    sections:
