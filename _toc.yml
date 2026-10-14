@@ -88,23 +88,24 @@ chapters:
   - file: notebooks/singlepoint/exercises/runtower_NEON
   - file: notebooks/singlepoint/exercises/runtower_PLUMBER2
   - file: notebooks/singlepoint/exercises/FATESsp_NEON
+  - file: notebooks/singlepoint/exercises/GenericSinglePoint
 
 - file: notebooks/troubleshooting/troubleshooting
   sections:
   - file: notebooks/troubleshooting/log_files
   - file: notebooks/troubleshooting/debugging_flag
-  - file: notebooks/troubleshooting/exercises_overview
-    sections:
-    - file: notebooks/troubleshooting/exercises/troubleshooting_cam
+  #- file: notebooks/troubleshooting/exercises_overview
+  #  sections:
+  #  - file: notebooks/troubleshooting/exercises/troubleshooting_cam
 
-- file: notebooks/sourcemods/sourcemods
-  sections:
-  - file: notebooks/sourcemods/overview
-  - file: notebooks/sourcemods/add_fields_cam
-  - file: notebooks/sourcemods/exercises_overview
-    sections:
-    - file: notebooks/sourcemods/exercises/exercise_add_field
-    - file: notebooks/sourcemods/exercises/exercise_rain_threshold
+#- file: notebooks/sourcemods/sourcemods
+#  sections:
+#  - file: notebooks/sourcemods/overview
+#  - file: notebooks/sourcemods/add_fields_cam
+#  - file: notebooks/sourcemods/exercises_overview
+#    sections:
+#    - file: notebooks/sourcemods/exercises/exercise_add_field
+#    - file: notebooks/sourcemods/exercises/exercise_rain_threshold
 
 - file: notebooks/challenge/challenge
   sections:
