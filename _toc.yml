@@ -28,20 +28,20 @@ chapters:
 
 - file: notebooks/basics/basics_overview
   sections:
-  - file: notebooks/basics/cesm_workspaces
+  - file: notebooks/basics/ctsm_workspaces
   - file: notebooks/basics/code_overview
     sections:
     - file: notebooks/basics/code/git_download_ctsm
     - file: notebooks/basics/code/ctsm_code_explore
-  - file: notebooks/basics/cesm_workflow
+  - file: notebooks/basics/ctsm_workflow
     sections:
-    - file: notebooks/basics/cesm_workflow/create_newcase
-    - file: notebooks/basics/cesm_workflow/case_setup
-    - file: notebooks/basics/cesm_workflow/case_build
-    - file: notebooks/basics/cesm_workflow/case_submit
-    - file: notebooks/basics/cesm_workflow/model_output
-    - file: notebooks/basics/cesm_workflow/checking_jobs_and_status
-    - file: notebooks/basics/cesm_workflow/create_clone
+    - file: notebooks/basics/ctsm_workflow/create_newcase
+    - file: notebooks/basics/ctsm_workflow/case_setup
+    - file: notebooks/basics/ctsm_workflow/case_build
+    - file: notebooks/basics/ctsm_workflow/case_submit
+    - file: notebooks/basics/ctsm_workflow/model_output
+    - file: notebooks/basics/ctsm_workflow/checking_jobs_and_status
+    - file: notebooks/basics/ctsm_workflow/create_clone
   - file: notebooks/basics/exercises_overview
     sections:
     - file: notebooks/basics/exercises/first_I1850
