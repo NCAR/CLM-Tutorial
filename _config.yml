@@ -5,9 +5,17 @@ title: CLM Tutorial
 author: NCAR/CGD Staff
 logo: images/ncar_logo.png
 
-# Removing CESM2 Porting for 2026 tutorial (need to update to CESM3 in future)
 exclude_patterns:
+  - notebooks/diagnostics/additional/cvdp.ipynb
+  - notebooks/intro/cesm_expts/**
+  - notebooks/intro/community_experiments.ipynb
+  - notebooks/modifications/xml.ipynb
+  - notebooks/modifications/xml/**
+  - notebooks/namelist/**
+  - notebooks/resources/ncar_hpc_login.ipynb
   - notebooks/resources/porting.ipynb
+  - notebooks/resources/profile.ipynb
+  - notebooks/resources/tutorial_specific.ipynb
 
 sphinx:
   config:
