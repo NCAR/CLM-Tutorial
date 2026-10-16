@@ -87,6 +87,11 @@ jobs:
           ref: ${{ github.event.workflow_run.head_sha }}
           path: pr
           persist-credentials: false
+          # checkout v7 refuses fork code in workflow_run jobs by default. This step only
+          # runs when the PR author is TRUSTED_SCRIPT_AUTHOR (checked against GitHub's API
+          # in the Find PR step, not against anything the fork controls) and checks out
+          # the exact SHA that was built, so the usual "pwn request" risk does not apply.
+          allow-unsafe-pr-checkout: true
 
       - name: Post comment
         env:
