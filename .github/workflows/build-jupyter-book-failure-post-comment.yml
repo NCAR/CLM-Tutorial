@@ -10,6 +10,9 @@ env:
   # Basename (i.e., just the filename, not the path leading to it) of the log file. This must
   # match LOGFILE_BASENAME from gh-page_builder.yml.
   LOGFILE_BASENAME: build.log
+  # PRs opened by this user run the PR's copy of the comment script instead of main's, so changes
+  # to it can be tested before merging.
+  TRUSTED_SCRIPT_AUTHOR: samsrabin
 
 on:
   workflow_run:
@@ -60,8 +63,9 @@ jobs:
             exit 1
           fi
 
-          PR_NUMBER=$(gh pr list --repo "$REPO" --state open --limit "$MAX_OPEN_PRS_TO_SCAN" --json number,headRefOid \
-            --jq ".[] | select(.headRefOid == \"${HEAD_SHA}\") | .number" | head -n 1)
+          read -r PR_NUMBER PR_AUTHOR < <(gh pr list --repo "$REPO" --state open --limit "$MAX_OPEN_PRS_TO_SCAN" \
+            --json number,headRefOid,author \
+            --jq ".[] | select(.headRefOid == \"${HEAD_SHA}\") | \"\(.number) \(.author.login)\"" | head -n 1)
 
           if ! [[ "$PR_NUMBER" =~ ^[0-9]+$ ]]; then
             echo "::error::No open PR found with head SHA ${HEAD_SHA}; not posting comment."
@@ -69,11 +73,28 @@ jobs:
           fi
           echo "number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
 
+          use_pr_script=false
+          if [[ "$PR_AUTHOR" == "$TRUSTED_SCRIPT_AUTHOR" ]]; then
+            use_pr_script=true
+          fi
+          echo "use-pr-script=${use_pr_script}" >> "$GITHUB_OUTPUT"
+
+      - name: Check out PR copy of script
+        if: steps.find-pr.outputs.use-pr-script == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          repository: ${{ github.event.workflow_run.head_repository.full_name }}
+          ref: ${{ github.event.workflow_run.head_sha }}
+          path: pr
+          persist-credentials: false
+
       - name: Post comment
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
           PR_NUMBER: ${{ steps.find-pr.outputs.number }}
           RUN_URL: ${{ github.event.workflow_run.html_url }}
+          SCRIPT_ROOT: ${{ steps.find-pr.outputs.use-pr-script == 'true' && 'pr' || '.' }}
         working-directory: artifact
-        run: . "${GITHUB_WORKSPACE}/.github/scripts/build-fail-comment.sh"
+        run: . "${GITHUB_WORKSPACE}/${SCRIPT_ROOT}/.github/scripts/build-fail-comment.sh"
+
