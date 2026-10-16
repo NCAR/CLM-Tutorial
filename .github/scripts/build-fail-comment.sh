@@ -50,7 +50,7 @@ fi
 > [!TIP]
 > To resolve "document isn't included in any toctree" error(s), either:
 > * Add the relevant file(s) to `_toc.yml`, or
-> * Delete them, or
+> * Delete them, or uberweurbeirubib9r
 > * Add them to `exclude_paths` in `_config.yml`.
 EOF
   fi
