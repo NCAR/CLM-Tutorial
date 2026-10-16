@@ -1,0 +1,962 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Create New Case &#8212; CLM Tutorial</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/basics/ctsm_workflow/create_newcase';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Case Setup" href="case_setup.html" />
+    <link rel="prev" title="CTSM Workflow" href="../ctsm_workflow.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/ncar_logo.png" class="logo__image only-light" alt="CLM Tutorial - Home"/>
+    <script>document.write(`<img src="../../../_static/ncar_logo.png" class="logo__image only-dark" alt="CLM Tutorial - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../intro/intro_overview.html">Introduction</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../intro/components.html">What is CESM ?</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/coupling.html">CIME (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../intro/cesm_webpage.html">CESM Webpage</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/project.html">CESM Working Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/getting_involved.html">Getting Involved</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/getting_help.html">Getting Help</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../prereqs/prereqs_overview.html">Prerequisites for Success</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../prereqs/exercises.html">Exercise Overview</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../basics_overview.html">Basics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../ctsm_workspaces.html">Workspaces</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../code_overview.html">CLM code</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../code/git_download_ctsm.html">Download CLM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code/ctsm_code_explore.html">Explore CLM Code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../ctsm_workflow.html">CTSM Workflow</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Create New Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="case_setup.html">Case Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="case_build.html">Case Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="case_submit.html">Case Submit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="model_output.html">Model Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="checking_jobs_and_status.html">Checking Your Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="create_clone.html">Create Clone (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../exercises_overview.html">Exercise Overview</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../exercises/first_I1850.html">Your first CLM run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exercises/second_I1850.html">Extending your run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exercises/change_compsets.html">Change component set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exercises/examine_history_I1850.html">Examine History Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exercises/extra.html">Explore Further</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exercises/review_questions.html">Review Questions</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../singlepoint/singlepoint_overview.html">Single Point Overview</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../singlepoint/exercises/runtower_NEON.html">Run_tower: NEON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../singlepoint/exercises/runtower_PLUMBER2.html">Run_tower: PLUMBER2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../singlepoint/exercises/FATESsp_NEON.html">FATES-sp simulations at NEON sites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../singlepoint/exercises/GenericSinglePoint.html">Generic Single Point</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../troubleshooting/troubleshooting.html">Troubleshooting runtime errors</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting/log_files.html">The log files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting/debugging_flag.html">Adding debugging info</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../challenge/challenge.html">Challenge Exercises</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../challenge/clm_ctsm/clm_ctsm.html">Land</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../challenge/clm_ctsm/clm_exercise_1.html">1: CLM SP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../challenge/clm_ctsm/clm_exercise_2.html">2: CLM BGC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../challenge/clm_ctsm/clm_exercise_3.html">3: Run CLM with FATES and modify input data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../challenge/clm_ctsm/clm_exercise_4.html">4: Investigating Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../challenge/clm_ctsm/clm_exercise_5.html">5: Investigating vegetation demographics with FATES</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../diagnostics/diagnostics.html">Diagnostics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../diagnostics/clm_ctsm/clm_ctsm.html">Land</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/clm_ctsm/basics_clm.html">Basic Land Model Plotting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../diagnostics/cupid.html">CUPiD</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../diagnostics/additional/additional.html">Additional Topics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/additional/postprocessing.html">Postprocessing data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/additional/analysis_tools.html">CESM analysis tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/additional/adf.html">ADF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/additional/uxarray.html">UXarray</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../resources/resources_overview.html">Resources</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../resources/ncar_hpc.html">NCAR Supercomputer</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/ncar_hpc_module.html">Modules on NCAR HPC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/tutorial_one_time_setup.html">Tutorial one time setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/tutorial_queue_account.html">Tutorial queue and account</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/terminals.html">Terminal Windows</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../resources/unix.html">UNIX</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/unix-cheatsheet.html">UNIX cheatsheet</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/text_editors.html">Text Editors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/github.html">Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/fortran.html">Fortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/netcdf.html">NetCDF files</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/basics/ctsm_workflow/create_newcase.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Create New Case</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-syntax">Command Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-arguments">Command Arguments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#casename">Casename</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resolution">Resolution</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cesm2-supported-grid-definitions">CESM2 Supported Grid Definitions</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compset">Compset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#machines">Machines</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="create-new-case">
+<h1>Create New Case<a class="headerlink" href="#create-new-case" title="Link to this heading">#</a></h1>
+<p>The tool that generates a new case is <code class="docutils literal notranslate"><span class="pre">create_newcase</span></code>. This tool is located in the <code class="docutils literal notranslate"><span class="pre">$SRCROOT</span></code> directory under the <code class="docutils literal notranslate"><span class="pre">cime/scripts</span></code> directory.</p>
+<p>After running <code class="docutils literal notranslate"><span class="pre">create_newcase</span></code>, a <code class="docutils literal notranslate"><span class="pre">$CASEROOT</span></code> directory is created. The directory <code class="docutils literal notranslate"><span class="pre">$CASEROOT</span></code> contains the scripts needed for the following steps (<code class="docutils literal notranslate"><span class="pre">case.setup</span></code>, <code class="docutils literal notranslate"><span class="pre">case.build</span></code> and <code class="docutils literal notranslate"><span class="pre">case.submit</span></code>)</p>
+<p><img alt="CESM directories" src="../../../_images/CESM_create_newcase.png" />
+<em><p style="text-align: center;"> Figure: Detailed view of the location of create_newcase </p></em></p>
+<p>For the current tutorial on Derecho, the paths are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">$SRCROOT</span></code>     = <code class="docutils literal notranslate"><span class="pre">/glade/u/home/$USER/code/my_clm_code</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$CASEROOT</span></code>    = <code class="docutils literal notranslate"><span class="pre">/glade/u/home/$USER/cases/$CASE</span></code>
+<br></p></li>
+</ul>
+<hr class="docutils" />
+<section id="command-syntax">
+<h2>Command Syntax<a class="headerlink" href="#command-syntax" title="Link to this heading">#</a></h2>
+<div class="alert alert-info">
+<p><strong>Go to the <code class="docutils literal notranslate"><span class="pre">cime/scripts</span></code> directory in the CLM code</strong><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd /glade/u/home/$USER/code/my_clm_code/cime/scripts/
+</pre></div>
+</div>
+<br>
+<p><strong>Example of basic <code class="docutils literal notranslate"><span class="pre">./create_newcase</span></code> syntax: </strong><br></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>./create_newcase --case /glade/u/home/$USER/cases/CASE --res RES --compset COMPSET
+</pre></div>
+</div>
+</div>
+<p><strong>NOTE: Do not</strong> enter the example above at the command line. You will create your first case in the Exercise at the end of this section.<br></p>
+<div class="alert alert-info">  
+<details>
+<summary> <font face="Times New Roman" color='blue'>Click here for example output</font> </summary>
+<br>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Compset longname is 1850_DATM%CRUJRA2024b_CLM60%BGC-CROP_SICE_SOCN_MOSART_DGLC%NOEVOLVE_SWAV
+Compset specification file is /glade/u/home/$USER/code/my_clm_code/cime_config/config_compsets.xml
+Automatically adding SESP to compset
+Compset forcing is 1850
+ATM component is  Data driven ATM  CRUJRA 2024b data set: fills the Greenland snow hole per https://github.com/ESCOMP/CDEPS/issues/382; the previous 2024 version already filled Antarctica 
+LND component is clm6.0:BGC (vert. resol. CN and methane) with prognostic crop:
+ICE component is Stub ice component
+OCN component is Stub ocn component
+ROF component is MOSART: MOdel for Scale Adaptive River Transport
+GLC component is Data glc model (DGLC) no evolve mode 
+WAV component is Stub wave component
+ESP component is Stub external system processing (ESP) component
+Machine is derecho
+Pes setting: grid match    is l%1.9x2.5 
+Pes setting: machine match is derecho 
+Pes setting: grid          is a%1.9x2.5_l%1.9x2.5_oi%null_r%r05_g%gris4_w%null_z%null_m%tx2_3v3 
+Pes setting: compset       is 1850_DATM%CRUJRA2024b_CLM60%BGC-CROP_SICE_SOCN_MOSART_DGLC%NOEVOLVE_SWAV_SESP 
+Pes setting: tasks       is {'NTASKS_ATM': -1, 'NTASKS_LND': -12, 'NTASKS_ROF': -12, 'NTASKS_ICE': -12, 'NTASKS_OCN': -12, 'NTASKS_GLC': -12, 'NTASKS_WAV': -12, 'NTASKS_CPL': -12} 
+Pes setting: threads     is {'NTHRDS_ATM': 1, 'NTHRDS_LND': 1, 'NTHRDS_ROF': 1, 'NTHRDS_ICE': 1, 'NTHRDS_OCN': 1, 'NTHRDS_GLC': 1, 'NTHRDS_WAV': 1, 'NTHRDS_CPL': 1} 
+Pes setting: rootpe      is {'ROOTPE_ATM': 0, 'ROOTPE_LND': -1, 'ROOTPE_ROF': -1, 'ROOTPE_ICE': -1, 'ROOTPE_OCN': -1, 'ROOTPE_GLC': -1, 'ROOTPE_WAV': -1, 'ROOTPE_CPL': -1} 
+Pes setting: pstrid      is {} 
+Pes setting: excl_stride is {} 
+Pes other settings: {}
+Pes other settings append: {}
+Pes comments: none
+setting additional fields from config_pes: {}, append {}
+ Compset is: 1850_DATM%CRUJRA2024b_CLM60%BGC-CROP_SICE_SOCN_MOSART_DGLC%NOEVOLVE_SWAV_SESP 
+ Grid is: a%1.9x2.5_l%1.9x2.5_oi%null_r%r05_g%gris4_w%null_z%null_m%tx2_3v3 
+ Components in compset are: ['datm', 'clm', 'sice', 'socn', 'mosart', 'dglc', 'swav', 'sesp'] 
+No charge_account info available, using value from PROJECT
+</pre></div>
+</div>
+</details>
+</div>
+<p><strong>Notes:</strong></p>
+<ul class="simple">
+<li><p>For all user scripts you can run the script name followed by the <code class="docutils literal notranslate"><span class="pre">--h</span></code> or <code class="docutils literal notranslate"><span class="pre">--help</span></code> argument to see help documentation for that script and a list of all command line arguments for that script.</p></li>
+<li><p>Double dashes <code class="docutils literal notranslate"><span class="pre">--</span></code> are required with command line arguments</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="command-arguments">
+<h2>Command Arguments<a class="headerlink" href="#command-arguments" title="Link to this heading">#</a></h2>
+<p><img alt="Create New Case Command Image" src="../../../_images/CESM3_create_newcase_commandline.png" /></p>
+<section id="casename">
+<h3>Casename<a class="headerlink" href="#casename" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">--case</span></code> is the argument that specifies the <strong>name</strong> and <strong>location</strong> of the case being created. In the example above, the casename is <code class="docutils literal notranslate"><span class="pre">CASE</span></code> and the location of the case is <code class="docutils literal notranslate"><span class="pre">/glade/u/home/$USER/cases/</span></code>. Note that if a path preceding the casename is not specified, then the case is created as a subdirectory of the <code class="docutils literal notranslate"><span class="pre">$CIMEROOT/scripts</span></code> directory.</p>
+<ul class="simple">
+<li><p>The path <code class="docutils literal notranslate"><span class="pre">/glade/u/home/$USER/cases/CASE</span></code> is your workspace <code class="docutils literal notranslate"><span class="pre">CASEROOT</span></code>, as described in the <a class="reference external" href="https://ncar.github.io/CESM-Tutorial/notebooks/basics/cesm_workspaces.html#workspace-overview">workspaces section</a>.</p></li>
+</ul>
+<p>In this tutorial we will use fairly simple names for the cases you create, build, and run. However, most CLM experiments have much longer casenames that provide information about the experiment at a glance. Knowing CESM/CLM case naming conventions will help you navigate CESM and CLM community experiments. Information about the CESM naming is available below. Also below are the LMWG and CESM experiments github pages that give information on the latest CLM and CESM production experiments:</p>
+<div class="alert alert-info">
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/NCAR/LMWG_dev">Land Model Working Group (LWMG) development experiments</a></p></li>
+<li><p><a class="reference external" href="https://github.com/NCAR/CESM_dev">CESM development experiments</a></p></li>
+<li><p><a class="reference external" href="https://www.cesm.ucar.edu/models/cesm2/naming-conventions">CESM case naming conventions</a></p></li>
+</ul>
+</div></section>
+<section id="resolution">
+<h3>Resolution<a class="headerlink" href="#resolution" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">--res</span></code> is the argument that specifies the <strong>model resolution or grid</strong>. In the example above, the resolution is <code class="docutils literal notranslate"><span class="pre">RES</span></code>. Each model resolution can be specified with the <code class="docutils literal notranslate"><span class="pre">--res</span></code> argument by its alias or its full long name. However, the long name conventions are generally quite lengthy, so it is useful if you become familiar with using the alias version. Because the atmosphere and land share a grid, and the ocean and sea ice share a grid, only two grids are specified by the alias using the following format: <code class="docutils literal notranslate"><span class="pre">atm/lnd_ocn/ice</span></code>.</p>
+<p><img alt="Create New Case Resolution Image" src="../../../_images/CESM3_Create_Newcase_Resolution.png" /></p>
+<section id="cesm2-supported-grid-definitions">
+<h4>CESM2 Supported Grid Definitions<a class="headerlink" href="#cesm2-supported-grid-definitions" title="Link to this heading">#</a></h4>
+<p><strong> Link for CESM Supported Grids: </strong>
+<br>
+<a class="reference external" href="http://www.cesm.ucar.edu/models/cesm2/config/grids.html">http://www.cesm.ucar.edu/models/cesm2/config/grids.html</a></p>
+<div class="alert alert-info">
+<strong>Cime Tool for listing configurations: </strong><br><br>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CIMEROOT</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">query_config</span> <span class="o">--</span><span class="n">grids</span> <span class="o">--</span><span class="n">long</span>
+</pre></div>
+</div>
+</div><div class="alert alert-info">  
+<details>
+<summary> <font face="Times New Roman" color='blue'>Click here for example output</font> </summary>
+<br>
+<p>Below we show the header and some of the grids that are are useful for CLM simulations.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Schema validity test fails for /glade/u/home/$USER/my_clm_code/ccs_config/config_grids_nuopc.xml
+
+    =========================================
+    GRID naming convention
+    =========================================
+    The notation for the grid longname is
+        a%name_l%name_oi%name_r%name_m%mask_g%name_w%name
+    where
+        a% =&gt; atm, l% =&gt; lnd, oi% =&gt; ocn/ice, r% =&gt; river, m% =&gt; mask, g% =&gt; glc, w% =&gt; wav
+
+    Supported out of the box grid configurations are given via alias specification in
+    the file "config_grids.xml". Each grid alias can also be associated  with the
+    following optional attributes
+
+    compset       (Regular expression for compset matches that are required for this grid)
+    not_compset   (Regular expression for compset matches that are not permitted this grid)
+
+    Using the alias and the optional "compset" and "not_compset" attributes a grid longname is created
+    Note that the mask is for information only - and is not an attribute of the grid
+    By default, if the mask is not specified below, it will be set to the ocnice grid
+    And if there is no ocnice grid (such as for single column, the mask is null since it does not mean anything)
+   
+     -------------------------------------------------------------
+            default component grids:
+
+     component         compset       value 
+     -------------------------------------------------------------
+     atm      SATM              null      
+     lnd      SLND              null      
+     ocnice   SOCN              null      
+     rof      SROF              null      
+     rof      DWAV              rx1       
+     rof      RTM               r05       
+     rof      MOSART            r05       
+     rof      MIZUROUTE         r05mz     
+     rof      DROF              rx1       
+     rof      DROF%CPLHIST      r05       
+     rof      XROF              r05       
+     glc      SGLC              null      
+     glc      CISM2             gris4     
+     glc      DGLC              gris4     
+     glc      XGLC              gris4     
+     wav      SWAV              null      
+     wav      DWAV              wgx3v7    
+     wav      WW3               wgx3v7    
+     wav      XWAV              wgx3v7    
+     iac      SIAC              null      
+     -------------------------------------------------------------
+.
+.
+.
+     alias: CLM_USRDAT (only for compsets that are DATM.+CLM|DATM.+SLND )
+
+       longname: a%CLM_USRDAT_l%CLM_USRDAT_oi%null_r%null_g%null_w%null_z%null_m%null
+       non-default grids are: atm:CLM_USRDAT  lnd:CLM_USRDAT  rof:null  
+
+     alias: 1x1_numaIA (only for compsets that are DATM.+CLM|DATM.+SLND )
+
+       longname: a%1x1_numaIA_l%1x1_numaIA_oi%null_r%null_g%null_w%null_z%null_m%null
+       non-default grids are: atm:1x1_numaIA  lnd:1x1_numaIA  rof:null  
+
+     alias: 1x1_brazil (only for compsets that are DATM.+CLM|DATM.+SLND )
+
+       longname: a%1x1_brazil_l%1x1_brazil_oi%null_r%null_g%null_w%null_z%null_m%null
+       non-default grids are: atm:1x1_brazil  lnd:1x1_brazil  rof:null  
+
+     alias: 1x1_smallvilleIA (only for compsets that are DATM.+CLM|DATM.+SLND )
+
+       longname: a%1x1_smallvilleIA_l%1x1_smallvilleIA_oi%null_r%null_g%null_w%null_z%null_m%null
+       non-default grids are: atm:1x1_smallvilleIA  lnd:1x1_smallvilleIA  rof:null  
+
+     alias: 1x1_cidadinhoBR (only for compsets that are DATM.+CLM|DATM.+SLND )
+
+       longname: a%1x1_cidadinhoBR_l%1x1_cidadinhoBR_oi%null_r%null_g%null_w%null_z%null_m%null
+       non-default grids are: atm:1x1_cidadinhoBR  lnd:1x1_cidadinhoBR  rof:null  
+
+     alias: 1x1_camdenNJ (only for compsets that are DATM.+CLM|DATM.+SLND )
+
+       longname: a%1x1_camdenNJ_l%1x1_camdenNJ_oi%null_r%null_g%null_w%null_z%null_m%null
+       non-default grids are: atm:1x1_camdenNJ  lnd:1x1_camdenNJ  rof:null  
+
+     alias: 1x1_mexicocityMEX (only for compsets that are DATM.+CLM|DATM.+SLND )
+
+       longname: a%1x1_mexicocityMEX_l%1x1_mexicocityMEX_oi%null_r%null_g%null_w%null_z%null_m%null
+       non-default grids are: atm:1x1_mexicocityMEX  lnd:1x1_mexicocityMEX  rof:null  
+
+     alias: 1x1_vancouverCAN (only for compsets that are DATM.+CLM|DATM.+SLND )
+
+       longname: a%1x1_vancouverCAN_l%1x1_vancouverCAN_oi%null_r%null_g%null_w%null_z%null_m%null
+       non-default grids are: atm:1x1_vancouverCAN  lnd:1x1_vancouverCAN  rof:null  
+
+     alias: 1x1_urbanc_alpha (only for compsets that are DATM.+CLM|DATM.+SLND )
+
+       longname: a%1x1_urbanc_alpha_l%1x1_urbanc_alpha_oi%null_r%null_g%null_w%null_z%null_m%null
+       non-default grids are: atm:1x1_urbanc_alpha  lnd:1x1_urbanc_alpha  rof:null  
+.
+.
+.
+     alias: nldas2_rnldas2_mnldas2 (only for compsets that are DATM.+CLM )
+
+       longname: a%0.125nldas2_l%0.125nldas2_oi%0.125nldas2_r%0.125nldas2_g%null_w%null_z%null_m%0.125nldas2
+       non-default grids are: atm:0.125nldas2  lnd:0.125nldas2  ocnice:0.125nldas2  rof:0.125nldas2  
+       mask is: 0.125nldas2
+.
+.
+.
+     alias: f09_f09_mt233 (only for compsets that are not _MOM )
+
+       longname: a%0.9x1.25_l%0.9x1.25_oi%0.9x1.25_r%null_g%null_w%null_z%null_m%tx2_3v3
+       non-default grids are: atm:0.9x1.25  lnd:0.9x1.25  ocnice:0.9x1.25  
+       mask is: tx2_3v3
+.
+.
+.
+     alias: f19_f19_mt233 (only for compsets that are not _MOM )
+
+       longname: a%1.9x2.5_l%1.9x2.5_oi%1.9x2.5_r%null_g%null_w%null_z%null_m%tx2_3v3
+       non-default grids are: atm:1.9x2.5  lnd:1.9x2.5  ocnice:1.9x2.5  
+       mask is: tx2_3v3
+
+.
+.
+.
+     alias: ne30pg3_ne30pg3_mt233 (only for compsets that are not _MOM )
+
+       longname: a%ne30np4.pg3_l%ne30np4.pg3_oi%ne30np4.pg3_r%null_g%null_w%null_z%null_m%tx2_3v3
+       non-default grids are: atm:ne30np4.pg3  lnd:ne30np4.pg3  ocnice:ne30np4.pg3  
+       mask is: tx2_3v3
+
+...
+</pre></div>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="compset">
+<h3>Compset<a class="headerlink" href="#compset" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">--compset</span></code> is the argument that specifies the <strong>component set</strong>. In the example above, the compset is <code class="docutils literal notranslate"><span class="pre">COMPSET</span></code>. The compset specifies the component models and if they are active or not, forcing scenarios, and physics options for the models. As above, the <code class="docutils literal notranslate"><span class="pre">--compset</span></code> can be specified by its alias or its full long name. However, the long name conventions are generally quite lengthy, so it is useful if you become familiar with using the alias version.</p>
+<p><img alt="Create New Case Compset Image" src="../../../_images/CESM3_Create_Newcase_Compset.png" /></p>
+<p><strong>Note</strong>:</p>
+<ul class="simple">
+<li><p>Compsets are defined by different model components (active or data) and cime.</p></li>
+<li><p>Some compsets are scientifically supported and/or tested, while some are only defined. The CESM project will not provide comprehensive support for compsets that are only defined.</p></li>
+<li><p>Compsets determine which grid is required.</p></li>
+</ul>
+<div class="alert alert-info">
+<strong>Cime Tool for listing CLM configurations: </strong><br><br>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd /glade/u/home/$USER/code/my_clm_code/cime/scripts/
+./query_config --compsets clm
+</pre></div>
+</div>
+</div><div class="alert alert-info">  
+<details>
+<summary> <font face="Times New Roman" color='blue'>Click here for example output</font> </summary>
+<br>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="n">Active</span> <span class="n">component</span><span class="p">:</span> <span class="n">clm</span>
+       <span class="o">--------------------------------------</span>
+       <span class="n">Compset</span> <span class="n">Alias</span><span class="p">:</span> <span class="n">Compset</span> <span class="n">Long</span> <span class="n">Name</span> 
+       <span class="o">--------------------------------------</span>
+   <span class="n">I1PtClm60BgcRsGs</span>     <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="mi">1</span><span class="n">PT_CLM60</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I1PtClm60FatesRsGs</span>   <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="mi">1</span><span class="n">PT_CLM60</span><span class="o">%</span><span class="n">FATES_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">IHist1PtClm60BgcRsGs</span> <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="mi">1</span><span class="n">PT_CLM60</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">IHist1PtClm60FatesRsGs</span> <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="mi">1</span><span class="n">PT_CLM60</span><span class="o">%</span><span class="n">FATES_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I1PtClm60SpRsGs</span>      <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="mi">1</span><span class="n">PT_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I1PtClm50SpRsGs</span>      <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="mi">1</span><span class="n">PT_CLM50</span><span class="o">%</span><span class="n">SP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I2000Clm50Sp</span>         <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm50SpRsGs</span>     <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">SP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I2000Clm60SpRsGs</span>     <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I2000Clm60SpCrujraRsGs</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I2000Clm60Sp</span>         <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm60SpCrujra</span>   <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm60SpMiz</span>      <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MIZUROUTE_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm60SpMizGs</span>    <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MIZUROUTE_SGLC_SWAV</span>
+   <span class="n">I2000Clm60SpMizNldasGs</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">NLDAS2_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MIZUROUTE_SGLC_SWAV</span>
+   <span class="n">I2010Clm50Sp</span>         <span class="p">:</span> <span class="mi">2010</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm50Bgc</span>        <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm50BgcCru</span>     <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUv7_CLM50</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm50BgcCropRtm</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_RTM_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm50BgcCrop</span>    <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm60BgcCrop</span>    <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm60BgcCropCrujra</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm60BgcCropCrujraRsGs</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I2000Clm60Bgc</span>        <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm60BgcCrujra</span>  <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm50Sp</span>         <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm60SpCrujra</span>   <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm50BgcCrop</span>    <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm50BgcCropRsGs</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I1850Clm60BgcCrop</span>    <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm60BgcCropCrujra</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm60Sp</span>         <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm60BgcCropCrujraRsGs</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I1850Clm60Bgc</span>        <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm60BgcCrujra</span>  <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm50BgcCropCmip6</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP</span><span class="o">-</span><span class="n">CMIP6DECK_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm60BgcCropCmip6</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP</span><span class="o">-</span><span class="n">CMIP6DECK_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm60BgcCropCrujraCmip6</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP</span><span class="o">-</span><span class="n">CMIP6DECK_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm50BgcCropCmip6waccm</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP</span><span class="o">-</span><span class="n">CMIP6WACCMDECK_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm60BgcCropCmip6waccm</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP</span><span class="o">-</span><span class="n">CMIP6WACCMDECK_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm60BgcCropCrujraCmip6waccm</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP</span><span class="o">-</span><span class="n">CMIP6WACCMDECK_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm60BgcCropQianRsGs</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">QIA_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I2000Clm50BgcCropQianRsGs</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">QIA_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I2000Clm50FatesQian</span>  <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">QIA_CLM50</span><span class="o">%</span><span class="n">FATES_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm50BgcCruRsGs</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUv7_CLM50</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I2000Clm50SpRtmFl</span>    <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">SP_SICE_SOCN_RTM</span><span class="o">%</span><span class="n">FLOOD_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm60Fates</span>      <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">FATES_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm50Fates</span>      <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">FATES_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm50FatesCruRsGs</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUv7_CLM50</span><span class="o">%</span><span class="n">FATES_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I2000Clm60FatesSpCrujraRsGs</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">FATES</span><span class="o">-</span><span class="n">SP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I2000Clm60FatesSpCrujra</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">FATES</span><span class="o">-</span><span class="n">SP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Clm60FatesSpRsGs</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">FATES</span><span class="o">-</span><span class="n">SP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I2000Clm50FatesRsGs</span>  <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">FATES_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I2000Clm60FatesRsGs</span>  <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">FATES_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I2000Clm60FatesCrujraRsGs</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">FATES_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I1850Clm50Bgc</span>        <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm60BgcNoAnthroRtm</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">NOANTHRO_SICE_SOCN_RTM_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm60BgcCrujraNoAnthroRtm</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">NOANTHRO_SICE_SOCN_RTM_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm60SpNoAnthroRtm</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">SP</span><span class="o">-</span><span class="n">NOANTHRO_SICE_SOCN_RTM_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm60SpCrujraNoAnthroRtm</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">SP</span><span class="o">-</span><span class="n">NOANTHRO_SICE_SOCN_RTM_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm50BgcNoAnthroRtm</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">NOANTHRO_SICE_SOCN_RTM_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm50SpNoAnthroRtm</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">SP</span><span class="o">-</span><span class="n">NOANTHRO_SICE_SOCN_RTM_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">IHistClm50BgcCrop</span>    <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">IHistClm60Sp</span>         <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">IHistClm60SpCrujra</span>   <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">IHistClm60SpRsGs</span>     <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">IHistClm60SpCrujraRsGs</span> <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">IHistClm60Bgc</span>        <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">IHistClm60BgcCrop</span>    <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">IHistClm60BgcCropCrujra</span> <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">IHistClm50Sp</span>         <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">IHistClm50Bgc</span>        <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">IHistClm50BgcQian</span>    <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">QIA_CLM50</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">IHistClm50BgcQianRsGs</span> <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">QIA_CLM50</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">IHistClm60BgcQianRsGs</span> <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">QIA_CLM60</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">ISSP585Clm50BgcCrop</span>  <span class="p">:</span> <span class="n">SSP585_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">ISSP585Clm60BgcCropCrujra</span> <span class="p">:</span> <span class="n">SSP585_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">ISSP126Clm50BgcCrop</span>  <span class="p">:</span> <span class="n">SSP126_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">ISSP119Clm50BgcCrop</span>  <span class="p">:</span> <span class="n">SSP119_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">ISSP245Clm50BgcCrop</span>  <span class="p">:</span> <span class="n">SSP245_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">ISSP245Clm60BgcCropCrujra</span> <span class="p">:</span> <span class="n">SSP245_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">ISSP370Clm50BgcCrop</span>  <span class="p">:</span> <span class="n">SSP370_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">ISSP370Clm60BgcCropCrujra</span> <span class="p">:</span> <span class="n">SSP370_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">ISSP434Clm50BgcCrop</span>  <span class="p">:</span> <span class="n">SSP434_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">ISSP460Clm50BgcCrop</span>  <span class="p">:</span> <span class="n">SSP460_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">ISSP534Clm50BgcCrop</span>  <span class="p">:</span> <span class="n">SSP534_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">ISSP585Clm60BgcCrop</span>  <span class="p">:</span> <span class="n">SSP585_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">IHistClm50BgcCropQianRsGs</span> <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">QIA_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">IHistClm60BgcCropQianRsGs</span> <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">QIA_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">IHistClm50BgcCropRsGs</span> <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I1850Clm50BgcSpinup</span>  <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CPLHIST</span><span class="o">-</span><span class="n">CESM3_CLM50</span><span class="o">%</span><span class="n">BGC_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I1850Clm60BgcCropSpinup</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CPLHIST</span><span class="o">-</span><span class="n">CESM3_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_DGLC</span><span class="o">%</span><span class="n">NOEVOLVE_SWAV</span>
+   <span class="n">I2000Ctsm50NwpSpGswpGs</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">NWP</span><span class="o">-</span><span class="n">SP_SICE_SOCN_MOSART_SGLC_SWAV</span>
+   <span class="n">I2000Ctsm50NwpSpNldasGs</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">NLDAS2_CLM50</span><span class="o">%</span><span class="n">NWP</span><span class="o">-</span><span class="n">SP_SICE_SOCN_MOSART_SGLC_SWAV</span>
+   <span class="n">I2000Ctsm50NwpSpNldasRsGs</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_DATM</span><span class="o">%</span><span class="n">NLDAS2_CLM50</span><span class="o">%</span><span class="n">NWP</span><span class="o">-</span><span class="n">SP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I1850Clm50SpG</span>        <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_CISM2</span><span class="o">%</span><span class="n">GRIS</span><span class="o">-</span><span class="n">EVOLVE_SWAV</span>
+   <span class="n">I1850Clm50SpGa</span>       <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_CISM2</span><span class="o">%</span><span class="n">AIS</span><span class="o">-</span><span class="n">EVOLVE_SWAV</span>
+   <span class="n">I1850Clm50SpGag</span>      <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_CISM2</span><span class="o">%</span><span class="n">AIS</span><span class="o">-</span><span class="n">EVOLVE</span><span class="o">%</span><span class="n">GRIS</span><span class="o">-</span><span class="n">EVOLVE_SWAV</span>
+   <span class="n">IHistClm50SpG</span>        <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_CISM2</span><span class="o">%</span><span class="n">GRIS</span><span class="o">-</span><span class="n">EVOLVE_SWAV</span>
+   <span class="n">I1850Clm50BgcCropG</span>   <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_CISM2</span><span class="o">%</span><span class="n">GRIS</span><span class="o">-</span><span class="n">EVOLVE_SWAV</span>
+   <span class="n">IHistClm50BgcCropG</span>   <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_CISM2</span><span class="o">%</span><span class="n">GRIS</span><span class="o">-</span><span class="n">EVOLVE_SWAV</span>
+   <span class="n">I1850Clm60SpG</span>        <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_CISM2</span><span class="o">%</span><span class="n">GRIS</span><span class="o">-</span><span class="n">EVOLVE_SWAV</span>
+   <span class="n">I1850Clm60SpGa</span>       <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_CISM2</span><span class="o">%</span><span class="n">AIS</span><span class="o">-</span><span class="n">EVOLVE_SWAV</span>
+   <span class="n">I1850Clm60SpGag</span>      <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_MOSART_CISM2</span><span class="o">%</span><span class="n">AIS</span><span class="o">-</span><span class="n">EVOLVE</span><span class="o">%</span><span class="n">GRIS</span><span class="o">-</span><span class="n">EVOLVE_SWAV</span>
+   <span class="n">I1850Clm60BgcCropG</span>   <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_CISM2</span><span class="o">%</span><span class="n">GRIS</span><span class="o">-</span><span class="n">EVOLVE_SWAV</span>
+   <span class="n">I1850Clm60BgcCropCrujraG</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_CISM2</span><span class="o">%</span><span class="n">GRIS</span><span class="o">-</span><span class="n">EVOLVE_SWAV</span>
+   <span class="n">IHistClm60BgcCropCrujraG</span> <span class="p">:</span> <span class="n">HIST_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">BGC</span><span class="o">-</span><span class="n">CROP_SICE_SOCN_MOSART_CISM2</span><span class="o">%</span><span class="n">GRIS</span><span class="o">-</span><span class="n">EVOLVE_SWAV</span>
+   <span class="n">I1850Clm50SpRsGag</span>    <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM50</span><span class="o">%</span><span class="n">SP_SICE_SOCN_SROF_CISM2</span><span class="o">%</span><span class="n">AIS</span><span class="o">-</span><span class="n">EVOLVE</span><span class="o">%</span><span class="n">GRIS</span><span class="o">-</span><span class="n">EVOLVE_SWAV</span>
+   <span class="n">I1850Clm60SpRsGag</span>    <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_SROF_CISM2</span><span class="o">%</span><span class="n">AIS</span><span class="o">-</span><span class="n">EVOLVE</span><span class="o">%</span><span class="n">GRIS</span><span class="o">-</span><span class="n">EVOLVE_SWAV</span>
+   <span class="n">I1850Clm60SpRsGs</span>     <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">GSWP3v1_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I1850Clm60SpCrujraRsGs</span> <span class="p">:</span> <span class="mi">1850</span><span class="n">_DATM</span><span class="o">%</span><span class="n">CRUJRA2024b_CLM60</span><span class="o">%</span><span class="n">SP_SICE_SOCN_SROF_SGLC_SWAV</span>
+   <span class="n">I2000Ctsm50NwpSpAsRsGs</span> <span class="p">:</span> <span class="mi">2000</span><span class="n">_SATM_CLM50</span><span class="o">%</span><span class="n">NWP</span><span class="o">-</span><span class="n">SP_SICE_SOCN_SROF_SGLC_SWAV</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</details>
+</div>
+</section>
+<section id="machines">
+<h3>Machines<a class="headerlink" href="#machines" title="Link to this heading">#</a></h3>
+<p>The argument <code class="docutils literal notranslate"><span class="pre">--mach</span></code> is not required on CTSM supported machines, but is required on other machines.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/basics/ctsm_workflow"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../ctsm_workflow.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">CTSM Workflow</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="case_setup.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Case Setup</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-syntax">Command Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-arguments">Command Arguments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#casename">Casename</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resolution">Resolution</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cesm2-supported-grid-definitions">CESM2 Supported Grid Definitions</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compset">Compset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#machines">Machines</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NCAR/CGD Staff
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
