@@ -16,7 +16,6 @@ exclude_patterns:
   - notebooks/resources/porting.ipynb
   - notebooks/resources/profile.ipynb
   - notebooks/resources/tutorial_specific.ipynb
-  - notebooks/sourcemods/overview.ipynb
   - notebooks/troubleshooting/exercises_overview.ipynb
   - notebooks/troubleshooting/exercises/troubleshooting_cam.ipynb
 
