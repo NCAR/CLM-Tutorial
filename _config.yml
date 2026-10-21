@@ -16,6 +16,14 @@ exclude_patterns:
   - notebooks/resources/porting.ipynb
   - notebooks/resources/profile.ipynb
   - notebooks/resources/tutorial_specific.ipynb
+  - notebooks/sourcemods/add_fields_cam.ipynb
+  - notebooks/sourcemods/exercises_overview.ipynb
+  - notebooks/sourcemods/exercises/exercise_add_field.ipynb
+  - notebooks/sourcemods/exercises/exercise_rain_threshold.ipynb
+  - notebooks/sourcemods/overview.ipynb
+  - notebooks/sourcemods/sourcemods.ipynb
+  - notebooks/troubleshooting/exercises_overview.ipynb
+  - notebooks/troubleshooting/exercises/troubleshooting_cam.ipynb
 
 sphinx:
   config:
