@@ -111,8 +111,6 @@ chapters:
   sections:
   - file: notebooks/challenge/clm_ctsm/clm_ctsm
     sections:
-    - file: notebooks/challenge/clm_ctsm/clm_exercise_1
-    - file: notebooks/challenge/clm_ctsm/clm_exercise_2
     - file: notebooks/challenge/clm_ctsm/clm_exercise_3
     - file: notebooks/challenge/clm_ctsm/clm_exercise_4
     - file: notebooks/challenge/clm_ctsm/clm_exercise_5
