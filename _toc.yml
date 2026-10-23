@@ -90,6 +90,8 @@ chapters:
 #    - file: notebooks/namelist/exercises/exercise_cam_output
 #    - file: notebooks/namelist/exercises/exercise_tuning_parameter
 
+- file: notebooks/sourcemods/overview
+
 - file: notebooks/singlepoint/singlepoint_overview
   sections:
   - file: notebooks/singlepoint/exercises/runtower_NEON
@@ -105,21 +107,10 @@ chapters:
   #  sections:
   #  - file: notebooks/troubleshooting/exercises/troubleshooting_cam
 
-#- file: notebooks/sourcemods/sourcemods
-#  sections:
-#  - file: notebooks/sourcemods/overview
-#  - file: notebooks/sourcemods/add_fields_cam
-#  - file: notebooks/sourcemods/exercises_overview
-#    sections:
-#    - file: notebooks/sourcemods/exercises/exercise_add_field
-#    - file: notebooks/sourcemods/exercises/exercise_rain_threshold
-
 - file: notebooks/challenge/challenge
   sections:
   - file: notebooks/challenge/clm_ctsm/clm_ctsm
     sections:
-    - file: notebooks/challenge/clm_ctsm/clm_exercise_1
-    - file: notebooks/challenge/clm_ctsm/clm_exercise_2
     - file: notebooks/challenge/clm_ctsm/clm_exercise_3
     - file: notebooks/challenge/clm_ctsm/clm_exercise_4
     - file: notebooks/challenge/clm_ctsm/clm_exercise_5
