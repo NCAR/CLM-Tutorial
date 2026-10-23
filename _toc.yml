@@ -15,6 +15,8 @@ chapters:
     - file: notebooks/intro/project
     - file: notebooks/intro/getting_involved
     - file: notebooks/intro/getting_help
+  # IF UNCOMMENTING THE BELOW, MAKE SURE TO REMOVE THEIR ENTRIES
+  # FROM exclude_patterns IN _config.yml.
   #- file: notebooks/intro/community_experiments
   #  sections:
   #  - file: notebooks/intro/cesm_expts/clim_data_guide
@@ -26,24 +28,25 @@ chapters:
 
 - file: notebooks/basics/basics_overview
   sections:
-  - file: notebooks/basics/cesm_workspaces
+  - file: notebooks/basics/ctsm_workspaces
   - file: notebooks/basics/code_overview
     sections:
     - file: notebooks/basics/code/git_download_ctsm
     - file: notebooks/basics/code/ctsm_code_explore
-  - file: notebooks/basics/cesm_workflow
+  - file: notebooks/basics/ctsm_workflow
     sections:
-    - file: notebooks/basics/cesm_workflow/create_newcase
-    - file: notebooks/basics/cesm_workflow/case_setup
-    - file: notebooks/basics/cesm_workflow/case_build
-    - file: notebooks/basics/cesm_workflow/case_submit
-    - file: notebooks/basics/cesm_workflow/model_output
-    - file: notebooks/basics/cesm_workflow/checking_jobs_and_status
-    - file: notebooks/basics/cesm_workflow/create_clone
+    - file: notebooks/basics/ctsm_workflow/create_newcase
+    - file: notebooks/basics/ctsm_workflow/case_setup
+    - file: notebooks/basics/ctsm_workflow/case_build
+    - file: notebooks/basics/ctsm_workflow/case_submit
+    - file: notebooks/basics/ctsm_workflow/model_output
+    - file: notebooks/basics/ctsm_workflow/checking_jobs_and_status
+    - file: notebooks/basics/ctsm_workflow/create_clone
   - file: notebooks/basics/exercises_overview
     sections:
     - file: notebooks/basics/exercises/first_I1850
     - file: notebooks/basics/exercises/second_I1850
+    - file: notebooks/basics/exercises/change_compsets
     - file: notebooks/basics/exercises/examine_history_I1850
     - file: notebooks/basics/exercises/extra
     - file: notebooks/basics/exercises/review_questions
@@ -69,6 +72,8 @@ chapters:
 #    - file: notebooks/modifications/xml/exercises/xml_runtype_exercise
 #    - file: notebooks/modifications/xml/exercises/xml_timestep_exercise
 
+# IF UNCOMMENTING THE BELOW, MAKE SURE TO REMOVE THEIR ENTRIES
+# FROM exclude_patterns IN _config.yml.
 #- file: notebooks/namelist/namelist
 #  sections:
 #  - file: notebooks/namelist/overview
@@ -87,30 +92,20 @@ chapters:
   - file: notebooks/singlepoint/exercises/runtower_NEON
   - file: notebooks/singlepoint/exercises/runtower_PLUMBER2
   - file: notebooks/singlepoint/exercises/FATESsp_NEON
+  - file: notebooks/singlepoint/exercises/GenericSinglePoint
 
 - file: notebooks/troubleshooting/troubleshooting
   sections:
   - file: notebooks/troubleshooting/log_files
   - file: notebooks/troubleshooting/debugging_flag
-  - file: notebooks/troubleshooting/exercises_overview
-    sections:
-    - file: notebooks/troubleshooting/exercises/troubleshooting_cam
-
-- file: notebooks/sourcemods/sourcemods
-  sections:
-  - file: notebooks/sourcemods/overview
-  - file: notebooks/sourcemods/add_fields_cam
-  - file: notebooks/sourcemods/exercises_overview
-    sections:
-    - file: notebooks/sourcemods/exercises/exercise_add_field
-    - file: notebooks/sourcemods/exercises/exercise_rain_threshold
+  #- file: notebooks/troubleshooting/exercises_overview
+  #  sections:
+  #  - file: notebooks/troubleshooting/exercises/troubleshooting_cam
 
 - file: notebooks/challenge/challenge
   sections:
   - file: notebooks/challenge/clm_ctsm/clm_ctsm
     sections:
-    - file: notebooks/challenge/clm_ctsm/clm_exercise_1
-    - file: notebooks/challenge/clm_ctsm/clm_exercise_2
     - file: notebooks/challenge/clm_ctsm/clm_exercise_3
     - file: notebooks/challenge/clm_ctsm/clm_exercise_4
     - file: notebooks/challenge/clm_ctsm/clm_exercise_5
@@ -143,6 +138,8 @@ chapters:
   - file: notebooks/resources/github
   - file: notebooks/resources/fortran
   - file: notebooks/resources/netcdf
+  # IF UNCOMMENTING THE BELOW, MAKE SURE TO REMOVE ITS ENTRY
+  # FROM exclude_patterns IN _config.yml.
   # - file: notebooks/resources/porting
 
 
