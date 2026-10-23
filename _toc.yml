@@ -52,19 +52,19 @@ chapters:
     - file: notebooks/basics/exercises/review_questions
 
 - file: notebooks/modifications/modifications
+- file: notebooks/modifications/xml/overview
   sections:
-  - file: notebooks/modifications/xml/overview
   - file: notebooks/modifications/xml/xml_basics
-#  - file: notebooks/modifications/xml/run_length
-#    sections:
-#    - file: notebooks/modifications/xml/run_length/starting_and_stopping
-#    - file: notebooks/modifications/xml/run_length/restarting
-#    - file: notebooks/modifications/xml/run_length/changing_run_length
-#    - file: notebooks/modifications/xml/run_length/timing_files
-#  - file: notebooks/modifications/xml/modify_run_type
-#    sections:
-#    - file: notebooks/modifications/xml/modify_run_type/hybrid_branch_restart
-#    - file: notebooks/modifications/xml/modify_run_type/run_variables
+  - file: notebooks/modifications/xml/run_length
+    sections:
+    - file: notebooks/modifications/xml/run_length/starting_and_stopping
+    - file: notebooks/modifications/xml/run_length/restarting
+    - file: notebooks/modifications/xml/run_length/changing_run_length
+    - file: notebooks/modifications/xml/run_length/timing_files
+  - file: notebooks/modifications/xml/modify_run_type
+    sections:
+    - file: notebooks/modifications/xml/modify_run_type/hybrid_branch_restart
+    - file: notebooks/modifications/xml/modify_run_type/run_variables
 #  - file: notebooks/modifications/xml/other_xml_variables
 #  - file: notebooks/modifications/xml/exercises
 #    sections:
