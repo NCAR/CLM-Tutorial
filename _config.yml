@@ -9,9 +9,8 @@ exclude_patterns:
   - notebooks/diagnostics/additional/cvdp.ipynb
   - notebooks/intro/cesm_expts/**
   - notebooks/intro/community_experiments.ipynb
-  - notebooks/modifications/xml.ipynb
-  - notebooks/modifications/xml/**
-  - notebooks/namelist/**
+  - notebooks/modifications/namelist/**
+  - notebooks/sourcemods/**
   - notebooks/resources/ncar_hpc_login.ipynb
   - notebooks/resources/porting.ipynb
   - notebooks/resources/profile.ipynb
