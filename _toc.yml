@@ -77,9 +77,9 @@ chapters:
   - file: notebooks/modifications/namelist/output
     sections:
     - file: notebooks/modifications/namelist/output/output_clm
-#  - file: notebooks/namelist/exercises_overview
-#    sections:
-#    - file: notebooks/namelist/exercises/exercise_cam_interpolate
+  - file: notebooks/modifications/namelist/exercises_overview
+    sections:
+    - file: notebooks/modifications/namelist/exercises/exercise_cam_interpolate
 #    - file: notebooks/namelist/exercises/exercise_cam_output
 #    - file: notebooks/namelist/exercises/exercise_tuning_parameter
 
