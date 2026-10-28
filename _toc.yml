@@ -75,12 +75,10 @@ chapters:
   sections:
   - file: notebooks/modifications/namelist/documentation
   - file: notebooks/modifications/namelist/output
-    sections:
-    - file: notebooks/modifications/namelist/output/output_clm
   - file: notebooks/modifications/namelist/exercises_overview
     sections:
-    - file: notebooks/modifications/namelist/exercises/exercise_cam_interpolate
-#    - file: notebooks/namelist/exercises/exercise_cam_output
+    - file: notebooks/modifications/namelist/exercises/exercise_clm_history_vars
+    - file: notebooks/modifications/namelist/exercises/exercise_clm_history_frequency
 #    - file: notebooks/namelist/exercises/exercise_tuning_parameter
 
 - file: notebooks/singlepoint/singlepoint_overview
