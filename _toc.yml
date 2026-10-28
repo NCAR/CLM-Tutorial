@@ -79,7 +79,7 @@ chapters:
     sections:
     - file: notebooks/modifications/namelist/exercises/exercise_clm_history_vars
     - file: notebooks/modifications/namelist/exercises/exercise_clm_history_frequency
-#    - file: notebooks/namelist/exercises/exercise_tuning_parameter
+    - file: notebooks/modifications/namelist/exercises/exercise_fates_complexity
 
 - file: notebooks/singlepoint/singlepoint_overview
   sections:
