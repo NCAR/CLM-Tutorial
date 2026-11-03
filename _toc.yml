@@ -92,23 +92,14 @@ chapters:
   sections:
   - file: notebooks/troubleshooting/log_files
   - file: notebooks/troubleshooting/debugging_flag
-  #- file: notebooks/troubleshooting/exercises_overview
-  #  sections:
-  #  - file: notebooks/troubleshooting/exercises/troubleshooting_cam
-
-- file: notebooks/challenge/challenge
-  sections:
-  - file: notebooks/challenge/clm_ctsm/clm_ctsm
-    sections:
-    - file: notebooks/challenge/clm_ctsm/clm_exercise_3
-    - file: notebooks/challenge/clm_ctsm/clm_exercise_4
-    - file: notebooks/challenge/clm_ctsm/clm_exercise_5
 
 - file: notebooks/diagnostics/diagnostics
   sections:
   - file: notebooks/diagnostics/clm_ctsm/clm_ctsm
     sections:
     - file: notebooks/diagnostics/clm_ctsm/basics_clm
+    - file: notebooks/diagnostics/clm_ctsm/clm_exercise_2
+    - file: notebooks/diagnostics/clm_ctsm/clm_exercise_3  
   - file: notebooks/diagnostics/cupid
   - file: notebooks/diagnostics/additional/additional
     sections:
