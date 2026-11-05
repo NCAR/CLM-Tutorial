@@ -88,11 +88,11 @@ chapters:
   - file: notebooks/singlepoint/exercises/FATESsp_NEON
   - file: notebooks/singlepoint/exercises/GenericSinglePoint
     
-- file: notebooks/sensitivity/sensitivity_overview
+- file: notebooks/sensitivity/01_sensitivity_overview
   sections:
-    - file: notebooks/sensitivity/create_param_ensembles
-    - file: notebooks/sensitivity/submit_ensemble
-    - file: notebooks/sensitivity/ensemble_analysis
+    - file: notebooks/sensitivity/02_create_param_ensembles
+    - file: notebooks/sensitivity/03_submit_ensemble
+    - file: notebooks/sensitivity/04_ensemble_analysis
 
 - file: notebooks/troubleshooting/troubleshooting
   sections:
