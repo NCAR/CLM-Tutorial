@@ -121,6 +121,8 @@ chapters:
     sections:
     - file: notebooks/diagnostics/clm_ctsm/basics_clm
   - file: notebooks/diagnostics/cupid
+    sections:
+    - file: notebooks/diagnostics/clm_ctsm/clm_cupid_ldf_ilamb
   - file: notebooks/diagnostics/additional/additional
     sections:
     - file: notebooks/diagnostics/additional/postprocessing
