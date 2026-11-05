@@ -1,4 +1,6 @@
 .notes
 .DS_Store
 _build/
-.ipynb_checkpoints/*
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
