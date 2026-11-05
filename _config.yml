@@ -9,19 +9,20 @@ exclude_patterns:
   - notebooks/diagnostics/additional/cvdp.ipynb
   - notebooks/intro/cesm_expts/**
   - notebooks/intro/community_experiments.ipynb
-  - notebooks/modifications/xml.ipynb
-  - notebooks/modifications/xml/**
-  - notebooks/namelist/**
+  - notebooks/sourcemods/**
   - notebooks/resources/ncar_hpc_login.ipynb
   - notebooks/resources/porting.ipynb
   - notebooks/resources/profile.ipynb
   - notebooks/resources/tutorial_specific.ipynb
+  - notebooks/troubleshooting/exercises_overview.ipynb
+  - notebooks/troubleshooting/exercises/troubleshooting_cam.ipynb
+  - notebooks/diagnostics/clm_ctsm/clm_exercise_x.ipynb
 
 sphinx:
   config:
     html_show_copyright: false
     html_theme_options:
-      show_navbar_depth: 3
+      show_navbar_depth: 1
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html

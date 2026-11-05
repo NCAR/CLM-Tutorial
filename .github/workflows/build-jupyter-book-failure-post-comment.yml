@@ -1,0 +1,105 @@
+name: Post PR comment with doc-build failure log
+
+env:
+  # How many open PRs to scan when matching the triggering run's head SHA to a PR.
+  # Raise this if the repo ever has more open PRs than this at once.
+  MAX_OPEN_PRS_TO_SCAN: 100
+  # Longest build log (in bytes) to paste into the PR comment. GitHub rejects comment bodies over
+  # 65536 characters, and the rest of the comment needs some room, so keep this comfortably below.
+  MAX_LOG_BYTES: 60000
+  # Basename (i.e., just the filename, not the path leading to it) of the log file. This must
+  # match LOGFILE_BASENAME from gh-page_builder.yml.
+  LOGFILE_BASENAME: build.log
+  # PRs opened by this user run the PR's copy of the comment script instead of main's, so changes
+  # to it can be tested before merging.
+  TRUSTED_SCRIPT_AUTHOR: samsrabin
+
+on:
+  workflow_run:
+    workflows: ["JupyterBook"]
+    types: [completed]
+
+jobs:
+  comment:
+    if: >-
+      github.event.workflow_run.event == 'pull_request'
+      && github.event.workflow_run.conclusion == 'failure'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      actions: read
+    steps:
+      # Check out the default branch so the comment-building script is available. Leave `ref`
+      # unset: on a workflow_run event this is the default branch, never the fork PR's code.
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Download into its own directory so that nothing in the artifact (which a fork PR
+      # controls) can overwrite the checked-out script before it runs.
+      - name: Download logs
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333  # v8.0.2
+        with:
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: artifact
+
+      # The artifact comes from a pull_request run, which a fork PR fully controls. Never take
+      # the PR number from it: this job has pull-requests: write, so a forged number would let a
+      # fork post on any PR. Instead look the PR up from the head SHA of the run that triggered
+      # us, which GitHub sets and the fork can't forge. The log body is still attacker-controlled,
+      # but it can only ever land on the PR that produced it.
+      - name: Find PR for triggering run
+        id: find-pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          if ! [[ "$HEAD_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::Unexpected head SHA '${HEAD_SHA}'; not posting comment."
+            exit 1
+          fi
+
+          read -r PR_NUMBER PR_AUTHOR < <(gh pr list --repo "$REPO" --state open --limit "$MAX_OPEN_PRS_TO_SCAN" \
+            --json number,headRefOid,author \
+            --jq ".[] | select(.headRefOid == \"${HEAD_SHA}\") | \"\(.number) \(.author.login)\"" | head -n 1)
+
+          if ! [[ "$PR_NUMBER" =~ ^[0-9]+$ ]]; then
+            echo "::error::No open PR found with head SHA ${HEAD_SHA}; not posting comment."
+            exit 1
+          fi
+          echo "number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
+
+          use_pr_script=false
+          if [[ "$PR_AUTHOR" == "$TRUSTED_SCRIPT_AUTHOR" ]]; then
+            use_pr_script=true
+          fi
+          echo "use-pr-script=${use_pr_script}" >> "$GITHUB_OUTPUT"
+
+      - name: Check out PR copy of script
+        if: steps.find-pr.outputs.use-pr-script == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          repository: ${{ github.event.workflow_run.head_repository.full_name }}
+          ref: ${{ github.event.workflow_run.head_sha }}
+          path: pr
+          persist-credentials: false
+          # checkout v7 refuses fork code in workflow_run jobs by default. This step only
+          # runs when the PR author is TRUSTED_SCRIPT_AUTHOR (checked against GitHub's API
+          # in the Find PR step, not against anything the fork controls) and checks out
+          # the exact SHA that was built, so the usual "pwn request" risk does not apply.
+          allow-unsafe-pr-checkout: true
+
+      - name: Post comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.find-pr.outputs.number }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+          SCRIPT_ROOT: ${{ steps.find-pr.outputs.use-pr-script == 'true' && 'pr' || '.' }}
+        working-directory: artifact
+        run: . "${GITHUB_WORKSPACE}/${SCRIPT_ROOT}/.github/scripts/build-fail-comment.sh"
+

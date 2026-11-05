@@ -1,0 +1,7 @@
+# A classic branch protection rule allows @samsrabin to bypass the "require approval from code
+# owners" requirement. This is to avoid the situation where they open a PR touching /.github/ that
+# then gets stuck because it requires code owner approval but they can't approve their own PR.
+# Adding backup code owners would cause a different problem, spamming them with approval requests
+# when @samsrabin is the only true code owner. (This exception would also allow @samsrabin to push
+# directly to main, except the *ruleset* also requires PRs, so that should stay in force.)
+/.github/  @samsrabin
