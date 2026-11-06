@@ -89,16 +89,19 @@ chapters:
   - file: notebooks/singlepoint/exercises/FATESsp_NEON
   - file: notebooks/singlepoint/exercises/GenericSinglePoint
 
-- file: notebooks/diagnostics/diagnostics
+- file: notebooks/diagnostics/diagnostics_intro
   sections:
-  - file: notebooks/diagnostics/clm_ctsm/clm_ctsm
+  - file: notebooks/diagnostics/basics/basics_clm
+  - file: notebooks/diagnostics/fates/fates_overview
     sections:
-    - file: notebooks/diagnostics/clm_ctsm/basics_clm
-    - file: notebooks/diagnostics/clm_ctsm/clm_exercise_2
-    - file: notebooks/diagnostics/clm_ctsm/clm_exercise_3  
-  - file: notebooks/diagnostics/cupid
+    - file: notebooks/diagnostics/fates/fates_plotting_1
+    - file: notebooks/diagnostics/fates/fates_plotting_2  
+  #- file: notebooks/diagnostics/hillslope
+  #  sections:
+  - file: notebooks/diagnostics/ldf/ldf_basics
+  - file: notebooks/diagnostics/cupid/cupid_basics
     sections:
-    - file: notebooks/diagnostics/clm_ctsm/clm_cupid_ldf_ilamb
+    - file: notebooks/diagnostics/cupid/clm_cupid_ldf_ilamb
   - file: notebooks/diagnostics/additional/additional
     sections:
     - file: notebooks/diagnostics/additional/postprocessing
