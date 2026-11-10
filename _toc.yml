@@ -88,6 +88,12 @@ chapters:
   - file: notebooks/singlepoint/exercises/runtower_PLUMBER2
   - file: notebooks/singlepoint/exercises/FATESsp_NEON
   - file: notebooks/singlepoint/exercises/GenericSinglePoint
+    
+- file: notebooks/sensitivity/01_sensitivity_overview
+  sections:
+    - file: notebooks/sensitivity/02_create_param_ensembles
+    - file: notebooks/sensitivity/03_submit_ensemble
+    - file: notebooks/sensitivity/04_ensemble_analysis
 
 - file: notebooks/diagnostics/diagnostics_intro
   sections:
@@ -100,6 +106,11 @@ chapters:
     - file: notebooks/diagnostics/fates/fates_plotting_2  
   #- file: notebooks/diagnostics/hillslope
   #  sections:
+  - file: notebooks/diagnostics/neon/neon_overview
+    sections:
+    - file: notebooks/diagnostics/neon/neon_basic_plots
+    - file: notebooks/diagnostics/neon/plot_neon_climatology
+    - file: notebooks/diagnostics/neon/neon_lh_components.ipynb
   - file: notebooks/diagnostics/ldf/ldf_basics
   - file: notebooks/diagnostics/cupid/cupid_basics
     sections:
