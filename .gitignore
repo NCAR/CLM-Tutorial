@@ -1,3 +1,9 @@
 .notes
 .DS_Store
+.ipynb_checkpoints
+*/*/.ipynb_checkpoints
+*/*/*/.ipynb_checkpoints
 _build/
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
