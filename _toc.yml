@@ -102,7 +102,9 @@ chapters:
   #  sections:
   - file: notebooks/diagnostics/neon/neon_overview
     sections:
+    - file: notebooks/diagnostics/neon/neon_basic_plots
     - file: notebooks/diagnostics/neon/plot_neon_climatology
+    - file: notebooks/diagnostics/neon/neon_lh_components.ipynb
   - file: notebooks/diagnostics/ldf/ldf_basics
   - file: notebooks/diagnostics/cupid/cupid_basics
     sections:

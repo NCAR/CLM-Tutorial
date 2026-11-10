@@ -36,7 +36,7 @@ def fix_time_h0 (ds):
     day0 = ds['time.day'][0].values 
 
     date = cftime.datetime(yr0,month0,day0).isoformat() 
-    ds['time'] = xr.cftime_range(date, periods=nsteps, freq='M')
+    ds['time'] = xr.date_range(date, periods=nsteps, freq='M', use_cftime=True)
     ds['time']= ds['time'].dt.strftime("%Y-%m").astype("datetime64[ns]")
     return ds
 
@@ -51,7 +51,7 @@ def fix_time_h1 (ds):
     day0 = ds['time.day'][0].values
 
     date = cftime.datetime(yr0,month0,day0).isoformat() 
-    ds['time'] = xr.cftime_range(date, periods=nsteps, freq='30min')
+    ds['time'] = xr.date_range(date, periods=nsteps, freq='30min', use_cftime=True)
     ds['time']= ds['time'].dt.strftime("%Y-%m-%d %H:%M:%S").astype("datetime64[ns]")
     return ds
 
