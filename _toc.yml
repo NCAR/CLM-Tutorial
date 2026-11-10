@@ -91,7 +91,7 @@ chapters:
 
 - file: notebooks/diagnostics/diagnostics_intro
   sections:
-  - file: notebooks/diagnostics/basics/structured_plotting
+  - file: notebooks/diagnostics/basics/basic_plotting_clm
     sections:
     - file: notebooks/diagnostics/basics/unstructured_plotting
   - file: notebooks/diagnostics/fates/fates_overview
