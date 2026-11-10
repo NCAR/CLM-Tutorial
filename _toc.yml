@@ -100,7 +100,7 @@ chapters:
     - file: notebooks/diagnostics/fates/fates_plotting_2  
   #- file: notebooks/diagnostics/hillslope
   #  sections:
-  - file: notebooks/diagnostics/neon
+  - file: notebooks/diagnostics/neon/neon_overview
     sections:
     - file: notebooks/diagnostics/neon/plot_neon_climatology
   - file: notebooks/diagnostics/ldf/ldf_basics
