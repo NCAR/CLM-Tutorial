@@ -13,7 +13,7 @@ The early development of the Community Land Model can be described as the mergin
  - Institute of Atmospheric Physics, Chinese Academy of Sciences land model (IAP94) (Dai and Zeng 1997); and the 
  - Biosphere-Atmosphere Transfer Scheme (BATS) (Dickinson et al. 1993) used with CCM2. 
 
-More information on the history of CLM development is available in the [overview secton of the CLM technical documentation](https://escomp.github.io/CTSM/users_guide/overview/introduction.html)
+More information on the history of CLM development is available in the [overview section of the CLM technical documentation](https://escomp.github.io/CTSM/users_guide/overview/introduction.html)
 
 ## Goals of This Tutorial
 
