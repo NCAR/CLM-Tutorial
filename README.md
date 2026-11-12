@@ -1,5 +1,5 @@
 
-# Welcome to the CLM Tutorial
+# Welcome to the [CLM Tutorial](https://ncar.github.io/CLM-Tutorial/README.html)
 
 <br>
 
