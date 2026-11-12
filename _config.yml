@@ -69,8 +69,8 @@ parse:
   myst_substitutions:
       CTSM_TUTORIAL_TAG: "`ctsm5.4.067`"
       CTSM_CUPID_TAG: "`CUPiD.n01_ctsm5.4.017`"
-      PROJECT_CODE: "P93300606"
-      TUTORIAL_QUE: "tutorial_que"
+      PROJECT_CODE: "UCGD0011"
+      TUTORIAL_QUE: "tutorial"
 
 launch_buttons:
   binder             : false
