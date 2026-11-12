@@ -38,6 +38,9 @@ jobs:
       run: |
         set -o pipefail
         mkdir -p build-logs
+        # First, run the link checker
+        jupyter-book build -W --keep-going --nitpick --quiet --builder custom --custom-builder linkcheck . 2>&1 | tee >(sed -E $'s/\x1b\\[[0-9;]*[a-zA-Z]//g' > "${GITHUB_WORKSPACE}/build-logs/${LOGFILE_BASENAME}")
+        # Next, build the actual HTML
         jupyter-book build -W --keep-going --nitpick --quiet . 2>&1 | tee >(sed -E $'s/\x1b\\[[0-9;]*[a-zA-Z]//g' > "${GITHUB_WORKSPACE}/build-logs/${LOGFILE_BASENAME}")
       # The tee writes the build log file for the PR comment (posted by
       # build-jupyter-book-failure-post-comment.yml); the inner sed strips ANSI color
