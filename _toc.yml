@@ -81,6 +81,7 @@ chapters:
       - file: notebooks/modifications/namelist/exercises/exercise_clm_history_vars
       - file: notebooks/modifications/namelist/exercises/exercise_clm_history_frequency
       - file: notebooks/modifications/namelist/exercises/exercise_fates_complexity
+      - file: notebooks/modifications/namelist/exercises/exercise_hillslope
 
 - file: notebooks/singlepoint/singlepoint_overview
   sections:
@@ -104,7 +105,7 @@ chapters:
     sections:
     - file: notebooks/diagnostics/fates/fates_plotting_1
     - file: notebooks/diagnostics/fates/fates_plotting_2  
-  #- file: notebooks/diagnostics/hillslope
+  - file: notebooks/diagnostics/hillslope/hillslope_plotting
   #  sections:
   - file: notebooks/diagnostics/neon/neon_overview
     sections:
