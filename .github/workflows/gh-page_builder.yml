@@ -21,6 +21,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v6
       with:
+        # Keep Python version in sync with conda.yml
         python-version: 3.11
         cache: 'pip'
 

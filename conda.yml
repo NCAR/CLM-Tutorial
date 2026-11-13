@@ -1,0 +1,10 @@
+name: clm-tutorial
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # Keep Python version in sync with .github/workflows/gh-page_builder.yml
+  - python=3.11
+  - pip
+  - pip:
+    - -r requirements.txt
