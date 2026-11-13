@@ -36,8 +36,6 @@
 # status for a crash as for warnings, so catching this would mean matching its crash message,
 # i.e., depending on console format again. It should be rare, since Sphinx's link checker
 # catches errors for each link individually.
-#
-# test-linkcheck-filter.sh checks this against real link-checker output.
 
 set -eu
 full_log="$1"

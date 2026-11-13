@@ -8,8 +8,7 @@
 #
 # Usage: run-linkcheck.sh BOOK_DIR FULL_LOG LINKCHECK_JSON
 #
-# Used by gh-page_builder.yml, and by test-linkcheck-filter.sh so that the test exercises the
-# exact command CI runs.
+# Used by gh-page_builder.yml.
 
 set -u -o pipefail
 book_dir="$1"
