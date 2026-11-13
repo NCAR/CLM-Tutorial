@@ -35,6 +35,10 @@ sphinx:
     linkcheck_retries: 2
     linkcheck_anchors: false   # skip checking #anchors, which is often flaky
     linkcheck_report_timeouts_as_broken: False
+    #
+    # Have the copy button appear on code blocks including the above parse-literal blocks
+    #
+    copybutton_selector: "div.highlight pre, pre.literal-block"
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
@@ -80,9 +84,11 @@ parse:
   # NOTE: this won't work for raw HTML blocks in markdown, so make the substitution outside of raw HTML.
   myst_substitutions:
       CTSM_TUTORIAL_TAG: "`ctsm5.4.067`"
+      CLM_TUTORIAL_DIR: "/glade/campaign/cgd/tss/tutorials/clm_2026"
       CTSM_CUPID_TAG: "`CUPiD.n01_ctsm5.4.017`"
       PROJECT_CODE: "UCGD0011"
       TUTORIAL_QUE: "tutorial"
+
 
 launch_buttons:
   binder             : false
