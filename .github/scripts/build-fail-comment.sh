@@ -29,6 +29,11 @@ fi
   # FAILURE_HEADING says which job failed. The default keeps callers that don't set it working.
   echo "### ❌ ${FAILURE_HEADING:-jupyter-book build failed}"
   echo
+  # LOG_NOTE (optional) is shown above the log, e.g. to say the log was filtered.
+  if [[ -n "${LOG_NOTE:-}" ]]; then
+    echo "> ℹ️ ${LOG_NOTE}"
+    echo
+  fi
   if [[ "$truncated" == true ]]; then
     echo "> ⚠️ Log was ${log_bytes} bytes; only the last ${MAX_LOG_BYTES} are shown below. See the [workflow run](${RUN_URL}) for the full log."
     echo

@@ -1,2 +1,5 @@
 ghp-import
-jupyter-book<2
+# Pin jupyter-book and sphinx versions to ensure that assumptions embedded in "Extract problematic
+# links from log" workflow job continue to hold
+jupyter-book==1.0.4.post1
+sphinx==7.4.7
