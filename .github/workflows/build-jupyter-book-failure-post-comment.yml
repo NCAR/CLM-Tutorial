@@ -93,7 +93,10 @@ jobs:
           # the exact SHA that was built, so the usual "pwn request" risk does not apply.
           allow-unsafe-pr-checkout: true
 
-      - name: Post comment
+      # Each failed job in the triggering run (link check, HTML build) uploads its own artifact,
+      # so post one comment per artifact. A lone artifact lands straight in artifact/; several
+      # nest under artifact/<artifact-name>/. Handle both.
+      - name: Post comment(s)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
@@ -101,5 +104,23 @@ jobs:
           RUN_URL: ${{ github.event.workflow_run.html_url }}
           SCRIPT_ROOT: ${{ steps.find-pr.outputs.use-pr-script == 'true' && 'pr' || '.' }}
         working-directory: artifact
-        run: . "${GITHUB_WORKSPACE}/${SCRIPT_ROOT}/.github/scripts/build-fail-comment.sh"
+        run: |
+          shopt -s nullglob
+          if [[ -f "${LOGFILE_BASENAME}" ]]; then
+            log_dirs=(.)
+          else
+            log_dirs=(*/)
+          fi
+          if (( ${#log_dirs[@]} == 0 )); then
+            echo "::error::No artifacts downloaded; nothing to post."
+            exit 2
+          fi
+
+          # Subshell so the script's `exit` ends only that one comment, not the loop. Keep going
+          # after a failure so one bad artifact doesn't suppress the other comment.
+          status=0
+          for log_dir in "${log_dirs[@]}"; do
+            (cd "$log_dir" && . "${GITHUB_WORKSPACE}/${SCRIPT_ROOT}/.github/scripts/build-fail-comment.sh") || status=$?
+          done
+          exit "$status"
 

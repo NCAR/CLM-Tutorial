@@ -4,6 +4,8 @@ env:
   # Basename (i.e., just the filename, not the path leading to it) of the log file. This must
   # match LOGFILE_BASENAME from build-jupyter-book-failure-post-comment.yml.
   LOGFILE_BASENAME: build.log
+  # Keep Python version in sync with conda.yml
+  PYTHON_VERSION: '3.11'
 
 on:
   push:
@@ -13,7 +15,52 @@ on:
   pull_request:
 
 jobs:
-  build:
+  check-links:
+    # Only on pull requests so that publication won't fail due to a possibly spurious "broken" link
+    if: github.repository == 'NCAR/CLM-Tutorial' && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - name: Set up Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+
+    - name: Install Python dependencies
+      run: |
+        sudo apt-get install python3-pip
+        pip install -r requirements.txt
+        PATH="${PATH}:${HOME}/.local/bin"
+
+    - name: Check book links
+      id: check-jupyter-book-links
+      # The `-W --keep-going --nitpick` in the below command is intended to prevent the tutorial from being broken.
+      # Do not remove it! If you can't figure out what the problem was, contact Sam Rabin
+      # (samrabin@ucar.edu) or another software engineer for help.
+      run: |
+        set -o pipefail
+        mkdir -p build-logs
+        # Intentionally not using --quiet so that if it takes a long time we can see what the problem is
+        jupyter-book build -W --keep-going --nitpick --builder custom --custom-builder linkcheck . 2>&1 | tee >(sed -E $'s/\x1b\\[[0-9;]*[a-zA-Z]//g' > "${GITHUB_WORKSPACE}/build-logs/${LOGFILE_BASENAME}")
+      # The tee writes the build log file for the PR comment (posted by
+      # build-jupyter-book-failure-post-comment.yml); the inner sed strips ANSI color
+      # codes that would otherwise render as garbage in the comment.
+
+    # The next step only triggers on failure of above check-jupyter-book-links step on PRs.
+    # It uploads logs that will be used by the build-jupyter-book-failure-post-comment.yml
+    # workflow. Do not put anything in build-logs/ that that workflow must trust: on a
+    # fork PR, this job runs the fork's copy of this file, so the artifact's contents are
+    # attacker-controlled.
+
+    - name: Upload logs on failure
+      if: failure() && steps.check-jupyter-book-links.outcome == 'failure'
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+      with:
+        name: link-check-failed
+        path: build-logs/
+
+  build-html:
     if: github.repository == 'NCAR/CLM-Tutorial'
     runs-on: ubuntu-latest
     steps:
@@ -21,8 +68,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v6
       with:
-        # Keep Python version in sync with conda.yml
-        python-version: 3.11
+        python-version: ${{ env.PYTHON_VERSION }}
         cache: 'pip'
 
     - name: Install Python dependencies
@@ -39,11 +85,6 @@ jobs:
       run: |
         set -o pipefail
         mkdir -p build-logs
-        # First, run the link checker -- only on pull requests so that publication won't fail due to a possibly spurious "broken" link.
-        if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
-          jupyter-book build -W --keep-going --nitpick --quiet --builder custom --custom-builder linkcheck . 2>&1 | tee >(sed -E $'s/\x1b\\[[0-9;]*[a-zA-Z]//g' > "${GITHUB_WORKSPACE}/build-logs/${LOGFILE_BASENAME}")
-        fi
-        # Next, build the actual HTML
         jupyter-book build -W --keep-going --nitpick --quiet . 2>&1 | tee >(sed -E $'s/\x1b\\[[0-9;]*[a-zA-Z]//g' > "${GITHUB_WORKSPACE}/build-logs/${LOGFILE_BASENAME}")
       # The tee writes the build log file for the PR comment (posted by
       # build-jupyter-book-failure-post-comment.yml); the inner sed strips ANSI color
