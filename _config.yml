@@ -29,7 +29,7 @@ sphinx:
       - 'https?://nco.sourceforge.net'
       - 'https://doi.org/.*'
     linkcheck_timeout: 60  # Was 10, but this takes very long: https://webext.cgd.ucar.edu/BLTHIST/b.e30_alpha08o.BHISTC_MTt4s.ne30_t232_wgx3.330_branch/lnd/b.e30_alpha08o.BHISTC_MTt4s.ne30_t232_wgx3.330_branch_1850_2021_vs_b.e30_alpha07g.BHISTC_LTso.ne30_t232_wgx3.271_1850_2013/website
-    linkcheck_retries: 2
+    linkcheck_retries: 4
     linkcheck_anchors: false   # skip checking #anchors, which is often flaky
     linkcheck_report_timeouts_as_broken: False
 
