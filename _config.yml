@@ -32,6 +32,10 @@ sphinx:
     linkcheck_retries: 2
     linkcheck_anchors: false   # skip checking #anchors, which is often flaky
     linkcheck_report_timeouts_as_broken: False
+    #
+    # Have the copy button appear on code blocks including the above parse-literal blocks
+    #
+    copybutton_selector: "div.highlight pre, pre.literal-block"
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
@@ -82,16 +86,6 @@ parse:
       PROJECT_CODE: "UCGD0011"
       TUTORIAL_QUE: "tutorial"
 
-#
-# Have the copy button appear on code blocks including the above parse-literal blocks
-#
-sphinx:
-  config:
-    html_show_copyright: false
-    copybutton_selector: "div.highlight pre, pre.literal-block"
-    # This adds a nav-bar to the fields to copy, which might be useful
-    #html_theme_options:
-    #  show_navbar_depth: 1
 
 launch_buttons:
   binder             : false
