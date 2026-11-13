@@ -24,8 +24,18 @@
 #
 # Warnings come first, then links. That matches the order the console prints them in.
 #
-# If neither source has anything, the job failed for some other reason (e.g., a crash), so keep
-# the whole log. Same if output.json can't be read.
+# Keep the whole log instead if:
+#   - output.json is missing. run-linkcheck.sh deletes any old copy before each run, so this means
+#     the link check died before it started checking links (e.g., a crash). A traceback doesn't
+#     match the warning pattern, so filtering would drop it and leave only any warnings printed
+#     before the crash.
+#   - output.json can't be read.
+#   - Neither source has anything to keep, i.e., the job failed for some other reason.
+# Known gap, deliberately left unhandled: a crash partway through checking links would leave a
+# partial output.json, and its traceback would still be dropped. jupyter-book exits with the same
+# status for a crash as for warnings, so catching this would mean matching its crash message,
+# i.e., depending on console format again. It should be rare, since Sphinx's link checker
+# catches errors for each link individually.
 #
 # test-linkcheck-filter.sh checks this against real link-checker output.
 
@@ -42,15 +52,16 @@ keep_whole_log() {
   exit 0
 }
 
-links=""
-if [[ -f "$linkcheck_json" ]]; then
-  # E.g., "index.md:12: broken https://... - 404 Client Error: ..."
-  jq_filter='select(.status == "broken" or .status == "timeout")
-    | "\(.filename)\(if .lineno then ":\(.lineno)" else "" end): \(.status) \(.uri)\(if (.info // "") != "" then " - \(.info)" else "" end)"'
-  if ! links="$(jq -r "$jq_filter" "$linkcheck_json")"; then
-    echo "::warning::Couldn't read ${linkcheck_json}; keeping the whole log."
-    keep_whole_log
-  fi
+if [[ ! -f "$linkcheck_json" ]]; then
+  echo "::warning::No ${linkcheck_json}, so the link check didn't finish; keeping the whole log."
+  keep_whole_log
+fi
+# E.g., "index.md:12: broken https://... - 404 Client Error: ..."
+jq_filter='select(.status == "broken" or .status == "timeout")
+  | "\(.filename)\(if .lineno then ":\(.lineno)" else "" end): \(.status) \(.uri)\(if (.info // "") != "" then " - \(.info)" else "" end)"'
+if ! links="$(jq -r "$jq_filter" "$linkcheck_json")"; then
+  echo "::warning::Couldn't read ${linkcheck_json}; keeping the whole log."
+  keep_whole_log
 fi
 
 warnings="$(grep -E '(WARNING|ERROR|CRITICAL): ' "$full_log" || true)"

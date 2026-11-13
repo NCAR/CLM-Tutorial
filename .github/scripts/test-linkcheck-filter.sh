@@ -108,16 +108,45 @@ if grep -qF -e "$book_dir" -e "$(cd "$book_dir" && pwd -P)" "$out_log"; then
   fail "Filtered log still contains the book directory's absolute path."
 fi
 
-echo "=== Filtering output with no output.json and no warnings (should keep the whole log)"
+echo "=== Running link checker on a book that crashes (should keep the whole log)"
+# The book directory still has output.json from the run above, so this also checks that
+# run-linkcheck.sh doesn't pass along a stale one.
+cat >> "${book_dir}/_config.yml" <<'EOF'
+  extra_extensions:
+    - no_such_extension
+EOF
+crash_log="${work_dir}/crash.log"
+crash_json="${work_dir}/crash-output.json"
+crash_out_dir="${work_dir}/crash-out"
+if bash "${script_dir}/run-linkcheck.sh" "$book_dir" "$crash_log" "$crash_json"; then
+  fail "Link checker passed, but the book's config names an extension that doesn't exist."
+fi
+if [[ -f "$crash_json" ]]; then
+  fail "run-linkcheck.sh saved an output.json for a run that crashed before checking links."
+fi
+bash "${script_dir}/filter-linkcheck-log.sh" "$crash_log" "$crash_json" "$crash_out_dir"
+if [[ -f "${crash_out_dir}/log-was-filtered" ]]; then
+  fail "Filter left a log-was-filtered marker for a crashed run."
+fi
+if ! cmp -s "$crash_log" "${crash_out_dir}/${LOGFILE_BASENAME}"; then
+  fail "Filter didn't keep the whole log for a crashed run."
+fi
+if ! grep -qF no_such_extension "${crash_out_dir}/${LOGFILE_BASENAME}"; then
+  fail "Crashed run's log doesn't mention the missing extension; did it crash for some other reason?"
+fi
+
+echo "=== Filtering output with a warning but no output.json (should keep the whole log)"
+# E.g., Sphinx warned and then crashed before checking links. Keeping only the warning would hide
+# the crash.
 other_log="${work_dir}/other.log"
 other_out_dir="${work_dir}/other-out"
-printf 'some unrelated failure\nanother line\n' > "$other_log"
+printf 'index.md:1: WARNING: printed before the crash\nException occurred:\nRuntimeError: boom\n' > "$other_log"
 bash "${script_dir}/filter-linkcheck-log.sh" "$other_log" "${work_dir}/does-not-exist.json" "$other_out_dir"
 if [[ -f "${other_out_dir}/log-was-filtered" ]]; then
-  fail "Filter left a log-was-filtered marker when there was nothing to keep."
+  fail "Filter left a log-was-filtered marker when output.json was missing."
 fi
 if ! cmp -s "$other_log" "${other_out_dir}/${LOGFILE_BASENAME}"; then
-  fail "Filter didn't keep the whole log when there was nothing to keep."
+  fail "Filter didn't keep the whole log when output.json was missing."
 fi
 
 echo "=== Filtering output with unreadable output.json (should keep the whole log)"
