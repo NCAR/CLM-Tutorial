@@ -33,39 +33,14 @@ jobs:
         pip install -r requirements.txt
         PATH="${PATH}:${HOME}/.local/bin"
 
+    # The command and its flags live in the script; see the warning there about -W etc.
     - name: Check book links
       id: check-jupyter-book-links
-      # The `-W --keep-going --nitpick` in the below command is intended to prevent the tutorial from being broken.
-      # Do not remove it! If you can't figure out what the problem was, contact Sam Rabin
-      # (samrabin@ucar.edu) or another software engineer for help.
-      run: |
-        set -o pipefail
-        # Intentionally not using --quiet so that if it takes a long time we can see what the problem is
-        jupyter-book build -W --keep-going --nitpick --builder custom --custom-builder linkcheck . 2>&1 | tee >(sed -E $'s/\x1b\\[[0-9;]*[a-zA-Z]//g' > "${RUNNER_TEMP}/linkcheck-full.log")
-      # The tee saves the full log for the next step to filter; the inner sed strips ANSI color
-      # codes that would otherwise render as garbage in the PR comment.
+      run: bash .github/scripts/run-linkcheck.sh . "${RUNNER_TEMP}/linkcheck-full.log" "${RUNNER_TEMP}/linkcheck-output.json"
 
-    # Write the build log file for the PR comment (posted by
-    # build-jupyter-book-failure-post-comment.yml), keeping only the lines about problematic URLs.
-    # Without --quiet, Sphinx 7 prints each checked URL as a status line like
-    # "(   docname: line   12) broken    https://... - 404 Client Error: ...", where the
-    # "(docname: line N) " prefix is omitted if the line number is unknown. Keep the "broken" and
-    # "timeout" lines: those are what fail the link check. (Not "redirect", which doesn't.) See
-    # process_result() in sphinx/builders/linkcheck.py. If nothing matches, the job failed for
-    # some other reason (e.g., a non-link warning), so keep the whole log.
     - name: Extract problematic links from log
       if: failure() && steps.check-jupyter-book-links.outcome == 'failure'
-      run: |
-        mkdir -p build-logs
-        full_log="${RUNNER_TEMP}/linkcheck-full.log"
-        out_log="build-logs/${LOGFILE_BASENAME}"
-        if grep -E '^(\([^)]*: line +[0-9]+\) )?(broken|timeout)  ' "$full_log" > "$out_log"; then
-          # Marker telling build-jupyter-book-failure-post-comment.yml to say the log was
-          # filtered. The filename must match the one checked there.
-          touch build-logs/log-was-filtered
-        else
-          cp "$full_log" "$out_log"
-        fi
+      run: bash .github/scripts/filter-linkcheck-log.sh "${RUNNER_TEMP}/linkcheck-full.log" "${RUNNER_TEMP}/linkcheck-output.json" build-logs
 
     # The next step only triggers on failure of above check-jupyter-book-links step on PRs.
     # It uploads logs that will be used by the build-jupyter-book-failure-post-comment.yml

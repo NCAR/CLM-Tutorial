@@ -120,7 +120,7 @@ jobs:
           found=false
           # Args: artifact name, comment heading, and (optional) note to show if the job that
           # uploaded the artifact filtered the log, which it signals with a log-was-filtered
-          # marker file (see gh-page_builder.yml).
+          # marker file (see .github/scripts/filter-linkcheck-log.sh).
           post_comment() {
             local artifact_name="$1"
             [[ -f "${artifact_name}/${LOGFILE_BASENAME}" ]] || return 0
@@ -137,7 +137,7 @@ jobs:
             ) || status=$?
           }
           post_comment link-check-failed "jupyter-book link check failed" \
-            "Showing only problematic URLs; see the [workflow run](${RUN_URL}) for the full log."
+            "Showing only problematic URLs and other warnings/errors; see the [workflow run](${RUN_URL}) for the full log."
           post_comment build-failed "jupyter-book build failed"
 
           if [[ "$found" != true ]]; then
