@@ -26,7 +26,8 @@ fi
 
 # Generate the message
 {
-  echo "### ❌ jupyter-book build failed"
+  # FAILURE_HEADING says which job failed. The default keeps callers that don't set it working.
+  echo "### ❌ ${FAILURE_HEADING:-jupyter-book build failed}"
   echo
   if [[ "$truncated" == true ]]; then
     echo "> ⚠️ Log was ${log_bytes} bytes; only the last ${MAX_LOG_BYTES} are shown below. See the [workflow run](${RUN_URL}) for the full log."
