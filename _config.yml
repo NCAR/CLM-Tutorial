@@ -24,6 +24,7 @@ sphinx:
       show_navbar_depth: 1
     linkcheck_ignore:
       - 'http://.*.nc'  # netCDF files are not links
+      - 'https?://www.gnu.org.*'  # Rate limited, unreliable, SLOW
       # 403 "Forbidden" errors
       - 'https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2025MS005590'
       - 'https?://nco.sourceforge.net'
