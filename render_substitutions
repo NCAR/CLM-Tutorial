@@ -27,7 +27,7 @@ ROOT = pathlib.Path(__file__).resolve().parent
 
 # ``` {parsed-literal}  ...  ```
 # (an unclosed fence runs to the end of the cell)
-PARSED_LITERAL = re.compile(r"^(`{3,}) *\{(parsed-literal)\}[^\n]*\n(.*?)(?:^\1[ \t]*$|\Z)", re.M | re.S)
+PARSED_LITERAL = re.compile(r"^(`{3,}) *\{parsed-literal\}[^\n]*\n(.*?)(?:^\1[ \t]*$|\Z)", re.M | re.S)
 # :::{container} ...   and its closing :::
 CONTAINER = re.compile(r"^:{3,}(\{container\}.*)?[ \t]*(\n|\Z)", re.M)
 
@@ -40,16 +40,18 @@ def get_substitutions():
 
 
 def fix_parsed_literal(text):
-    """Turn {parsed-literal} blocks into plain bash code blocks without inline-code markup"""
+    """Turn {parsed-literal} blocks into plain bash/tcsh code blocks without inline-code markup"""
 
-    # NOTE: This is tightly coupled to the PARSED_LITERAL regex above.
     def repl(match):
-        fence, code_type, body = match.group(1), match.group(2), match.group(3)
-        # drop inline-code markup and the \: used to stop MyST auto-linking URLs
-        body = body.replace("`", "").replace("\\:", ":")
+        fence, body = match.group(1), match.group(2)
+        # drop inline-code markup
+        body = body.replace("`", "")
+        # undo markdown backslash escapes (\\ -> \, \: -> :, ...) as parsed-literal renders them
+        body = re.sub(r"\\([!-/:-@\[-`{-~])", r"\1", body)
         if not body.endswith("\n"):
             body += "\n"
-        return fence + "bash" + "\n" + body + fence
+        lang = "tcsh" if re.match(r"\s*(setenv|set)\s", body) else "bash"
+        return fence + lang + "\n" + body + fence
 
     text = PARSED_LITERAL.sub(repl, text)
     # JupyterLab shows the :::{container} wrapper lines as text, drop them
