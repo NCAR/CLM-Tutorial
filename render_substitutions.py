@@ -56,12 +56,12 @@ def fix_parsed_literal(text):
 
 
 def render_notebook(path, env, subs):
-    """Render the markdown cells of one notebook, return True if it changed"""
+    """Render the markdown cells of one notebook, return True if it changed, abort if bad syntax"""
     try:
         with open(path, encoding="utf-8") as fh:
             nb = json.load(fh)
     except json.JSONDecodeError as err:
-        print(f"WARNING: skipping invalid notebook {path}: {err}", file=sys.stderr)
+        sys.exit(f"ERROR:invalid notebook {path}: {err}")
         return False
 
     changed = False
@@ -114,6 +114,7 @@ def main():
     notebooks = sorted(p for p in dest.rglob("*.ipynb") if ".ipynb_checkpoints" not in p.parts)
     nchanged = sum(render_notebook(nb, env, subs) for nb in notebooks)
     print(f"Rendered {nchanged} notebooks under {dest}")
+    print( "Successfully rendered all notebooks")
 
 
 if __name__ == "__main__":
