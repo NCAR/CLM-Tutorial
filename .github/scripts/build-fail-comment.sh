@@ -26,14 +26,14 @@ fi
 
 # Generate the message
 {
-  echo "### ❌ jupyter-book build failed"
+  echo "### ❌ jupyter-book failure"
   echo
   if [[ "$truncated" == true ]]; then
     echo "> ⚠️ Log was ${log_bytes} bytes; only the last ${MAX_LOG_BYTES} are shown below. See the [workflow run](${RUN_URL}) for the full log."
     echo
   fi
   echo '<details open="true">'
-  echo "<summary>Build logs</summary>"
+  echo "<summary>Logs</summary>"
   echo
   # Four backticks so a ``` inside the log can't close the fence early.
   echo '````'
