@@ -34,9 +34,10 @@ sphinx:
     linkcheck_anchors: false   # skip checking #anchors, which is often flaky
     linkcheck_report_timeouts_as_broken: False
     #
-    # Have the copy button appear on code blocks including the above parse-literal blocks
+    # Have the copy button appear on code blocks including the Jinja parse-literal blocks talked about below
+    # (Commented out as discussed below)
     #
-    copybutton_selector: "div.highlight pre, pre.literal-block"
+    #copybutton_selector: "div.highlight pre, pre.literal-block"
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
@@ -75,13 +76,15 @@ html:
 parse:
   # Jinja-2 Substitutions that was a failed experiment
   # Leaving here commented-out so we can figure out what the substitutions were next time:
-  #    See https://github.com/NCAR/CLM-Tutorial/pull/141
+  #    See PR: https://github.com/NCAR/CLM-Tutorial/pull/141
+  #    See Discussion: https://github.com/NCAR/CLM-Tutorial/discussions/142
   #myst_substitutions:
   #   CTSM_TUTORIAL_TAG: "`ctsm5.4.067`"
   #   CLM_TUTORIAL_DIR: "/glade/campaign/cgd/tss/tutorials/clm_2026"
   #   CTSM_CUPID_TAG: "`CUPiD.n01_ctsm5.4.017`"
   #   PROJECT_CODE: "UCGD0011"
   #   TUTORIAL_QUE: "tutorial"
+  #END OF SUBSTITUTIONS:
 
 
 launch_buttons:
