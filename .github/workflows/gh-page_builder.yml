@@ -33,14 +33,19 @@ jobs:
         pip install -r requirements.txt
         PATH="${PATH}:${HOME}/.local/bin"
 
-    # The command and its flags live in the script; see the warning there about -W etc.
     - name: Check book links
       id: check-jupyter-book-links
-      run: bash .github/scripts/run-linkcheck.sh . "${RUNNER_TEMP}/linkcheck-full.log" "${RUNNER_TEMP}/linkcheck-output.json"
-
-    - name: Extract problematic links from log
-      if: failure() && steps.check-jupyter-book-links.outcome == 'failure'
-      run: bash .github/scripts/filter-linkcheck-log.sh "${RUNNER_TEMP}/linkcheck-full.log" "${RUNNER_TEMP}/linkcheck-output.json" build-logs
+      # The `-W --keep-going --nitpick` in the below command is intended to prevent the tutorial from being broken.
+      # Do not remove it! If you can't figure out what the problem was, contact Sam Rabin
+      # (samrabin@ucar.edu) or another software engineer for help.
+      run: |
+        set -o pipefail
+        mkdir -p build-logs
+        # If link check is really slow, delete --quiet for complete log
+        jupyter-book build --quiet -W --keep-going --nitpick --builder custom --custom-builder linkcheck . 2>&1 | tee >(sed -E $'s/\x1b\\[[0-9;]*[a-zA-Z]//g' > "${GITHUB_WORKSPACE}/build-logs/${LOGFILE_BASENAME}")
+      # The tee writes the build log file for the PR comment (posted by
+      # build-jupyter-book-failure-post-comment.yml); the inner sed strips ANSI color
+      # codes that would otherwise render as garbage in the comment.
 
     # The next step only triggers on failure of above check-jupyter-book-links step on PRs.
     # It uploads logs that will be used by the build-jupyter-book-failure-post-comment.yml
@@ -52,8 +57,6 @@ jobs:
       if: failure() && steps.check-jupyter-book-links.outcome == 'failure'
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
       with:
-        # Must match an artifact name in build-jupyter-book-failure-post-comment.yml; see 
-        # "pattern:" in actions/download-artifact steps
         name: link-check-failed
         path: build-logs/
 
@@ -97,8 +100,6 @@ jobs:
       if: failure() && steps.build-jupyter-book.outcome == 'failure' && github.event_name == 'pull_request'
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
       with:
-        # Must match an artifact name in build-jupyter-book-failure-post-comment.yml; see 
-        # "pattern:" in actions/download-artifact steps
         name: build-failed
         path: build-logs/
 
