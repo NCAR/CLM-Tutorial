@@ -9,6 +9,11 @@
 # Usage: run-linkcheck.sh BOOK_DIR FULL_LOG LINKCHECK_JSON
 #
 # Used by gh-page_builder.yml.
+#
+# Example: to run by hand outside of a github action on your local clone:
+#   ./.github/scripts/run-linkcheck.sh . full.log linkcheck.json
+#   # you then examine full.log and linkcheck.json if there were errors, but usually you don't care when run by hand
+#
 
 set -u -o pipefail
 book_dir="$1"
