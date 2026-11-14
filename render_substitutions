@@ -57,9 +57,13 @@ def fix_parsed_literal(text):
 
 def render_notebook(path, env, subs):
     """Render the markdown cells of one notebook, return True if it changed, abort if bad syntax"""
+    with open(path, encoding="utf-8") as fh:
+        text = fh.read()
+    # Keep the notebook's own JSON indent (Jupyter uses 1, some editors use 2 or 4)
+    match = re.search(r'^( +)"', text, re.M)
+    indent = len(match.group(1)) if match else 1
     try:
-        with open(path, encoding="utf-8") as fh:
-            nb = json.load(fh)
+        nb = json.loads(text)
     except json.JSONDecodeError as err:
         sys.exit(f"ERROR:invalid notebook {path}: {err}")
         return False
@@ -85,8 +89,9 @@ def render_notebook(path, env, subs):
 
     if changed:
         with open(path, "w", encoding="utf-8") as fh:
-            json.dump(nb, fh, indent=1, ensure_ascii=False)
-            fh.write("\n")
+            json.dump(nb, fh, indent=indent, ensure_ascii=False)
+            if text.endswith("\n"):
+                fh.write("\n")
     return changed
 
 
