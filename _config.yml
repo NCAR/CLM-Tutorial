@@ -73,19 +73,15 @@ html:
   extra_navbar              : ""
 
 parse:
-  # Jinja-2 Substitutions to make throughout all notebooks
-  # For example add:
-  # {{ CTSM_TUTORIAL_TAG }}
-  # For code blocks (make the code block a parsed-literal and do this:
-  # {{ '`' + CTSM_TUTORIAL_TAG + '`' }}
-  # To have it substitute the above from the substitutions.yml file below
-  # NOTE: this won't work for raw HTML blocks in markdown, so make the substitution outside of raw HTML.
-  myst_substitutions:
-      CTSM_TUTORIAL_TAG: "`ctsm5.4.067`"
-      CLM_TUTORIAL_DIR: "/glade/campaign/cgd/tss/tutorials/clm_2026"
-      CTSM_CUPID_TAG: "`CUPiD.n01_ctsm5.4.017`"
-      PROJECT_CODE: "UCGD0011"
-      TUTORIAL_QUE: "tutorial"
+  # Jinja-2 Substitutions that was a failed experiment
+  # Leaving here commented-out so we can figure out what the substitutions were next time:
+  #    See https://github.com/NCAR/CLM-Tutorial/pull/141
+  #myst_substitutions:
+  #   CTSM_TUTORIAL_TAG: "`ctsm5.4.067`"
+  #   CLM_TUTORIAL_DIR: "/glade/campaign/cgd/tss/tutorials/clm_2026"
+  #   CTSM_CUPID_TAG: "`CUPiD.n01_ctsm5.4.017`"
+  #   PROJECT_CODE: "UCGD0011"
+  #   TUTORIAL_QUE: "tutorial"
 
 
 launch_buttons:
