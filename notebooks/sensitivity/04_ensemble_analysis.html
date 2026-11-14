@@ -1,0 +1,1566 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Analyze a Parameter Ensemble &#8212; CLM Tutorial</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=6a604523" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script data-sd-tabs-storage-prefix="sphinx-design-tab-id-" src="../../_static/design-tabs.js?v=fcb327ea"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/sensitivity/04_ensemble_analysis';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Diagnostics" href="../diagnostics/diagnostics_intro.html" />
+    <link rel="prev" title="Submit a Parameter Ensemble" href="03_submit_ensemble.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/ncar_logo.png" class="logo__image only-light" alt="CLM Tutorial - Home"/>
+    <img src="../../_static/ncar_logo.png" class="logo__image only-dark pst-js-only" alt="CLM Tutorial - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../intro/intro_overview.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../intro/components.html">What is CESM ?</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intro/coupling.html">CIME (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../intro/cesm_webpage.html">CESM Webpage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intro/project.html">CESM Working Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../intro/getting_involved.html">Getting Involved</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../intro/getting_help.html">Getting Help</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../prereqs/prereqs_overview.html">Prerequisites for Success</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../prereqs/exercises.html">Exercise Overview</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basics/basics_overview.html">Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../basics/ctsm_workspaces.html">Workspaces</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basics/code_overview.html">CLM code</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basics/code/git_download_ctsm.html">Download CLM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/code/ctsm_code_explore.html">Explore CLM Code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basics/ctsm_workflow.html">CTSM Workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/create_newcase.html">Create New Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/case_setup.html">Case Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/case_build.html">Case Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/case_submit.html">Case Submit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/model_output.html">Model Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/checking_jobs_and_status.html">Checking Your Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/create_clone.html">Create Clone (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basics/exercises_overview.html">Exercise Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/first_I1850.html">Your first CLM run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/second_I1850.html">Extending your run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/change_compsets.html">Change component set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/examine_history_I1850.html">Examine History Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/extra.html">Explore Further</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/review_questions.html">Review Questions</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modifications/modifications.html">Modifying Your Case</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modifications/xml/overview.html">XML Modifications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modifications/xml/xml_basics.html">How to Modify XML Files</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modifications/xml/run_length.html">Controlling Run Length</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/run_length/starting_and_stopping.html">Starting and Stopping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/run_length/restarting.html">Restarting a Run</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/run_length/changing_run_length.html">Changing Run Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/run_length/timing_files.html">Using Timing Files</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modifications/xml/modify_run_type.html">Modifying the Type of Run</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/modify_run_type/hybrid_branch_restart.html">Hybrid, Branch, and Startup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/modify_run_type/run_variables.html">Variables Related to Run Type</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../modifications/xml/other_xml_variables.html">Other Useful XML Variables</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modifications/xml/exercises.html">XML Modification Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/exercises/xml_length_exercise.html">Exercise 1: Modify run length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/exercises/xml_runtype_exercise.html">Exercise 2: Modify run type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/exercises/xml_datm_exercise.html">Exercise 3: Modifying DATM variables</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modifications/namelist/overview.html">Namelist Modifications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modifications/namelist/documentation.html">Namelist Variable Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modifications/namelist/output.html">Customizing Output</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modifications/namelist/exercises_overview.html">Exercises Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/namelist/exercises/exercise_clm_history_vars.html">Exercise 1: History Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/namelist/exercises/exercise_clm_history_frequency.html">Exercise 2: Modify History Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/namelist/exercises/exercise_fates_complexity.html">Exercise 3: Change a FATES complexity variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/namelist/exercises/exercise_hillslope.html">Exercise 4: Configure a Hillslope Hydrology simulation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../singlepoint/singlepoint_overview.html">Single Point Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../singlepoint/exercises/runtower_NEON.html">Run_tower: NEON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../singlepoint/exercises/runtower_PLUMBER2.html">Run_tower: PLUMBER2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../singlepoint/exercises/FATESsp_NEON.html">FATES Satellite Phenology (FATES-SP) simulations at NEON sites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../singlepoint/exercises/GenericSinglePoint.html">Generic Single Point</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="01_sensitivity_overview.html">Parameter Sensitivity Experiments</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="02_create_param_ensembles.html">Create an Ensemble of Parameter Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_submit_ensemble.html">Submit a Parameter Ensemble</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Analyze a Parameter Ensemble</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../diagnostics/diagnostics_intro.html">Diagnostics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../diagnostics/basics/basic_plotting_clm.html">Plotting basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/basics/unstructured_plotting.html">Plotting data from unstructured grids</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../diagnostics/fates/fates_overview.html">FATES</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/fates/fates_plotting_1.html">Investigating Output: CLM and CLM-FATES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/fates/fates_plotting_2.html">Investigating vegetation demographics with FATES</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../diagnostics/hillslope/hillslope_plotting.html">Hillslope Hydrology</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../diagnostics/neon/neon_overview.html">NEON</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/neon/neon_basic_plots.html">NEON: Basic Plotting</a></li>
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/neon/plot_neon_climatology.html">Climatology plots for NEON sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/neon/neon_lh_components.html">NEON Hourly Averages</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../diagnostics/ldf/ldf_basics.html">LDF</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../diagnostics/cupid/cupid_basics.html">CUPiD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/cupid/clm_cupid_ldf_ilamb.html">Land</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../diagnostics/additional/additional.html">Additional Topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/additional/postprocessing.html">Postprocessing data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/additional/analysis_tools.html">CESM analysis tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/additional/adf.html">ADF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/additional/uxarray.html">UXarray</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../resources/resources_overview.html">Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../resources/ncar_hpc.html">NCAR Supercomputer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../resources/ncar_hpc_module.html">Modules on NCAR HPC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../resources/tutorial_one_time_setup.html">Tutorial one time setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../resources/tutorial_queue_account.html">Tutorial queue and account</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/terminals.html">Terminal Windows</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../resources/unix.html">UNIX</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../resources/unix-cheatsheet.html">UNIX cheatsheet</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/text_editors.html">Text Editors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/github.html">Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/fortran.html">Fortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/netcdf.html">NetCDF files</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting runtime errors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/log_files.html">The log files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/debugging_flag.html">Adding debugging info</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/sensitivity/04_ensemble_analysis.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Analyze a Parameter Ensemble</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-load-the-manifest">Step 1: Load the manifest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-load-the-model-output">Step 2: Load the model output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-compare-each-member-to-the-default">Step 3: Compare each member to the default</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grab-the-correct-data-arrays">Grab the correct data arrays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-time-series">Plot the time series</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore">Explore</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-when-in-the-year-does-each-parameter-matter">Step 4: When in the year does each parameter matter?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-look-at-sensitivity-of-annual-variables">Step 5. Look at sensitivity of annual variables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dot-plots">Dot plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-a-heatmap">Plotting a heatmap</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-response-vs-parameter-value">Step 6: Response vs. parameter value</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-7-compare-to-observations">Step 7: Compare to observations:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-observational-data">Load the observational data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap up</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="analyze-a-parameter-ensemble">
+<h1>Analyze a Parameter Ensemble<a class="headerlink" href="#analyze-a-parameter-ensemble" title="Link to this heading">#</a></h1>
+<p>In the previous notebook we ran 6 ensemble members, each setting one of 3 FATES parameters to its minimum or maximum value. Together with the default run (<code class="docutils literal notranslate"><span class="pre">BONA.FATESsp</span></code>), that gives the 2N + 1 = 7 runs of a one-at-a-time (OAT) experiment.</p>
+<p>In this notebook we will:</p>
+<ol class="arabic simple">
+<li><p>Load the output of every member, and of the default run</p></li>
+<li><p>Compare each member to the default over time</p></li>
+<li><p>Summarize how sensitive each output is to each parameter</p></li>
+</ol>
+<p>OAT tells us the <strong>direction</strong> and <strong>size</strong> of each parameter’s effect around the default. It can’t tell us how parameters <strong>interact</strong>, or how the model responds <strong>between</strong> the minimum and maximum (see the <a class="reference internal" href="01_sensitivity_overview.html"><span class="std std-doc">overview</span></a>).</p>
+<p>We will look at four outputs:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Units</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FATES_GPP</span></code></p></td>
+<td><p>Gross primary production</p></td>
+<td><p>kg C m<sup>-2</sup> s<sup>-1</sup> (we’ll convert to g C m<sup>-2</sup> d<sup>-1</sup>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">EFLX_LH_TOT</span></code></p></td>
+<td><p>Total latent heat flux</p></td>
+<td><p>W m<sup>-2</sup></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FCTR</span></code></p></td>
+<td><p>Canopy transpiration</p></td>
+<td><p>W m<sup>-2</sup></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FSH</span></code></p></td>
+<td><p>Sensible heat flux</p></td>
+<td><p>W m<sup>-2</sup></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FSA</span></code></p></td>
+<td><p>Absorbed solar radiation</p></td>
+<td><p>W m<sup>-2</sup></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="alert alert-warning">
+<strong>Note:</strong> Unlike previous notebooks in this section, we will no longer be using the <code>meristem</code> environment as our kernel. Check (or change) your kernel (see upper right corner, above). It should be either <code>NPL 2025a</code> or <code>NPL 2025b</code>.
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">Line2D</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+
+<span class="n">user</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'USER'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"username is </span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s2">, update to your username if this is not correct"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">VARIABLES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"FATES_GPP"</span><span class="p">,</span> <span class="s2">"FCTR"</span><span class="p">,</span> <span class="s2">"FSH"</span><span class="p">,</span> <span class="s2">"FSA"</span><span class="p">,</span> <span class="s2">"EFLX_LH_TOT"</span><span class="p">,</span> <span class="s2">"FSR"</span><span class="p">]</span>
+<span class="n">YEARS</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="s2">"2014-01-01"</span><span class="p">,</span> <span class="s2">"2015-12-31"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="step-1-load-the-manifest">
+<h2>Step 1: Load the manifest<a class="headerlink" href="#step-1-load-the-manifest" title="Link to this heading">#</a></h2>
+<p>The manifest we wrote at the end of the last notebook has one row per member. For each member it records which parameter was changed and in which direction (from the paramgen key), whether the run finished, and where its output was archived.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">manifest</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/glade/u/home/</span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s2">/oat_manifest.csv"</span><span class="p">)</span>
+<span class="n">manifest</span><span class="p">[[</span><span class="s2">"member"</span><span class="p">,</span> <span class="s2">"parameter"</span><span class="p">,</span> <span class="s2">"direction"</span><span class="p">,</span> <span class="s2">"run_status"</span><span class="p">,</span> <span class="s2">"run_archive_dir"</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">not_done</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="n">manifest</span><span class="p">[</span><span class="s2">"run_status"</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">"done"</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">not_done</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"All members are done."</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"These members haven't finished; see Step 7 of the previous notebook:"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">not_done</span><span class="p">[[</span><span class="s2">"member"</span><span class="p">,</span> <span class="s2">"run_status"</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If any members are not done, either wait for them to finish, or if they failed, fix any problems and <code class="docutils literal notranslate"><span class="pre">retry</span></code> (see <a class="reference internal" href="03_submit_ensemble.html"><span class="std std-doc">previous notebook</span></a>).</p>
+</section>
+<hr class="docutils" />
+<section id="step-2-load-the-model-output">
+<h2>Step 2: Load the model output<a class="headerlink" href="#step-2-load-the-model-output" title="Link to this heading">#</a></h2>
+<p>The functions below open every monthly h0a file for one run, keeps our variables and years, and converts GPP to more readable units.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">preprocess</span><span class="p">(</span><span class="n">data_set</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Preprocesses an xarray Dataset by subsetting to specific variables"""</span>
+    <span class="k">return</span> <span class="n">data_set</span><span class="p">[</span><span class="n">variables</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">load_run</span><span class="p">(</span><span class="n">archive_dir</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="n">VARIABLES</span><span class="p">,</span> <span class="n">years</span><span class="o">=</span><span class="n">YEARS</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Load one run's monthly averaged (h0a) history output as an xarray Dataset."""</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">archive_dir</span><span class="p">,</span> <span class="s2">"lnd"</span><span class="p">,</span> <span class="s2">"hist"</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.clm2.h0a*.nc"</span><span class="p">))</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">(</span>
+        <span class="n">files</span><span class="p">,</span>
+        <span class="n">preprocess</span><span class="o">=</span><span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">preprocess</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="n">variables</span><span class="p">),</span>
+        <span class="n">combine</span><span class="o">=</span><span class="s2">"by_coords"</span><span class="p">,</span>
+        <span class="n">decode_timedelta</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">years</span><span class="p">)</span>
+
+    <span class="c1"># kg C m-2 s-1 -&gt; g C m-2 d-1</span>
+    <span class="n">ds</span><span class="p">[</span><span class="s2">"FATES_GPP"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"FATES_GPP"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">*</span> <span class="mi">86400</span>
+    <span class="n">ds</span><span class="p">[</span><span class="s2">"FATES_GPP"</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"g C m-2 d-1"</span>
+    <span class="n">ds</span><span class="p">[</span><span class="s2">"FATES_GPP"</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"long_name"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"gross primary production"</span>
+    
+    <span class="k">return</span> <span class="n">ds</span><span class="o">.</span><span class="n">load</span><span class="p">()</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">lndgrid</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Load every member, and stack them along a new <code class="docutils literal notranslate"><span class="pre">member</span></code> dimension. We also attach each member’s <code class="docutils literal notranslate"><span class="pre">parameter</span></code> and <code class="docutils literal notranslate"><span class="pre">direction</span></code>, so we can select members by them later.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ensemble</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">load_run</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">"run_archive_dir"</span><span class="p">]],</span>
+    <span class="n">dim</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">manifest</span><span class="p">[</span><span class="s2">"member"</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">"member"</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">ensemble</span> <span class="o">=</span> <span class="n">ensemble</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span>
+    <span class="n">parameter</span><span class="o">=</span><span class="p">(</span><span class="s2">"member"</span><span class="p">,</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">"parameter"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
+    <span class="n">direction</span><span class="o">=</span><span class="p">(</span><span class="s2">"member"</span><span class="p">,</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">"direction"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">ensemble</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now load the default run:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">default_archive</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"/glade/derecho/scratch/</span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s2">/archive/BONA.FATESsp"</span>
+<span class="n">default</span> <span class="o">=</span> <span class="n">load_run</span><span class="p">(</span><span class="n">default_archive</span><span class="p">)</span>
+<span class="n">default</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-warning">
+  <strong>Important Note:</strong> Remember that these cases (the base case and every OAT member) used <code>CLM_FORCE_COLDSTART=on</code>. So in our first two years (2014-2015), soil moisture and soil temperature are still spinning up. The comparison is still fair, because every member and the default go through the same transient states. Each difference is still caused by its parameter. However, the absolute values for 2014–2015 aren't equilibrium values. Thus, effects that work through soil water, like stomatal conductance under drying soils, may be muted or exaggerated compared with a spun-up run.
+</div><div class="alert alert-info">
+How would you fix this?
+</details>
+</div>
+<div class="alert alert-success">
+<details>
+<summary><font face="Times New Roman" color='blue'>Click here for the solution</font></summary><br>
+Spin the model up first (~60 years for SP mode) and start the OAT members from that restart (<code>finidat= ...</code>; <code>CLM_FORCE_COLDSTART=off</code>).
+</details>
+</div></section>
+<hr class="docutils" />
+<section id="step-3-compare-each-member-to-the-default">
+<h2>Step 3: Compare each member to the default<a class="headerlink" href="#step-3-compare-each-member-to-the-default" title="Link to this heading">#</a></h2>
+<p>Each member changes only one parameter, so any difference from the default run is caused by that parameter. Plot, for each parameter, the default run along with its minimum and maximum members.</p>
+<section id="grab-the-correct-data-arrays">
+<h3>Grab the correct data arrays<a class="headerlink" href="#grab-the-correct-data-arrays" title="Link to this heading">#</a></h3>
+<p>This helper function gives a member name given its parameter and direction:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_member</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Name of the member that set `parameter` to its `direction` ('minimum' or 'maximum')."""</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[(</span><span class="n">manifest</span><span class="p">[</span><span class="s2">"parameter"</span><span class="p">]</span> <span class="o">==</span> <span class="n">parameter</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">manifest</span><span class="p">[</span><span class="s2">"direction"</span><span class="p">]</span> <span class="o">==</span> <span class="n">direction</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">rows</span><span class="p">[</span><span class="s2">"member"</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First we will pick a parameter and variable and pull out the minimum, maximum, and default data arrays for that variable:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="s2">"FATES_GPP"</span>
+<span class="n">param</span> <span class="o">=</span> <span class="s2">"fates_leaf_vcmax25top"</span>
+
+<span class="n">lo</span> <span class="o">=</span> <span class="n">ensemble</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">member</span><span class="o">=</span><span class="n">get_member</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="s2">"minimum"</span><span class="p">))</span>
+<span class="n">hi</span> <span class="o">=</span> <span class="n">ensemble</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">member</span><span class="o">=</span><span class="n">get_member</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="s2">"maximum"</span><span class="p">))</span>
+<span class="n">base</span> <span class="o">=</span> <span class="n">default</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
+
+<span class="n">lo</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-the-time-series">
+<h3>Plot the time series<a class="headerlink" href="#plot-the-time-series" title="Link to this heading">#</a></h3>
+<p>Next we will plot them next to each other:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># the two min/max members, plus the default</span>
+<span class="n">lo</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"minimum"</span><span class="p">)</span>
+<span class="n">hi</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"maximum"</span><span class="p">)</span>
+<span class="n">base</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"default"</span><span class="p">)</span>
+
+<span class="c1"># shaded envelope between min and max</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">base</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:gray"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"min–max range"</span><span class="p">)</span>
+
+<span class="n">units</span> <span class="o">=</span> <span class="n">lo</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"units"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+<span class="n">long_name</span> <span class="o">=</span> <span class="n">lo</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"long_name"</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">long_name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">units</span><span class="si">}</span><span class="s2">)"</span> <span class="k">if</span> <span class="n">units</span> <span class="k">else</span> <span class="n">var</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[[</span><span class="s2">"top"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">]]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"upper right"</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.25</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s turn that code into helper functions so we can explore more parameters and variables:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_time_series</span><span class="p">(</span><span class="n">ensemble</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">manifest</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Plot the minimum, maximum, and default values for a given OAT parameter"""</span>
+
+    <span class="c1"># get the correct data arrays</span>
+    <span class="n">lo</span> <span class="o">=</span> <span class="n">ensemble</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">member</span><span class="o">=</span><span class="n">get_member</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="s2">"minimum"</span><span class="p">))</span>
+    <span class="n">hi</span> <span class="o">=</span> <span class="n">ensemble</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">member</span><span class="o">=</span><span class="n">get_member</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="s2">"maximum"</span><span class="p">))</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="n">default</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># shaded envelope between min and max</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">base</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:gray"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"min–max range"</span><span class="p">)</span>
+    
+    <span class="c1"># the two min/max members, plus the default</span>
+    <span class="n">lo</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"minimum"</span><span class="p">)</span>
+    <span class="n">hi</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"maximum"</span><span class="p">)</span>
+    <span class="n">base</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"default"</span><span class="p">)</span>
+    
+    <span class="n">units</span> <span class="o">=</span> <span class="n">lo</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"units"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+    <span class="n">long_name</span> <span class="o">=</span> <span class="n">lo</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"long_name"</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">long_name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">units</span><span class="si">}</span><span class="s2">)"</span> <span class="k">if</span> <span class="n">units</span> <span class="k">else</span> <span class="n">variable</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[[</span><span class="s2">"top"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">]]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"upper right"</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.25</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will use this helper function to explore parameter sensitivity.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">parameter</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="n">variables</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ensemble</span><span class="o">.</span><span class="n">data_vars</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Available parameters are: </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"--------"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Available variables are: </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="explore">
+<h3>Explore<a class="headerlink" href="#explore" title="Link to this heading">#</a></h3>
+<p>Update the variable and parameter for the below function to explore:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_time_series</span><span class="p">(</span><span class="n">ensemble</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="s1">'FATES_GPP'</span><span class="p">,</span> <span class="s1">'fates_leaf_vcmax25top'</span><span class="p">,</span> <span class="n">manifest</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+<strong>Interpretation exercise 1</strong><br><br>
+<p>Why is FSA almost insensitive to vcmax25top and stomatal_intercept, but sensitive to clumping index?</p>
+<p><em>Hint:</em> FSA is absorbed solar radiation. What kinds of things affect this? Remember that we are in SP (satellite phenology) mode.</p>
+</div>
+<div class="alert alert-success">
+<details>
+<summary><font face="Times New Roman" color='blue'>Click here for the solution</font></summary><br>
+<p>In this configuration of FATES, only clumping index (of the 3 parameters) changes how much radiation the canopy absorbs. In FATES-SP mode, LAI is prescribed, so there is no structural feedback from GPP to absorbed light.</p>
+</details>
+</div><div class="alert alert-info">
+<strong>Interpretation exercise 2</strong><br><br>
+<p>When FCTR goes up, what happens to FSH, and why?</p>
+<p><em>Hint:</em> FCTR = canopy transpiration; FSH = sensible heat flux</p>
+</div>
+<div class="alert alert-success">
+<details>
+<summary><font face="Times New Roman" color='blue'>Click here for the solution</font></summary><br>
+This correlation is due to energy partitioning. When canopy transpiration (and thus latent heat) increases, sensible heat decreases.
+</details>
+</div></section>
+</section>
+<hr class="docutils" />
+<section id="step-4-when-in-the-year-does-each-parameter-matter">
+<h2>Step 4: When in the year does each parameter matter?<a class="headerlink" href="#step-4-when-in-the-year-does-each-parameter-matter" title="Link to this heading">#</a></h2>
+<p>Let’s also take the difference of each member from the default run directly to better investigate <em>where</em> in the seasonal cycle each parameter matters most.</p>
+<p>We can calculate <code>ensemble[var] - default[var]</code> directly because xarray broadcasts across each <code class="docutils literal notranslate"><span class="pre">member</span></code> automatically (the time coordinates all match up). Do this below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="s1">'FATES_GPP'</span>
+<span class="n">diff</span> <span class="o">=</span> <span class="n">ensemble</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">-</span> <span class="n">default</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
+<span class="n">diff</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now calculate monthly climatology with <code class="docutils literal notranslate"><span class="pre">.groupby(&quot;time.month&quot;).mean()</span></code> on that difference:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">climo</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"time.month"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">climo</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s do this calculation across all the variables and plot the output, a helper function for this is below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_seasonal_diff</span><span class="p">(</span><span class="n">ensemble</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">manifest</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+    
+    <span class="n">colors</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">tab10</span><span class="o">.</span><span class="n">colors</span><span class="p">))</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"constrained"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">flat</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">ensemble</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">-</span> <span class="n">default</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
+        <span class="n">climo</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"time.month"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">climo</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">climo</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">member</span><span class="o">=</span><span class="n">get_member</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="s1">'maximum'</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">param</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">param</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">climo</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">climo</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">member</span><span class="o">=</span><span class="n">get_member</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="s1">'minimum'</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">param</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">)</span>
+    
+        <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="s2">"JFMAMJJASOND"</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Δ </span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">default</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">'units'</span><span class="p">]</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+    
+    <span class="n">handles</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+    <span class="n">handles</span> <span class="o">+=</span> <span class="p">[</span><span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"-"</span><span class="p">),</span> <span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">)]</span>
+    <span class="n">labels</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">"maximum"</span><span class="p">,</span> <span class="s2">"minimum"</span><span class="p">]</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"outside right center"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_seasonal_diff</span><span class="p">(</span><span class="n">ensemble</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">manifest</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+<strong>Interpretation exercise 3</strong><br><br>
+<p>In which months does each parameter change GPP and FCTR? How might only looking at an annual mean (see below) understate these effects at a boreal site?</p>
+</div>
+<div class="alert alert-success">
+<details>
+<summary><font face="Times New Roman" color='blue'>Click here for the solution</font></summary><br>
+<p><strong>When do the parameters matter?</strong> Almost all of the differences happen between April and October. From November to March the canopy is mostly inactive and the site is snow-covered, so changing a photosynthesis or stomatal parameter has a much lower effect. The differences grow in May, peak in June–July, and fade by October.</p>
+<ul>
+<li><strong>GPP and FCTR</strong> respond most to <code>fates_leaf_vcmax25top</code>.
+<li><strong>FSA</strong> responds mostly to <code>fates_rad_leaf_clumping_index</code>. In summer, a less-clumped canopy (maximum value) puts more of the light onto leaves, which reflect more than the dark ground below, so the surface absorbs less. In spring, the FSA differences for all parameters come from changes in snow cover and melt timing.
+</ul>
+<p><strong>Why does an annual mean understate these effects?</strong> At a boreal site like BONA, about half the year contributes much less to the difference. Averaging those near-zero months with the growing season dilutes the signal. A parameter that changes summer canopy transpiration may change mean annual transpiration by much less. Always check <em>when</em> a parameter matters, not just how much it matters on average.</p>
+<p><em>Note:</em> each month here is an average of only two years, so treat single-month spikes (especially in spring) with caution.</p>
+</details>
+</div></section>
+<section id="step-5-look-at-sensitivity-of-annual-variables">
+<h2>Step 5. Look at sensitivity of annual variables<a class="headerlink" href="#step-5-look-at-sensitivity-of-annual-variables" title="Link to this heading">#</a></h2>
+<p>Next we will calculate annual sums or means of our variables and investigate parameter sensitivity of annual metrics.</p>
+<p>Below is a helper function for calculating annual means and sums.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">annual_metric</span><span class="p">(</span><span class="n">data_array</span><span class="p">,</span> <span class="n">how</span><span class="p">,</span> <span class="n">conversion_factor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Calculates annual mean or sum of an input DataArray, applies a </span>
+<span class="sd">    conversion factor if supplied</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">conversion_factor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data_array</span> <span class="o">=</span> <span class="n">data_array</span> <span class="o">*</span> <span class="n">conversion_factor</span>
+
+    <span class="n">months</span> <span class="o">=</span> <span class="n">data_array</span><span class="p">[</span><span class="s2">"time.daysinmonth"</span><span class="p">]</span>
+    <span class="n">annual_sum</span> <span class="o">=</span> <span class="p">(</span><span class="n">months</span> <span class="o">*</span> <span class="n">data_array</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"time.year"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="n">data_array</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">how</span> <span class="o">==</span> <span class="s1">'mean'</span><span class="p">:</span>
+        <span class="n">annual_mean</span> <span class="o">=</span> <span class="n">annual_sum</span> <span class="o">/</span> <span class="mf">365.0</span>
+        <span class="n">annual_mean</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span>
+        <span class="k">return</span> <span class="n">annual_mean</span>
+    <span class="k">elif</span> <span class="n">how</span> <span class="o">==</span> <span class="s1">'sum'</span><span class="p">:</span>
+        <span class="n">annual_sum</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"d"</span><span class="p">,</span> <span class="s2">"yr"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">annual_sum</span>
+        
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"`how` must be 'mean' or 'sum', not </span><span class="si">{</span><span class="n">how</span><span class="si">}</span><span class="s2">"</span>
+    <span class="p">)</span>
+
+
+<span class="n">variable_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'FATES_GPP'</span><span class="p">:</span> <span class="s1">'sum'</span><span class="p">,</span>
+    <span class="s1">'FCTR'</span><span class="p">:</span> <span class="s1">'mean'</span><span class="p">,</span>
+    <span class="s1">'FSH'</span><span class="p">:</span> <span class="s1">'mean'</span><span class="p">,</span>
+    <span class="s1">'FSA'</span><span class="p">:</span> <span class="s1">'mean'</span><span class="p">,</span>
+    <span class="s1">'EFLX_LH_TOT'</span><span class="p">:</span> <span class="s1">'mean'</span><span class="p">,</span>
+    <span class="s1">'SNOW_DEPTH'</span><span class="p">:</span> <span class="s1">'mean'</span><span class="p">,</span>
+    <span class="s1">'FSR'</span><span class="p">:</span> <span class="s1">'mean'</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="dot-plots">
+<h3>Dot plots<a class="headerlink" href="#dot-plots" title="Link to this heading">#</a></h3>
+<p>First let’s look at one variable and for every parameter plot the value at the minimum, maximum, and default:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">variable</span> <span class="o">=</span> <span class="s1">'FATES_GPP'</span>
+<span class="n">ann_var</span> <span class="o">=</span> <span class="n">annual_metric</span><span class="p">(</span><span class="n">ensemble</span><span class="p">[</span><span class="n">variable</span><span class="p">],</span> <span class="n">variable_dict</span><span class="p">[</span><span class="n">variable</span><span class="p">])</span>
+<span class="n">ann_default</span> <span class="o">=</span> <span class="n">annual_metric</span><span class="p">(</span><span class="n">default</span><span class="p">[</span><span class="n">variable</span><span class="p">],</span> <span class="n">variable_dict</span><span class="p">[</span><span class="n">variable</span><span class="p">])</span>
+
+<span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+    <span class="n">param_values</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">param_values</span><span class="p">[</span><span class="s1">'low'</span><span class="p">]</span> <span class="o">=</span> <span class="n">ann_var</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">member</span><span class="o">=</span><span class="n">get_member</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="s2">"minimum"</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">'year'</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">param_values</span><span class="p">[</span><span class="s1">'high'</span><span class="p">]</span> <span class="o">=</span> <span class="n">ann_var</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">member</span><span class="o">=</span><span class="n">get_member</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="s2">"maximum"</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">'year'</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">param_values</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">parameter</span><span class="p">]))</span>
+<span class="n">var_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">)</span>
+
+
+<span class="n">var_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can plot these minimum, maximum, and default:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># sort by difference</span>
+<span class="n">var_df</span><span class="p">[</span><span class="s1">'diff'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">var_df</span><span class="p">[</span><span class="s1">'high'</span><span class="p">]</span> <span class="o">-</span> <span class="n">var_df</span><span class="p">[</span><span class="s1">'low'</span><span class="p">])</span>
+<span class="n">var_df</span> <span class="o">=</span> <span class="n">var_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">'diff'</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">var_df</span><span class="p">))</span>
+
+<span class="c1"># plot default down the middle</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">ann_default</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">'year'</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+           <span class="n">label</span><span class="o">=</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'dashed'</span><span class="p">)</span>
+
+<span class="c1"># plot min, max, and line in between</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">var_df</span><span class="p">[</span><span class="s2">"low"</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:blue"</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"minimum"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">var_df</span><span class="p">[</span><span class="s2">"high"</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:red"</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"maximum"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">var_df</span><span class="p">[</span><span class="s2">"low"</span><span class="p">],</span> <span class="n">var_df</span><span class="p">[</span><span class="s2">"high"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">var_df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">units</span> <span class="o">=</span> <span class="n">ann_var</span><span class="o">.</span><span class="n">units</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">variable</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">units</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[[</span><span class="s2">"top"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">]]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"center left"</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+<strong>Interpretation exercise 4</strong><br><br>
+<p>Which parameter matters most for annual GPP? Is the response symmetric around the default?</p>
+<p><em>Hint:</em> Compare how far the minimum and maximum points sit from the default line. Then compare that to how far each parameter’s minimum and maximum <em>values</em> are from its default (see <code>main.csv</code>, <code>fates_leaf_vcmax25top.csv</code>, and the default parameter file). Look closely at the <code>fates_leaf_stomatal_intercept</code> minimum.</p>
+</div>
+<div class="alert alert-success">
+<details>
+<summary><font face="Times New Roman" color='blue'>Click here for the solution</font></summary><br>
+<p><code>fates_leaf_vcmax25top</code> dominates. The other two parameters change annual GPP by only a small amount.<br><br></p>
+<p>The vcmax response is <strong>not symmetric</strong>, and the asymmetry is the opposite of what the parameter range would suggest. For the dominant PFT at BONA (needleleaf evergreen tree), the default vcmax25top is 62 μmol m<sup>-2</sup> s<sup>-1</sup> and the OAT range is ~22–129, so the maximum is <em>further</em> from the default than the minimum. Even so, the minimum changes GPP more.</p>
+<p><code>fates_leaf_stomatal_intercept</code> is asymmetric for a different reason: its minimum (10000)
+<em>is</em> the default for every PFT that grows at BONA, so the “minimum” member is identical to the default run. When an OAT range isn’t centered on the default, always check where the default sits.<br><br></p>
+</details>
+</div></section>
+<section id="plotting-a-heatmap">
+<h3>Plotting a heatmap<a class="headerlink" href="#plotting-a-heatmap" title="Link to this heading">#</a></h3>
+<p>Next we will loop through each variable and parameter and calculate parameter sensitivity for as: <code class="docutils literal notranslate"><span class="pre">abs(hi_value</span> <span class="pre">-</span> <span class="pre">lo_value)/default</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
+    
+    <span class="c1"># calculate annual metric</span>
+    <span class="n">ann_var</span> <span class="o">=</span> <span class="n">annual_metric</span><span class="p">(</span><span class="n">ensemble</span><span class="p">[</span><span class="n">variable</span><span class="p">],</span> <span class="n">variable_dict</span><span class="p">[</span><span class="n">variable</span><span class="p">])</span>
+    <span class="n">ann_default</span> <span class="o">=</span> <span class="n">annual_metric</span><span class="p">(</span><span class="n">default</span><span class="p">[</span><span class="n">variable</span><span class="p">],</span> <span class="n">variable_dict</span><span class="p">[</span><span class="n">variable</span><span class="p">])</span>
+    
+    <span class="n">sensitivity</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+        <span class="n">annual_lo</span> <span class="o">=</span> <span class="n">ann_var</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">member</span><span class="o">=</span><span class="n">get_member</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="s2">"minimum"</span><span class="p">))</span>
+        <span class="n">annual_hi</span> <span class="o">=</span> <span class="n">ann_var</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">member</span><span class="o">=</span><span class="n">get_member</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="s2">"maximum"</span><span class="p">))</span>
+        <span class="n">sensitivity</span><span class="p">[</span><span class="n">parameter</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">annual_hi</span> <span class="o">-</span> <span class="n">annual_lo</span><span class="p">)</span><span class="o">/</span><span class="n">ann_default</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">'year'</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sensitivity</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">variable</span><span class="p">]))</span>
+    
+<span class="n">sens_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">)</span>
+
+<span class="n">sens_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can then plot a heatmap of these sensitivity values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+    <span class="n">sens_df</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> 
+    <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"viridis"</span><span class="p">,</span> 
+    <span class="n">cbar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">'label'</span><span class="p">:</span> <span class="s1">'Sensitivity Index'</span><span class="p">},</span>
+    <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="step-6-response-vs-parameter-value">
+<h2>Step 6: Response vs. parameter value<a class="headerlink" href="#step-6-response-vs-parameter-value" title="Link to this heading">#</a></h2>
+<p>So far we have plotted which member changed what. Now let’s plot model output against the actual <strong>value</strong> of each parameter. With OAT we have three points per parameter: minimum, default, and maximum.</p>
+<p>The minimum, maximum, and default values come from the same files we used to build the ensemble in <a class="reference internal" href="02_create_param_ensembles.html"><span class="std std-doc">the parameter ensemble creation notebook</span></a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meristem_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/glade/u/home/</span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s2">/code/meristem"</span><span class="p">)</span>
+<span class="n">fates_example_dir</span> <span class="o">=</span> <span class="n">meristem_dir</span> <span class="o">/</span> <span class="s2">"examples/paramgen/fates_example"</span>
+<span class="n">param_dir</span> <span class="o">=</span> <span class="n">fates_example_dir</span> <span class="o">/</span> <span class="s2">"fates_param_dir"</span>
+
+<span class="n">main_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">param_dir</span> <span class="o">/</span> <span class="s2">"main.csv"</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fates_example_dir</span> <span class="o">/</span> <span class="s2">"default_fates_param.json"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">default_params</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="s2">"parameters"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The below helper function lets us read in the parameter values for the minimum, maximum, and default members:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_param_values</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">pft</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return (minimum, default, maximum) of `parameter` for one PFT (1-based index)."""</span>
+
+    <span class="c1"># default value; vcmax25top has an extra leaf-age dimension, so index the last axis</span>
+    <span class="n">default_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">default_params</span><span class="p">[</span><span class="n">parameter</span><span class="p">][</span><span class="s2">"data"</span><span class="p">])[</span><span class="o">...</span><span class="p">,</span> <span class="n">pft</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="n">param_min</span> <span class="o">=</span> <span class="n">main_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">parameter</span><span class="p">,</span> <span class="s2">"param_min"</span><span class="p">]</span>
+    <span class="n">param_max</span> <span class="o">=</span> <span class="n">main_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">parameter</span><span class="p">,</span> <span class="s2">"param_max"</span><span class="p">]</span>
+
+    <span class="c1"># PFT-specific ranges live in their own csv file</span>
+    <span class="k">if</span> <span class="n">param_min</span> <span class="o">==</span> <span class="s2">"pft"</span><span class="p">:</span>
+        <span class="n">pft_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">param_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">parameter</span><span class="si">}</span><span class="s2">.csv"</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8-sig"</span><span class="p">)</span>
+        <span class="n">param_min</span> <span class="o">=</span> <span class="n">pft_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pft</span><span class="p">,</span> <span class="s2">"param_min"</span><span class="p">]</span>
+        <span class="n">param_max</span> <span class="o">=</span> <span class="n">pft_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pft</span><span class="p">,</span> <span class="s2">"param_max"</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">param_min</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">default_value</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">param_max</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Total GPP at BONA comes from several PFTs, and each PFT has its own default and range for some parameters (i.e. <code class="docutils literal notranslate"><span class="pre">fates_leaf_vcmax25top</span></code>). To see how GPP responds to a parameter’s <em>value</em>, we can look at each PFT’s GPP against <strong>that PFT’s own</strong> parameter value.</p>
+<p>FATES writes PFT-level GPP to <code class="docutils literal notranslate"><span class="pre">FATES_GPP_PF</span></code>. Let’s load it for every member and the default run:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_gpp_pf</span><span class="p">(</span><span class="n">archive_dir</span><span class="p">,</span> <span class="n">years</span><span class="o">=</span><span class="n">YEARS</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Load one run's monthly PFT-level GPP (FATES_GPP_PF) in g C m-2 d-1."""</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">archive_dir</span><span class="p">,</span> <span class="s2">"lnd"</span><span class="p">,</span> <span class="s2">"hist"</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.clm2.h0a*.nc"</span><span class="p">))</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">(</span>
+        <span class="n">files</span><span class="p">,</span>
+        <span class="n">preprocess</span><span class="o">=</span><span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">preprocess</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"FATES_GPP_PF"</span><span class="p">]),</span>
+        <span class="n">combine</span><span class="o">=</span><span class="s2">"by_coords"</span><span class="p">,</span>
+        <span class="n">decode_timedelta</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">gpp_pf</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"FATES_GPP_PF"</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">years</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">()</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">lndgrid</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># kg C m-2 s-1 -&gt; g C m-2 d-1</span>
+    <span class="n">gpp_pf</span> <span class="o">=</span> <span class="n">gpp_pf</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">*</span> <span class="mi">86400</span>
+    <span class="n">gpp_pf</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"g C m-2 d-1"</span>
+
+    <span class="c1"># label PFTs 1, 2, ... to match the parameter files</span>
+    <span class="k">return</span> <span class="n">gpp_pf</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span><span class="n">fates_levpft</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">gpp_pf</span><span class="o">.</span><span class="n">sizes</span><span class="p">[</span><span class="s2">"fates_levpft"</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+
+<span class="n">ensemble_gpp_pf</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">load_gpp_pf</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">"run_archive_dir"</span><span class="p">]],</span>
+    <span class="n">dim</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">manifest</span><span class="p">[</span><span class="s2">"member"</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">"member"</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">default_gpp_pf</span> <span class="o">=</span> <span class="n">load_gpp_pf</span><span class="p">(</span><span class="n">default_archive</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Which PFTs actually grow at BONA? Calculate each PFT’s annual GPP in the default run:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pft_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">param_dir</span> <span class="o">/</span> <span class="s2">"fates_leaf_vcmax25top.csv"</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8-sig"</span><span class="p">)[</span><span class="s2">"pft_name"</span><span class="p">]</span>
+
+<span class="n">ann_default_pf</span> <span class="o">=</span> <span class="n">annual_metric</span><span class="p">(</span><span class="n">default_gpp_pf</span><span class="p">,</span> <span class="s2">"sum"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s2">"year"</span><span class="p">)</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span>
+<span class="n">ann_default_pf</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pft_names</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ann_default_pf</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="o">+</span> <span class="s2">" ("</span> <span class="o">+</span> <span class="n">ann_default_pf</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">")"</span>
+<span class="n">ann_default_pf</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>At BONA we see that there are 4 PFTS: needleleaf evergreen trees, arctic C3 grasses, deciduous arctic shrubs, and deciduous extratropical shrubs.</p>
+<p>We will subset to just these PFTs:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ann_pf</span> <span class="o">=</span> <span class="n">annual_metric</span><span class="p">(</span><span class="n">default_gpp_pf</span><span class="p">,</span> <span class="s2">"sum"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s2">"year"</span><span class="p">)</span>
+<span class="n">active_pfts</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ann_pf</span><span class="o">.</span><span class="n">fates_levpft</span> <span class="k">if</span> <span class="n">ann_pf</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">fates_levpft</span><span class="o">=</span><span class="n">p</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="o">*</span> <span class="n">ann_pf</span><span class="o">.</span><span class="n">sum</span><span class="p">()]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now plot each PFT’s annual GPP against its own parameter value. The dotted lines connect the minimum and maximum members directly: this is what you would assume if the response were linear.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_gpp_pf_response</span><span class="p">(</span><span class="n">ensemble_gpp_pf</span><span class="p">,</span> <span class="n">default_gpp_pf</span><span class="p">,</span> <span class="n">manifest</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">pfts</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Plot annual PFT-level GPP vs. each PFT's own parameter value (min, default, max)."""</span>
+
+    <span class="n">ann_members</span> <span class="o">=</span> <span class="n">annual_metric</span><span class="p">(</span><span class="n">ensemble_gpp_pf</span><span class="p">,</span> <span class="s2">"sum"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s2">"year"</span><span class="p">)</span>
+    <span class="n">ann_default</span> <span class="o">=</span> <span class="n">annual_metric</span><span class="p">(</span><span class="n">default_gpp_pf</span><span class="p">,</span> <span class="s2">"sum"</span><span class="p">)</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="n">ann_default</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span>
+    <span class="n">ann_default</span> <span class="o">=</span> <span class="n">ann_default</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s2">"year"</span><span class="p">)</span>
+
+    <span class="n">colors</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">pfts</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">tab10</span><span class="o">.</span><span class="n">colors</span><span class="p">))</span>
+    <span class="n">markers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"minimum"</span><span class="p">:</span> <span class="s2">"v"</span><span class="p">,</span> <span class="s2">"default"</span><span class="p">:</span> <span class="s2">"o"</span><span class="p">,</span> <span class="s2">"maximum"</span><span class="p">:</span> <span class="s2">"^"</span><span class="p">}</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.5</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">),</span> <span class="mi">4</span><span class="p">),</span>
+                             <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"constrained"</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+        <span class="n">lo</span> <span class="o">=</span> <span class="n">ann_members</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">member</span><span class="o">=</span><span class="n">get_member</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="s2">"minimum"</span><span class="p">))</span>
+        <span class="n">hi</span> <span class="o">=</span> <span class="n">ann_members</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">member</span><span class="o">=</span><span class="n">get_member</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="s2">"maximum"</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">pft</span> <span class="ow">in</span> <span class="n">pfts</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">get_param_values</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">pft</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">fates_levpft</span><span class="o">=</span><span class="n">pft</span><span class="p">))</span> <span class="k">for</span> <span class="n">da</span> <span class="ow">in</span> <span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">ann_default</span><span class="p">,</span> <span class="n">hi</span><span class="p">)]</span>
+
+            <span class="c1"># straight line from minimum to maximum</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">pft</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s2">":"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+            <span class="c1"># the three OAT points, connected in order of parameter value</span>
+            <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="n">order</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)[</span><span class="n">order</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">pft</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">direction</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">markers</span><span class="p">):</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">pft</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="n">markers</span><span class="p">[</span><span class="n">direction</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"parameter value (PFT-specific)"</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[[</span><span class="s2">"top"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">]]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">"PFT GPP (</span><span class="si">{</span><span class="n">units</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+
+    <span class="c1"># legend: colors for PFTs, marker shapes for members</span>
+    <span class="n">handles</span> <span class="o">=</span> <span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">pft_names</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pfts</span><span class="p">]</span>
+    <span class="n">handles</span> <span class="o">+=</span> <span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">markers</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+    <span class="n">handles</span> <span class="o">+=</span> <span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">":"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"straight line (min to max)"</span><span class="p">)]</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">handles</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"outside right center"</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_gpp_pf_response</span><span class="p">(</span><span class="n">ensemble_gpp_pf</span><span class="p">,</span> <span class="n">default_gpp_pf</span><span class="p">,</span> <span class="n">manifest</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">active_pfts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+<strong>Interpretation exercise 5</strong><br><br>
+<p>Suppose you only had the minimum and maximum runs for <code>fates_leaf_vcmax25top</code> and assumed GPP changes linearly between them. For each PFT, would you over- or underestimate GPP at the default value? What does that tell you about the shape of the response?</p>
+</div>
+<div class="alert alert-success">
+<details>
+<summary><font face="Times New Roman" color='blue'>Click here for the solution</font></summary><br>
+<p>For almost every PFT the default point sits <strong>above</strong> the dotted line, so a linear assumption underestimates GPP at the default.<br><br></p>
+<p>Three points are enough to show that the response <em>bends</em>, but not <em>where</em> or <em>how sharply</em>.</p>
+</details>
+</div></section>
+<section id="step-7-compare-to-observations">
+<h2>Step 7: Compare to observations:<a class="headerlink" href="#step-7-compare-to-observations" title="Link to this heading">#</a></h2>
+<p>So far we have only compared ensemble members to each other or to the default. It can also be useful to compare to observations, especially in the context of potential parameter calibration exercises.</p>
+<p>We have access to eddy covariance flux data from BONA’s towers, we will look at observations from 2018-2019.</p>
+<details>
+<summary>How the observation files were downloaded</summary>
+The files come from NEON's public bucket. To download them yourself:
+<br><br>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlretrieve</span>
+<span class="n">base_url</span> <span class="o">=</span> <span class="s2">"https://storage.neonscience.org/neon-ncar/NEON/eval_files/v4/BONA"</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">2019</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">):</span>
+        <span class="n">file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"BONA_eval_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">month</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">.nc"</span>
+        <span class="n">urlretrieve</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">OBS_DIR</span> <span class="o">/</span> <span class="n">file_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</details><div class="alert alert-warning">
+  <strong>Important Note:</strong> From our base case (<code>BONA.FATESsp</code>), we can see that the DATM data used to force this case runs from 2018 to 2021 (check out <code>DATM_YR_START</code>, <code>DATM_YR_END</code>, and <code>DATM_YR_ALIGN</code>) in any of the cases. The model cycles through those 4 years, so model year 2014, uses year 2018 meteorology and 2015 uses 2019. Thus, the model dates in our output files don't actually match the real dates. To compare with tower data, we must line up model 2014–2015 with observations from 2018–2019.
+</div><section id="load-the-observational-data">
+<h3>Load the observational data<a class="headerlink" href="#load-the-observational-data" title="Link to this heading">#</a></h3>
+<p>Load the observational data from BONA:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">OBS_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"/glade/campaign/cgd/tss/tutorials/neon_v3/eval_files/BONA"</span><span class="p">)</span>
+
+<span class="c1"># observation variable to model variable to compare it with</span>
+<span class="n">OBS_VARIABLES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"GPP_DT"</span><span class="p">:</span> <span class="s2">"FATES_GPP"</span><span class="p">,</span> <span class="s2">"EFLX_LH_TOT"</span><span class="p">:</span> <span class="s2">"EFLX_LH_TOT"</span><span class="p">,</span> <span class="s2">"FSH"</span><span class="p">:</span> <span class="s2">"FSH"</span><span class="p">}</span>
+
+<span class="c1"># umol CO2 m-2 s-1 -&gt; g C m-2 d-1</span>
+<span class="n">UMOL_CO2_TO_G_C_PER_DAY</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="o">*</span> <span class="mf">12.011</span> <span class="o">*</span> <span class="mi">86400</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">load_neon_obs</span><span class="p">(</span><span class="n">model_time</span><span class="p">,</span> <span class="n">obs_dir</span><span class="o">=</span><span class="n">OBS_DIR</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="n">OBS_VARIABLES</span><span class="p">,</span> <span class="n">neon_site</span><span class="o">=</span><span class="s1">'BONA'</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Load half-hourly NEON flux observations, average them to monthly means,</span>
+<span class="sd">    and put them on the model's time axis."""</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">obs_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">neon_site</span><span class="si">}</span><span class="s2">_eval_*.nc"</span><span class="p">))</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">combine</span><span class="o">=</span><span class="s2">"by_coords"</span><span class="p">)[</span><span class="nb">list</span><span class="p">(</span><span class="n">variables</span><span class="p">)]</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">()</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="s1">'2018-01-01'</span><span class="p">,</span> <span class="s1">'2019-12-31'</span><span class="p">))</span>
+
+    <span class="n">monthly</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s2">"1MS"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">monthly</span><span class="p">[</span><span class="s2">"GPP_DT"</span><span class="p">]</span> <span class="o">=</span> <span class="n">monthly</span><span class="p">[</span><span class="s2">"GPP_DT"</span><span class="p">]</span> <span class="o">*</span> <span class="n">UMOL_CO2_TO_G_C_PER_DAY</span>
+    <span class="n">monthly</span><span class="p">[</span><span class="s2">"GPP_DT"</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"g C m-2 d-1"</span>
+
+    <span class="n">monthly</span> <span class="o">=</span> <span class="n">monthly</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span>
+
+    <span class="c1"># model year 2014 used 2018 meteorology (DATM_YR_ALIGN), so line up month by month</span>
+    <span class="k">if</span> <span class="n">monthly</span><span class="o">.</span><span class="n">sizes</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span> <span class="o">!=</span> <span class="n">model_time</span><span class="o">.</span><span class="n">sizes</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"observations and model have a different number of months"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">monthly</span><span class="p">[</span><span class="s2">"time.month"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="n">model_time</span><span class="p">[</span><span class="s2">"time.month"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"observation and model months don't line up"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">monthly</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">model_time</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">compare_vars</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">OBS_VARIABLES</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="n">obs</span> <span class="o">=</span> <span class="n">load_neon_obs</span><span class="p">(</span><span class="n">default</span><span class="p">[</span><span class="s2">"time"</span><span class="p">])</span>
+<span class="n">obs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can compare the BONA tower observations with the FATES output</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_obs_comparison</span><span class="p">(</span><span class="n">ensemble</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Plot the ensemble min–max range, the default run, and observations for each variable."""</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">variables</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">variables</span><span class="p">)),</span>
+                             <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"constrained"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">variable</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">axes</span><span class="p">),</span> <span class="n">variables</span><span class="p">):</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">default</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="c1"># range across ALL members (every parameter, both directions)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">ensemble</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="s2">"member"</span><span class="p">),</span> <span class="n">ensemble</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="s2">"member"</span><span class="p">),</span>
+                        <span class="n">color</span><span class="o">=</span><span class="s2">"tab:gray"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"ensemble range"</span><span class="p">)</span>
+        
+        <span class="n">default</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"default"</span><span class="p">)</span>
+        <span class="n">obs</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:orange"</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"NEON observations"</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">default</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"units"</span><span class="p">,</span> <span class="s2">""</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[[</span><span class="s2">"top"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">]]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">axes</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"upper left"</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.01</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_obs_comparison</span><span class="p">(</span><span class="n">ensemble</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">compare_vars</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The shaded range tells us whether any member reaches the observations. Let’s compare each ensemble member:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_obs_comparison_by_member</span><span class="p">(</span><span class="n">ensemble</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Plot the ensemble min and max, the default run, and observations for each variable."""</span>
+
+    <span class="n">colors</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">tab10</span><span class="o">.</span><span class="n">colors</span><span class="p">))</span>
+    
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">variables</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">variables</span><span class="p">)),</span>
+                             <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"constrained"</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">variable</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">axes</span><span class="p">),</span> <span class="n">variables</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+            <span class="n">lo</span> <span class="o">=</span> <span class="n">ensemble</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">member</span><span class="o">=</span><span class="n">get_member</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="s2">"minimum"</span><span class="p">))</span>
+            <span class="n">hi</span> <span class="o">=</span> <span class="n">ensemble</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">member</span><span class="o">=</span><span class="n">get_member</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="s2">"maximum"</span><span class="p">))</span>
+            <span class="n">lo</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">param</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">)</span>
+            <span class="n">hi</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">param</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">param</span><span class="p">)</span>
+        
+        <span class="n">default</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"default"</span><span class="p">)</span>
+        <span class="n">obs</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>
+                           <span class="n">markeredgecolor</span><span class="o">=</span><span class="s1">'white'</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+                           <span class="n">label</span><span class="o">=</span><span class="s2">"NEON observations"</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">default</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"units"</span><span class="p">,</span> <span class="s2">""</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[[</span><span class="s2">"top"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">]]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">handles</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">axes</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+    <span class="n">handles</span> <span class="o">+=</span> <span class="p">[</span><span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"-"</span><span class="p">),</span> <span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">)]</span>
+    <span class="n">labels</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">"maximum"</span><span class="p">,</span> <span class="s2">"minimum"</span><span class="p">]</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"outside right center"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_obs_comparison_by_member</span><span class="p">(</span><span class="n">ensemble</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">compare_vars</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+<strong>Interpretation exercise 6</strong><br><br>
+<ol>
+<li>Do the observations fall inside the ensemble range? In which months and for which variables do they
+not?</li>
+<li>Which parameter, changed in which direction, moves the model closest to the observed summer GPP? Does that
+same change improve latent and sensible heat?</li>
+</ol>
+</div><div class="alert alert-success">
+<details>
+<summary><font face="Times New Roman" color='blue'>Click here for the solution</font></summary><br>
+<ol>
+<li><strong>Mostly no.</strong> In midsummer, observed GPP is near the <em>bottom</em> of the range, observed
+latent heat is <em>below</em> it, and observed sensible heat is well <em>above</em> it. The default run
+produces about too much summer GPP, and too much latent heat, and not enough sensible heat.</li><br>
+<li><strong>Lowering <code>fates_leaf_vcmax25top</code></strong> brings summer GPP close to the observations. It also moves latent and sensible heat in the right direction, but not far enough.
+</details>
+</div></section>
+</section>
+<section id="wrap-up">
+<h2>Wrap up<a class="headerlink" href="#wrap-up" title="Link to this heading">#</a></h2>
+<p>You now know how to use the meristem package to perform a parameter sensitivity experiment. You can use this tool to investigate any parameter’s influence on any process. There are several directions you might want to go next depending on your research project.</p>
+<ul class="simple">
+<li><p>You might test whether a parameter’s response is non-linear by running additional settings beyond the minimum and maximum, or using the Morris sampling method (a built in option in the <code class="docutils literal notranslate"><span class="pre">meristem</span></code> package).</p></li>
+<li><p>You can investigate parameter interactions by modifying multiple parameters at the same time, or running a Sobol sensitivity experiment.</p></li>
+<li><p>Once you understand which parameters are most influential on the processes you are interested in, you can select a subset to calibrate.</p></li>
+</ul>
+<p>To use an emulator-based calibration method, the next step will be to run a Latin Hypercube sample.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">meristem</span></code> has an option to use a Latin Hypercube sampling design.</p></li>
+<li><p>A rule of thumb for training an emulator is to start with 10xN ensemble members where N is the number of parameters.</p></li>
+<li><p>There are many different emulator based calibration methods, we recommend starting with the <a class="reference external" href="https://github.com/duncanwp/ESEm">ESEm package</a>.</p></li>
+</ul>
+<div class="alert alert-info">
+<strong>Challenge exercise</strong><br><br>
+<ol>
+<li>Run another PPE using a Latin Hypercube sampling design with these three parameters. </li>
+<li>For more information, look at the meristem <a href="https://github.com/adrifoster/meristem/blob/main/docs/paramgen.md">docs/paramgen.md</a>.</li>
+</ol>
+</div></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "npl-2025b"
+        },
+        kernelOptions: {
+            name: "npl-2025b",
+            path: "./notebooks/sensitivity"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'npl-2025b'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03_submit_ensemble.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Submit a Parameter Ensemble</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../diagnostics/diagnostics_intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Diagnostics</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-load-the-manifest">Step 1: Load the manifest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-load-the-model-output">Step 2: Load the model output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-compare-each-member-to-the-default">Step 3: Compare each member to the default</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grab-the-correct-data-arrays">Grab the correct data arrays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-time-series">Plot the time series</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore">Explore</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-when-in-the-year-does-each-parameter-matter">Step 4: When in the year does each parameter matter?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-look-at-sensitivity-of-annual-variables">Step 5. Look at sensitivity of annual variables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dot-plots">Dot plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-a-heatmap">Plotting a heatmap</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-response-vs-parameter-value">Step 6: Response vs. parameter value</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-7-compare-to-observations">Step 7: Compare to observations:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-observational-data">Load the observational data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap up</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NCAR/CGD Staff
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1331 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Hillslope Hydrology &#8212; CLM Tutorial</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=6a604523" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script data-sd-tabs-storage-prefix="sphinx-design-tab-id-" src="../../../_static/design-tabs.js?v=fcb327ea"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/diagnostics/hillslope/hillslope_plotting';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="NEON" href="../neon/neon_overview.html" />
+    <link rel="prev" title="Investigating vegetation demographics with FATES" href="../fates/fates_plotting_2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/ncar_logo.png" class="logo__image only-light" alt="CLM Tutorial - Home"/>
+    <img src="../../../_static/ncar_logo.png" class="logo__image only-dark pst-js-only" alt="CLM Tutorial - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../intro/intro_overview.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../intro/components.html">What is CESM ?</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/coupling.html">CIME (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../intro/cesm_webpage.html">CESM Webpage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/project.html">CESM Working Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/getting_involved.html">Getting Involved</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/getting_help.html">Getting Help</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../prereqs/prereqs_overview.html">Prerequisites for Success</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../prereqs/exercises.html">Exercise Overview</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../basics/basics_overview.html">Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../basics/ctsm_workspaces.html">Workspaces</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../basics/code_overview.html">CLM code</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/code/git_download_ctsm.html">Download CLM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/code/ctsm_code_explore.html">Explore CLM Code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../basics/ctsm_workflow.html">CTSM Workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/create_newcase.html">Create New Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/case_setup.html">Case Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/case_build.html">Case Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/case_submit.html">Case Submit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/model_output.html">Model Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/checking_jobs_and_status.html">Checking Your Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/create_clone.html">Create Clone (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../basics/exercises_overview.html">Exercise Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/first_I1850.html">Your first CLM run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/second_I1850.html">Extending your run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/change_compsets.html">Change component set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/examine_history_I1850.html">Examine History Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/extra.html">Explore Further</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/review_questions.html">Review Questions</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modifications/modifications.html">Modifying Your Case</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../modifications/xml/overview.html">XML Modifications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/xml/xml_basics.html">How to Modify XML Files</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/xml/run_length.html">Controlling Run Length</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/starting_and_stopping.html">Starting and Stopping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/restarting.html">Restarting a Run</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/changing_run_length.html">Changing Run Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/timing_files.html">Using Timing Files</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/xml/modify_run_type.html">Modifying the Type of Run</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/modify_run_type/hybrid_branch_restart.html">Hybrid, Branch, and Startup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/modify_run_type/run_variables.html">Variables Related to Run Type</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/xml/other_xml_variables.html">Other Useful XML Variables</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/xml/exercises.html">XML Modification Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/exercises/xml_length_exercise.html">Exercise 1: Modify run length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/exercises/xml_runtype_exercise.html">Exercise 2: Modify run type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/exercises/xml_datm_exercise.html">Exercise 3: Modifying DATM variables</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../modifications/namelist/overview.html">Namelist Modifications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/namelist/documentation.html">Namelist Variable Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/namelist/output.html">Customizing Output</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/namelist/exercises_overview.html">Exercises Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_clm_history_vars.html">Exercise 1: History Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_clm_history_frequency.html">Exercise 2: Modify History Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_fates_complexity.html">Exercise 3: Change a FATES complexity variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_hillslope.html">Exercise 4: Configure a Hillslope Hydrology simulation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../singlepoint/singlepoint_overview.html">Single Point Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../singlepoint/exercises/runtower_NEON.html">Run_tower: NEON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../singlepoint/exercises/runtower_PLUMBER2.html">Run_tower: PLUMBER2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../singlepoint/exercises/FATESsp_NEON.html">FATES Satellite Phenology (FATES-SP) simulations at NEON sites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../singlepoint/exercises/GenericSinglePoint.html">Generic Single Point</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../sensitivity/01_sensitivity_overview.html">Parameter Sensitivity Experiments</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../sensitivity/02_create_param_ensembles.html">Create an Ensemble of Parameter Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sensitivity/03_submit_ensemble.html">Submit a Parameter Ensemble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sensitivity/04_ensemble_analysis.html">Analyze a Parameter Ensemble</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../diagnostics_intro.html">Diagnostics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basics/basic_plotting_clm.html">Plotting basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basics/unstructured_plotting.html">Plotting data from unstructured grids</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../fates/fates_overview.html">FATES</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../fates/fates_plotting_1.html">Investigating Output: CLM and CLM-FATES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fates/fates_plotting_2.html">Investigating vegetation demographics with FATES</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Hillslope Hydrology</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../neon/neon_overview.html">NEON</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../neon/neon_basic_plots.html">NEON: Basic Plotting</a></li>
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../neon/plot_neon_climatology.html">Climatology plots for NEON sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../neon/neon_lh_components.html">NEON Hourly Averages</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../ldf/ldf_basics.html">LDF</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../cupid/cupid_basics.html">CUPiD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cupid/clm_cupid_ldf_ilamb.html">Land</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../additional/additional.html">Additional Topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../additional/postprocessing.html">Postprocessing data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../additional/analysis_tools.html">CESM analysis tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../additional/adf.html">ADF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../additional/uxarray.html">UXarray</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../resources/resources_overview.html">Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../resources/ncar_hpc.html">NCAR Supercomputer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/ncar_hpc_module.html">Modules on NCAR HPC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/tutorial_one_time_setup.html">Tutorial one time setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/tutorial_queue_account.html">Tutorial queue and account</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/terminals.html">Terminal Windows</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../resources/unix.html">UNIX</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/unix-cheatsheet.html">UNIX cheatsheet</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/text_editors.html">Text Editors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/github.html">Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/fortran.html">Fortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/netcdf.html">NetCDF files</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../troubleshooting/troubleshooting.html">Troubleshooting runtime errors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting/log_files.html">The log files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting/debugging_flag.html">Adding debugging info</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/diagnostics/hillslope/hillslope_plotting.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Hillslope Hydrology</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-tutorial-shows-how-to-visualize-hillslope-history-output-from-clm">This tutorial shows how to visualize hillslope history output from CLM.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">1. Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#options-select-from-one-of-the-experiments-below">Options (select from one of the experiments below)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#helper-functions">Helper functions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maps-of-hillslope-columns-gridded-output">2. Maps of hillslope columns (gridded output)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-files-and-set-up-the-map-grid">Find files and set up the map grid</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#select-a-variable">Select a variable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-mean-map-of-each-column-in-one-hillslope-aspect">Time-mean map of each column in one hillslope aspect</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#difference-between-difference-columns-elevations">Difference between difference columns / elevations</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#look-at-the-surface-water-directly">Look at the surface water directly</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-hillslopes-aspects">Compare hillslopes (aspects)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hillslope-columns-vs-gridcell-mean">Hillslope columns vs. gridcell mean</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-series-and-profiles-at-a-point-vector-output">3. Time series and profiles at a point (vector output)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-data-at-one-gridcell">Read data at one gridcell</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soil-moisture-profiles-in-each-column">Soil moisture profiles in each column</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-aspects-at-the-same-point">Compare aspects at the same point</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hillslope-profiles">Hillslope profiles</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-figures-to-a-single-pdf">4. Save figures to a single PDF</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="hillslope-hydrology">
+<h1>Hillslope Hydrology<a class="headerlink" href="#hillslope-hydrology" title="Link to this heading">#</a></h1>
+<section id="this-tutorial-shows-how-to-visualize-hillslope-history-output-from-clm">
+<h2>This tutorial shows how to visualize hillslope history output from CLM.<a class="headerlink" href="#this-tutorial-shows-how-to-visualize-hillslope-history-output-from-clm" title="Link to this heading">#</a></h2>
+<p><strong>BEFORE BEGINNING THIS EXERCISE</strong> -  Check that your kernel (upper right corner, above) is <code class="docutils literal notranslate"><span class="pre">NPL2026a</span></code>. This should be the default kernel, but if it is not, click on that button and select <code class="docutils literal notranslate"><span class="pre">NPL2026a</span></code>.</p>
+<p><strong>Background.</strong> In the hillslope configuration, each naturally vegetated gridcell is split into
+four <strong>hillslope aspects</strong>, i.e., North-, East-, South-, and West-facing slopes. Each hillslope aspect has several user-defined
+<strong>columns</strong>, ordered by elevation along the slope (e.g., column 1 is the lowland column next to the stream).
+Water flows laterally from higher to lower columns, so columns behave differently.
+A brief overview of hillslope postprocessing can be found here: <a class="reference download internal" download="" href="../../../_downloads/1328474ff9e63f0ccb4baa40136c8fd6/vector_hillslope.pdf"><span class="xref download myst">Hillslope Postprocessing</span></a></p>
+<hr class="docutils" />
+<p><strong>What you will do</strong></p>
+<ol class="arabic simple">
+<li><p>Map the columns and aspects of the hillslopes (gridded output)</p></li>
+<li><p>Plot time series and profiles at a single point (vector output)</p></li>
+<li><p>Save all figures to a PDF</p></li>
+</ol>
+<p><strong>What you will learn</strong></p>
+<ol class="arabic simple">
+<li><p>How north- vs. south-facing hillslopes differ for different variables (i.e., the role of aspect)</p></li>
+<li><p>How position along the slope (the elevation-ordered columns) matters</p></li>
+<li><p>How hillslope output compares with the gridcell mean, and why the two differ</p></li>
+<li><p>How to follow soil moisture, snow, water table, etc. over time in each column at a single point</p></li>
+</ol>
+</section>
+<section id="setup">
+<h2>1. Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">netCDF4</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">netcdf4</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.backends.backend_pdf</span><span class="w"> </span><span class="kn">import</span> <span class="n">PdfPages</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.ticker</span><span class="w"> </span><span class="kn">import</span> <span class="n">MaxNLocator</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cartopy.crs</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ccrs</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cartopy.feature</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cfeature</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cartopy.mpl.ticker</span><span class="w"> </span><span class="kn">import</span> <span class="n">LongitudeFormatter</span><span class="p">,</span> <span class="n">LatitudeFormatter</span>
+
+<span class="c1"># Empty (ocean) gridcells give harmless "mean of empty slice" warnings - so ignore these warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="options-select-from-one-of-the-experiments-below">
+<h3>Options (select from one of the experiments below)<a class="headerlink" href="#options-select-from-one-of-the-experiments-below" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data locations (hardcoded - do not change these)</span>
+<span class="n">base_dir</span> <span class="o">=</span> <span class="s1">'/glade/campaign/cgd/tss/tutorials/clm_2026/hillslope/data/'</span>
+
+<span class="c1"># experiment 1: uniform soil thickness for all columns</span>
+<span class="n">grid_dir</span> <span class="o">=</span> <span class="n">base_dir</span> <span class="o">+</span> <span class="s1">'western_US_gridded/'</span>   <span class="c1"># gridded output: one file per column and year</span>
+<span class="n">vec_dir</span>  <span class="o">=</span> <span class="n">base_dir</span> <span class="o">+</span> <span class="s1">'western_US_vector/'</span>    <span class="c1"># vector output: column-level (h1) and gridcell-mean (h0) files</span>
+
+<span class="c1"># experiment 2: Deeper lowland soil thickness</span>
+<span class="c1">#grid_dir = base_dir + 'western_US_gridded_deep_soil_lowland'   # gridded output: one file per column and year</span>
+<span class="c1">#vec_dir  = base_dir + 'western_US_vector_deep_soil_lowland'    # vector output: column-level (h1) and gridcell-mean (h0) files</span>
+
+<span class="c1"># Plot style</span>
+<span class="n">use_contour</span> <span class="o">=</span> <span class="kc">True</span>       <span class="c1"># True: filled contours, False: raster (one box per gridcell)</span>
+<span class="c1">#cmap = 'YlGnBu'          # colormap for mean fields (try 'viridis', 'terrain', ...)</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="s1">'terrain'</span>          <span class="c1"># colormap for mean fields (try 'viridis', 'terrain', ...)</span>
+<span class="n">diff_cmap</span> <span class="o">=</span> <span class="s1">'RdBu'</span>       <span class="c1"># colormap for differences</span>
+
+<span class="c1"># Figure output</span>
+<span class="n">save_figures</span> <span class="o">=</span> <span class="kc">True</span>      <span class="c1"># save each figure as png, and all figures to one pdf at the end</span>
+<span class="n">plot_dir</span> <span class="o">=</span> <span class="s1">'~/hillslope_figures/'</span>
+
+<span class="c1"># Aspects: hillslope index 1-4 in the model output</span>
+<span class="n">aspect_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'North'</span><span class="p">,</span> <span class="s1">'East'</span><span class="p">,</span> <span class="s1">'South'</span><span class="p">,</span> <span class="s1">'West'</span><span class="p">]</span>
+<span class="n">aspect_colors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'North'</span><span class="p">:</span> <span class="s1">'tab:blue'</span><span class="p">,</span> <span class="s1">'East'</span><span class="p">:</span> <span class="s1">'tab:green'</span><span class="p">,</span> <span class="s1">'South'</span><span class="p">:</span> <span class="s1">'tab:orange'</span><span class="p">,</span> <span class="s1">'West'</span><span class="p">:</span> <span class="s1">'tab:red'</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="helper-functions">
+<h3>Helper functions<a class="headerlink" href="#helper-functions" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_history_filenames</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">htag</span><span class="p">,</span> <span class="n">years</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Sorted list of CLM history files, e.g. *clm2.h1a.1990*.nc. years = (first, last)."""</span>
+    <span class="n">year_tags</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">years</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">years</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">years</span> <span class="k">else</span> <span class="p">[</span><span class="s1">''</span><span class="p">]</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">({</span><span class="n">f</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">year_tags</span>
+                    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'*clm2.</span><span class="si">{</span><span class="n">htag</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s1">*.nc'</span><span class="p">))})</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'no </span><span class="si">{</span><span class="n">htag</span><span class="si">}</span><span class="s1"> files found in </span><span class="si">{</span><span class="n">directory</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">files</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_hillslope_dims</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Number of hillslopes and number of columns per hillslope."""</span>
+    <span class="k">with</span> <span class="n">netcdf4</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">ds</span><span class="p">:</span>
+        <span class="n">nhillslope</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="s1">'nhillslope'</span><span class="p">])</span>
+        <span class="n">ncols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="s1">'max_columns_hillslope'</span><span class="p">])</span> <span class="o">//</span> <span class="n">nhillslope</span>
+    <span class="k">return</span> <span class="n">nhillslope</span><span class="p">,</span> <span class="n">ncols</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">read_field</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">varname</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Read the first time slice of a variable; missing values become NaN."""</span>
+    <span class="k">with</span> <span class="n">netcdf4</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">ds</span><span class="p">:</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">filled</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">[</span><span class="n">field</span> <span class="o">&gt;=</span> <span class="mf">1e30</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">return</span> <span class="n">field</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">read_hillslope</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">varname</span><span class="p">,</span> <span class="n">hillslope</span><span class="p">,</span> <span class="n">ncols</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Read all columns of one hillslope (1-based index) from the gridded files.</span>
+<span class="sd">    Returns an array [column, time, lat, lon]."""</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">tag</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'_h</span><span class="si">{</span><span class="n">hillslope</span><span class="si">:</span><span class="s1">02d</span><span class="si">}</span><span class="s1">_c</span><span class="si">{</span><span class="n">c</span><span class="si">:</span><span class="s1">02d</span><span class="si">}</span><span class="s1">'</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">read_field</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">varname</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">f</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">read_weights</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Read column weights [hillslope, column, lat, lon]; missing values become 0."""</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">filled</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">name</span><span class="p">][:],</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">w</span><span class="p">[</span><span class="n">w</span> <span class="o">&gt;=</span> <span class="mf">1e30</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">return</span> <span class="n">w</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Map plotting</span>
+
+<span class="n">PLATE</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_map_axes</span><span class="p">(</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">,</span> <span class="n">figsize</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Figure with nrow x ncol map panels (needs lonw, lat and extent, defined below)."""</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                             <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">'projection'</span><span class="p">:</span> <span class="n">PLATE</span><span class="p">})</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">xticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">lonw</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">/</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span> <span class="n">lonw</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">yticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">lat</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">/</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span> <span class="n">lat</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="p">):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">(</span><span class="n">extent</span><span class="p">,</span> <span class="n">PLATE</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">OCEAN</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">'lightgray'</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>  <span class="c1"># hide data over ocean</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xticks</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">PLATE</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">yticks</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">PLATE</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">LongitudeFormatter</span><span class="p">())</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">LatitudeFormatter</span><span class="p">())</span>
+        <span class="c1"># only label the outer panels</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="p">(</span><span class="n">i</span> <span class="o">//</span> <span class="n">ncol</span> <span class="o">==</span> <span class="n">nrow</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">labelleft</span><span class="o">=</span><span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="n">ncol</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_maps</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">titles</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Draw one field per axes with a shared horizontal colorbar below them."""</span>
+    <span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">titles</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">use_contour</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">lonw</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="s1">'both'</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">PLATE</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">lonw</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
+                                <span class="n">shading</span><span class="o">=</span><span class="s1">'nearest'</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">PLATE</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">axes</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">'horizontal'</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="s1">'both'</span><span class="p">,</span>
+                        <span class="n">shrink</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+    <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">MaxNLocator</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_map_grid</span><span class="p">(</span><span class="n">fields</span><span class="p">,</span> <span class="n">titles</span><span class="p">,</span> <span class="n">suptitle</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">"""Grid of maps sharing one colorbar."""</span>
+    <span class="n">nrow</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span> <span class="o">/</span> <span class="n">ncol</span><span class="p">))</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">make_map_axes</span><span class="p">(</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">,</span> <span class="n">figsize</span><span class="p">)</span>
+    <span class="n">draw_maps</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">titles</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">suptitle</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span>
+
+
+<span class="c1"># ---- colour ranges ----</span>
+<span class="n">fixed_range</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'H2OSNO'</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">160</span><span class="p">),</span> <span class="s1">'ZWT'</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)}</span>   <span class="c1"># (vmin, vmax); other variables use percenitles</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">color_range</span><span class="p">(</span><span class="n">varname</span><span class="p">,</span> <span class="n">field</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">varname</span> <span class="ow">in</span> <span class="n">fixed_range</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">fixed_range</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span>
+    <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">95</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">vmax</span> <span class="o">&lt;=</span> <span class="n">vmin</span><span class="p">:</span>                       <span class="c1"># e.g. a mostly-zero field</span>
+        <span class="n">vmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">field</span><span class="p">),</span> <span class="n">vmin</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">diverging_limit</span><span class="p">(</span><span class="n">diff</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Symmetric limit for difference maps (95th percentile, so outliers don't dominate)."""</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">diff</span><span class="p">),</span> <span class="mi">95</span><span class="p">),</span> <span class="mf">1e-6</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">merge_colormaps</span><span class="p">(</span><span class="n">cname1</span><span class="p">,</span><span class="n">cname2</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">ListedColormap</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="mi">256</span>
+    <span class="n">bottom</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cname1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cname2</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">newcolors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">bottom</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span><span class="p">))),</span>
+        <span class="n">top</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span><span class="p">)))))</span>
+
+    <span class="n">newcmap</span> <span class="o">=</span> <span class="n">ListedColormap</span><span class="p">(</span><span class="n">newcolors</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">newcmap</span>
+
+<span class="c1"># ---- saving ----</span>
+<span class="n">figures</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1"># Make the figures directory if it's not already there</span>
+<span class="n">plot_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">))</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">"figures directory does not exist... creating it now!"</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"figures directory already exists"</span><span class="p">)</span>
+    
+<span class="k">def</span><span class="w"> </span><span class="nf">save_fig</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Save a figure as png and remember it for the pdf at the end."""</span>
+    <span class="k">if</span> <span class="n">save_figures</span><span class="p">:</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">plot_dir</span><span class="si">}</span><span class="s1">/hillslope_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">.png'</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">'tight'</span><span class="p">)</span>
+        <span class="n">figures</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">fig</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="maps-of-hillslope-columns-gridded-output">
+<h2>2. Maps of hillslope columns (gridded output)<a class="headerlink" href="#maps-of-hillslope-columns-gridded-output" title="Link to this heading">#</a></h2>
+<section id="find-files-and-set-up-the-map-grid">
+<h3>Find files and set up the map grid<a class="headerlink" href="#find-files-and-set-up-the-map-grid" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yr1</span><span class="p">,</span> <span class="n">yr2</span> <span class="o">=</span> <span class="mi">1990</span><span class="p">,</span> <span class="mi">1992</span>             <span class="c1"># Data available from 1980 - 2019; feel free to chose any period</span>
+
+<span class="n">grid_h1_files</span> <span class="o">=</span> <span class="n">get_history_filenames</span><span class="p">(</span><span class="n">grid_dir</span><span class="p">,</span> <span class="s1">'h1a'</span><span class="p">,</span> <span class="p">(</span><span class="n">yr1</span><span class="p">,</span> <span class="n">yr2</span><span class="p">))</span>   <span class="c1"># column-level, gridded</span>
+<span class="n">vec_h0_files</span>  <span class="o">=</span> <span class="n">get_history_filenames</span><span class="p">(</span><span class="n">vec_dir</span><span class="p">,</span>  <span class="s1">'h0a'</span><span class="p">,</span> <span class="p">(</span><span class="n">yr1</span><span class="p">,</span> <span class="n">yr2</span><span class="p">))</span>   <span class="c1"># gridcell mean</span>
+
+<span class="n">nhillslope</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="n">get_hillslope_dims</span><span class="p">(</span><span class="n">grid_h1_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># Grid coordinates (convert longitude from 0-360 to -180-180 for plotting)</span>
+<span class="k">with</span> <span class="n">netcdf4</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">grid_h1_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">as</span> <span class="n">ds</span><span class="p">:</span>
+    <span class="n">lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">'lon'</span><span class="p">][:])</span>
+    <span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">'lat'</span><span class="p">][:])</span>
+<span class="n">lonw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">lon</span> <span class="o">&gt;</span> <span class="mi">180</span><span class="p">,</span> <span class="n">lon</span> <span class="o">-</span> <span class="mi">360</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span>
+
+<span class="c1"># Map extent, padded by half a gridcell</span>
+<span class="n">dlon</span><span class="p">,</span> <span class="n">dlat</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">lon</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">lon</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">lat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="n">lonw</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="n">dlon</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">lonw</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="n">dlon</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">lat</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="n">dlat</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">lat</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="n">dlat</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">nhillslope</span><span class="si">}</span><span class="s1"> hillslopes x </span><span class="si">{</span><span class="n">ncols</span><span class="si">}</span><span class="s1"> columns, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">grid_h1_files</span><span class="p">)</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="p">(</span><span class="n">nhillslope</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ncols</span><span class="p">)</span><span class="si">}</span><span class="s1"> files per column'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="select-a-variable">
+<h3>Select a variable<a class="headerlink" href="#select-a-variable" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choose a variable (uncomment one)</span>
+
+<span class="n">varname</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s1">'H2OSNO'</span><span class="p">,</span> <span class="s1">'mm'</span>          <span class="c1"># snow water equivalent</span>
+<span class="c1"># varname, units = 'ZWT', 'm'            # water table depth</span>
+<span class="c1"># varname, units = 'QSOIL', 'mm/s'       # ground evaporation</span>
+<span class="c1"># varname, units = 'FH2OSFC', ''         # fraction of surface water</span>
+<span class="c1"># varname, units = 'hillslope_area', 'm2'</span>
+
+<span class="n">convert_units</span> <span class="o">=</span> <span class="kc">False</span>   <span class="c1"># True will convert mm/s fluxes to mm/month</span>
+
+<span class="c1"># all_cols has dimensions [hillslope, column, time, lat, lon]</span>
+<span class="n">all_cols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">read_hillslope</span><span class="p">(</span><span class="n">grid_h1_files</span><span class="p">,</span> <span class="n">varname</span><span class="p">,</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nhillslope</span><span class="p">)])</span>
+
+<span class="k">if</span> <span class="n">convert_units</span> <span class="ow">and</span> <span class="n">units</span> <span class="o">==</span> <span class="s1">'mm/s'</span><span class="p">:</span>
+    <span class="n">all_cols</span> <span class="o">*=</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">3600</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="s1">'mm/month'</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">all_cols</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>       <span class="c1"># [hillslope, column, time, lat, lon]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="time-mean-map-of-each-column-in-one-hillslope-aspect">
+<h3>Time-mean map of each column in one hillslope aspect<a class="headerlink" href="#time-mean-map-of-each-column-in-one-hillslope-aspect" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aspect</span> <span class="o">=</span> <span class="s1">'North'</span>                         <span class="c1"># 'North', 'East', 'South' or 'West' - feel free to change</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">aspect_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">aspect</span><span class="p">)</span>
+
+<span class="n">mean_cols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">all_cols</span><span class="p">[</span><span class="n">h</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>          <span class="c1"># average over time -&gt; [column, lat, lon]</span>
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">color_range</span><span class="p">(</span><span class="n">varname</span><span class="p">,</span> <span class="n">mean_cols</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_map_grid</span><span class="p">(</span><span class="n">mean_cols</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">'Column </span><span class="si">{</span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">'</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncols</span><span class="p">)],</span>
+                    <span class="sa">f</span><span class="s1">'Mean </span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">aspect</span><span class="si">}</span><span class="s1"> hillslope'</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="p">)</span>
+<span class="n">save_fig</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s1">'columns'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+<strong>What attribute (geomorphic parameter) could explain the different snowpack magnitudes?</strong>
+</div>
+<div class="alert alert-success">
+<details>
+<summary>Answer</summary>
+<p>Elevation.</p>
+<p>The columns are ordered by elevation (column 1 is the lowest, the last column the highest). Higher columns have colder temperatures because temperature is downscaled with elevation.</p>
+</details>
+</div></section>
+<section id="difference-between-difference-columns-elevations">
+<h3>Difference between difference columns / elevations<a class="headerlink" href="#difference-between-difference-columns-elevations" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is plotting the difference from the lowland column (i.e., Column 1)</span>
+
+<span class="n">diffs</span> <span class="o">=</span> <span class="n">mean_cols</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">mean_cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                 <span class="c1"># columns 2..N minus column 1</span>
+<span class="n">lim</span> <span class="o">=</span> <span class="n">diverging_limit</span><span class="p">(</span><span class="n">diffs</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_map_grid</span><span class="p">(</span><span class="n">diffs</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">'Column </span><span class="si">{</span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s1"> - Column 1'</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncols</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)],</span>
+                    <span class="sa">f</span><span class="s1">'Difference in mean </span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">aspect</span><span class="si">}</span><span class="s1"> hillslope'</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span>
+                    <span class="o">-</span><span class="n">lim</span><span class="p">,</span> <span class="n">lim</span><span class="p">,</span> <span class="n">diff_cmap</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="n">ncols</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">save_fig</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s1">'column_differences'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+<strong>Why do columns 2-4 have smaller snowpack magnitudes than column 1 (the lowland column) in some locations?</strong>
+</div>
+<div class="alert alert-success">
+<details>
+<summary>Answer</summary>
+<p>Surface water.</p>
+<p>Subsurface lateral flow causes higher soil moisture in the lowland column, which may result in surface water. As surface water freezes in autumn, it is converted to ice and incorporated into the snowpack.</p>
+<p>Note: the hillslope columns may have different areas.  In particular, the lowland column in mountainous areas may be quite small relative to the upland columns.  Thus, the differences may be somewhat misleading because they do not account for potential area differences.</p>
+</details>
+</div><section id="look-at-the-surface-water-directly">
+<h4>Look at the surface water directly<a class="headerlink" href="#look-at-the-surface-water-directly" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Same plot for a second variable (the hillslope aspect chosen above is reused)</span>
+
+<span class="n">varname2</span><span class="p">,</span> <span class="n">units2</span> <span class="o">=</span> <span class="s1">'H2OSFC'</span><span class="p">,</span> <span class="s1">'mm'</span>
+
+<span class="n">cols2</span> <span class="o">=</span> <span class="n">read_hillslope</span><span class="p">(</span><span class="n">grid_h1_files</span><span class="p">,</span> <span class="n">varname2</span><span class="p">,</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="p">)</span>
+<span class="n">mean_cols2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">cols2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">color_range</span><span class="p">(</span><span class="n">varname2</span><span class="p">,</span> <span class="n">mean_cols2</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_map_grid</span><span class="p">(</span><span class="n">mean_cols2</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">'Column </span><span class="si">{</span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">'</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncols</span><span class="p">)],</span>
+                    <span class="sa">f</span><span class="s1">'Mean </span><span class="si">{</span><span class="n">varname2</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">aspect</span><span class="si">}</span><span class="s1"> hillslope'</span><span class="p">,</span> <span class="n">units2</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'ocean_r'</span><span class="p">)</span>
+<span class="n">save_fig</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s1">'surface_water'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="compare-hillslopes-aspects">
+<h3>Compare hillslopes (aspects)<a class="headerlink" href="#compare-hillslopes-aspects" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Column weights: the fraction of the natural vegetation landunit / of the gridcell covered by each column</span>
+
+<span class="k">with</span> <span class="n">netcdf4</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">grid_dir</span> <span class="o">+</span> <span class="s1">'/hillslope_western_US_hillslope_geometry.nc'</span><span class="p">)</span> <span class="k">as</span> <span class="n">ds</span><span class="p">:</span>
+    <span class="n">wt_lunit</span> <span class="o">=</span> <span class="n">read_weights</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="s1">'cols1d_wtlunit'</span><span class="p">)[:</span><span class="n">nhillslope</span><span class="p">,</span> <span class="p">:</span><span class="n">ncols</span><span class="p">]</span>
+    <span class="n">wt_gcell</span> <span class="o">=</span> <span class="n">read_weights</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="s1">'cols1d_wtgcell'</span><span class="p">)[:</span><span class="n">nhillslope</span><span class="p">,</span> <span class="p">:</span><span class="n">ncols</span><span class="p">]</span>
+
+<span class="c1"># Area-weighted mean over the columns of each hillslope -&gt; [hillslope, time, lat, lon]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">all_cols</span><span class="p">)</span>
+<span class="n">hillslope_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">wt_lunit</span><span class="p">[:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">wt_lunit</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">mean_aspects</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">hillslope_mean</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>    <span class="c1"># average over time</span>
+
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">color_range</span><span class="p">(</span><span class="n">varname</span><span class="p">,</span> <span class="n">mean_aspects</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_map_grid</span><span class="p">(</span><span class="n">mean_aspects</span><span class="p">,</span> <span class="n">aspect_names</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'Mean </span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s1">: hillslope averages'</span><span class="p">,</span>
+                    <span class="n">units</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="p">)</span>
+<span class="n">save_fig</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s1">'aspects'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+<strong>What attribute (geomorphic parameter) could explain the different snowpack magnitudes?</strong>
+</div>
+<div class="alert alert-success">
+<details>
+<summary>Answer</summary>
+<p>Aspect.</p>
+<p>Each hillslope corresponds to a different aspect. In the northern hemisphere, north-facing hillslopes receive less insolation, while south-facing hillslopes absorb the most solar radiation.</p>
+</details>
+</div></section>
+<section id="hillslope-columns-vs-gridcell-mean">
+<h3>Hillslope columns vs. gridcell mean<a class="headerlink" href="#hillslope-columns-vs-gridcell-mean" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gridcell mean from the hillslope columns (weights are fractions of the gridcell)</span>
+<span class="n">grc_from_columns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">wt_gcell</span><span class="p">[:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>          <span class="c1"># [time, lat, lon]</span>
+<span class="n">grc_from_columns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">wt_gcell</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">grc_from_columns</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="n">grc_from_columns</span> <span class="o">=</span> <span class="n">grc_from_columns</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Gridcell mean written directly by the model (h0a files)</span>
+<span class="n">grc_h0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">([</span><span class="n">read_field</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">varname</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">vec_h0_files</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">diff</span> <span class="o">=</span> <span class="n">grc_h0</span> <span class="o">-</span> <span class="n">grc_from_columns</span>
+
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">color_range</span><span class="p">(</span><span class="n">varname</span><span class="p">,</span> <span class="n">grc_h0</span><span class="p">)</span>
+<span class="n">lim</span> <span class="o">=</span> <span class="n">diverging_limit</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">make_map_axes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">draw_maps</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">grc_from_columns</span><span class="p">,</span> <span class="n">grc_h0</span><span class="p">],</span> <span class="p">[</span><span class="s1">'Sum of hillslope columns'</span><span class="p">,</span> <span class="s1">'Gridcell mean (h0a)'</span><span class="p">],</span>
+          <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">units</span><span class="p">)</span>
+<span class="n">draw_maps</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="p">[</span><span class="n">diff</span><span class="p">],</span> <span class="p">[</span><span class="s1">'Difference (h0a - columns)'</span><span class="p">],</span> <span class="o">-</span><span class="n">lim</span><span class="p">,</span> <span class="n">lim</span><span class="p">,</span> <span class="n">diff_cmap</span><span class="p">,</span> <span class="n">units</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Mean </span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s1">: hillslope columns vs. gridcell mean'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">save_fig</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s1">'gridcell_mean'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+<strong>Why doesn't the weighted average of all the hillslope columns match the gridcell average?</strong>
+</div>
+<div class="alert alert-success">
+<details>
+<summary>Answer</summary>
+<p>Hillslopes are only active on the naturally vegetated landunit.</p>
+<p>The gridcell average may include other landunits, such as crop, lake, glacier, or urban. Here, the presence of crop and lake landunits explains most of the differences.</p>
+</details>
+</div></section>
+</section>
+<section id="time-series-and-profiles-at-a-point-vector-output">
+<h2>3. Time series and profiles at a point (vector output)<a class="headerlink" href="#time-series-and-profiles-at-a-point-vector-output" title="Link to this heading">#</a></h2>
+<section id="read-data-at-one-gridcell">
+<h3>Read data at one gridcell<a class="headerlink" href="#read-data-at-one-gridcell" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yr1</span><span class="p">,</span> <span class="n">yr2</span> <span class="o">=</span> <span class="mi">1981</span><span class="p">,</span> <span class="mi">1984</span>               <span class="c1"># Feel free to chose between 1980 - 2019</span>
+<span class="c1">#yr1, yr2 = 2000, 2003</span>
+
+<span class="n">h0_files</span> <span class="o">=</span> <span class="n">get_history_filenames</span><span class="p">(</span><span class="n">vec_dir</span><span class="p">,</span> <span class="s1">'h0a'</span><span class="p">,</span> <span class="p">(</span><span class="n">yr1</span><span class="p">,</span> <span class="n">yr2</span><span class="p">))</span>   <span class="c1"># gridcell mean (gridded)</span>
+<span class="n">h1_files</span> <span class="o">=</span> <span class="n">get_history_filenames</span><span class="p">(</span><span class="n">vec_dir</span><span class="p">,</span> <span class="s1">'h1a'</span><span class="p">,</span> <span class="p">(</span><span class="n">yr1</span><span class="p">,</span> <span class="n">yr2</span><span class="p">))</span>   <span class="c1"># column level (vector)</span>
+<span class="n">nhillslope</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="n">get_hillslope_dims</span><span class="p">(</span><span class="n">h1_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># Choose a point (longitude is 0-360); the nearest gridcell is used</span>
+<span class="n">points</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="mi">245</span><span class="p">,</span> <span class="mi">46</span><span class="p">),</span> <span class="mi">2</span><span class="p">:</span> <span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">46</span><span class="p">),</span> <span class="mi">3</span><span class="p">:</span> <span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="mi">4</span><span class="p">:</span> <span class="p">(</span><span class="mi">265</span><span class="p">,</span><span class="mi">32</span><span class="p">)}</span>
+<span class="n">ptnum</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">plon</span><span class="p">,</span> <span class="n">plat</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">ptnum</span><span class="p">]</span>
+
+<span class="c1"># Seelct an aspect to show in the profile plot</span>
+<span class="n">aspect</span> <span class="o">=</span> <span class="s1">'North'</span>
+<span class="n">aspect_index</span> <span class="o">=</span> <span class="n">aspect_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">aspect</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="c1"># Soil moisture as saturation (0-1) or as volumetric water content (m3/m3)</span>
+<span class="n">show_saturation</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># ---- grid and time (from the gridcell-mean files) ----</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">netcdf4</span><span class="o">.</span><span class="n">MFDataset</span><span class="p">(</span><span class="n">h0_files</span><span class="p">)</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">'lon'</span><span class="p">][:])</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">'lat'</span><span class="p">][:])</span>
+<span class="n">ref_year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'-'</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ytime</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">'time'</span><span class="p">][:])</span> <span class="o">/</span> <span class="mi">365</span> <span class="o">+</span> <span class="n">ref_year</span>      <span class="c1"># time in decimal years</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">pt_i</span><span class="p">,</span> <span class="n">pt_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">plon</span> <span class="o">-</span> <span class="n">lon</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">plat</span> <span class="o">-</span> <span class="n">lat</span><span class="p">))</span>
+<span class="n">slon</span><span class="p">,</span> <span class="n">slat</span> <span class="o">=</span> <span class="n">lon</span><span class="p">[</span><span class="n">pt_i</span><span class="p">],</span> <span class="n">lat</span><span class="p">[</span><span class="n">pt_j</span><span class="p">]</span>
+<span class="n">slon_w</span> <span class="o">=</span> <span class="p">(</span><span class="n">slon</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span> <span class="o">-</span> <span class="mi">180</span>
+<span class="n">point_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">slat</span><span class="p">)</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">N, </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">slon_w</span><span class="p">)</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">W'</span>
+
+<span class="c1"># ---- soil structure at the point ----</span>
+<span class="n">static_file</span> <span class="o">=</span> <span class="n">get_history_filenames</span><span class="p">(</span><span class="n">vec_dir</span><span class="p">,</span> <span class="s1">'h0a'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">with</span> <span class="n">netcdf4</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">static_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">ds</span><span class="p">:</span>
+    <span class="n">nlevsoi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="s1">'levsoi'</span><span class="p">])</span>
+    <span class="n">zsoi</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">'ZSOI'</span><span class="p">][:</span><span class="n">nlevsoi</span><span class="p">,</span> <span class="n">pt_j</span><span class="p">,</span> <span class="n">pt_i</span><span class="p">])</span>     <span class="c1"># layer depth</span>
+    <span class="n">dzsoi</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">'DZSOI'</span><span class="p">][:</span><span class="n">nlevsoi</span><span class="p">,</span> <span class="n">pt_j</span><span class="p">,</span> <span class="n">pt_i</span><span class="p">])</span>    <span class="c1"># layer thickness</span>
+    <span class="n">watsat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">'WATSAT'</span><span class="p">][:</span><span class="n">nlevsoi</span><span class="p">,</span> <span class="n">pt_j</span><span class="p">,</span> <span class="n">pt_i</span><span class="p">])</span>   <span class="c1"># saturated water content</span>
+<span class="n">zisoi</span> <span class="o">=</span> <span class="n">zsoi</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">dzsoi</span>                                              <span class="c1"># depth of layer bottoms</span>
+
+
+<span class="c1"># ---- find the columns at this point ----</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">columns_at_point</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">lon0</span><span class="p">,</span> <span class="n">lat0</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">netcdf4</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">ds</span><span class="p">:</span>
+        <span class="n">col_lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">filled</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">'cols1d_lon'</span><span class="p">][:],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="n">col_lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">filled</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">'cols1d_lat'</span><span class="p">][:],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="n">hill_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">filled</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">'hillslope_index'</span><span class="p">][:],</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">at_point</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">col_lon</span> <span class="o">-</span> <span class="n">lon0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">col_lat</span> <span class="o">-</span> <span class="n">lat0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hill_idx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">at_point</span><span class="p">,</span> <span class="n">hill_idx</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">read_columns</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Read variables (time series) for the selected columns"""</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">netcdf4</span><span class="o">.</span><span class="n">MFDataset</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">filled</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="o">...</span><span class="p">,</span> <span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">names</span><span class="p">}</span>
+    <span class="n">ds</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="n">at_point</span><span class="p">,</span> <span class="n">hill_idx</span> <span class="o">=</span> <span class="n">columns_at_point</span><span class="p">(</span><span class="n">h1_files</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">slon</span><span class="p">,</span> <span class="n">slat</span><span class="p">)</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="n">at_point</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hill_idx</span> <span class="o">==</span> <span class="n">aspect_index</span><span class="p">)</span>       <span class="c1"># columns of the chosen aspect</span>
+
+<span class="k">with</span> <span class="n">netcdf4</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">h1_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">as</span> <span class="n">ds</span><span class="p">:</span>
+    <span class="n">hillslope_elev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">filled</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">'hillslope_elev'</span><span class="p">][:],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">hillslope_dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">filled</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">'hillslope_distance'</span><span class="p">][:],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">nbedrock</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">filled</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">'cols1d_nbedrock'</span><span class="p">][:],</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">zbedrock</span> <span class="o">=</span> <span class="n">zisoi</span><span class="p">[</span><span class="n">nbedrock</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>    <span class="c1"># depth of bedrock in each colunm</span>
+
+<span class="c1"># ---- time series for these columns ----</span>
+<span class="c1"># (add other column-level variables here, e.g. 'QLATFLOWOUT' or 'QDRAI')</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'ZWT'</span><span class="p">,</span> <span class="s1">'FROST_TABLE'</span><span class="p">,</span> <span class="s1">'FH2OSFC'</span><span class="p">,</span> <span class="s1">'H2OSFC'</span><span class="p">,</span> <span class="s1">'FSNO'</span><span class="p">,</span> <span class="s1">'H2OSNO'</span><span class="p">,</span> <span class="s1">'SOILLIQ'</span><span class="p">,</span> <span class="s1">'SOILICE'</span><span class="p">]</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">read_columns</span><span class="p">(</span><span class="n">h1_files</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">cols</span><span class="p">)</span>
+
+<span class="c1"># Soil moisture [time, level, column]: liquid + ice, as a fraction of the layer volume (or of saturation)</span>
+<span class="n">sm</span> <span class="o">=</span> <span class="p">(</span><span class="n">ts</span><span class="p">[</span><span class="s1">'SOILLIQ'</span><span class="p">]</span> <span class="o">+</span> <span class="n">ts</span><span class="p">[</span><span class="s1">'SOILICE'</span><span class="p">])[:,</span> <span class="p">:</span><span class="n">nlevsoi</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">denominator</span> <span class="o">=</span> <span class="mf">1e3</span> <span class="o">*</span> <span class="n">dzsoi</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">show_saturation</span><span class="p">:</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="n">denominator</span> <span class="o">*</span> <span class="n">watsat</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">sm</span> <span class="o">=</span> <span class="n">sm</span> <span class="o">/</span> <span class="n">denominator</span>
+<span class="n">sm_label</span> <span class="o">=</span> <span class="s1">'Saturation'</span> <span class="k">if</span> <span class="n">show_saturation</span> <span class="k">else</span> <span class="s1">'Volumetric water content (m$^3$/m$^3$)'</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="soil-moisture-profiles-in-each-column">
+<h3>Soil moisture profiles in each column<a class="headerlink" href="#soil-moisture-profiles-in-each-column" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">ncols</span> <span class="o">+</span> <span class="mf">1.5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="s1">'col'</span><span class="p">,</span>
+                         <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">'width_ratios'</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">]})</span>
+
+<span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span> <span class="k">if</span> <span class="n">show_saturation</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+<span class="n">surface_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">([</span><span class="n">ts</span><span class="p">[</span><span class="s1">'H2OSNO'</span><span class="p">],</span> <span class="n">ts</span><span class="p">[</span><span class="s1">'H2OSFC'</span><span class="p">]])</span>
+
+<span class="n">cmap_profile</span> <span class="o">=</span> <span class="n">merge_colormaps</span><span class="p">(</span><span class="s1">'BrBG'</span><span class="p">,</span><span class="s1">'RdBu'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncols</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+
+    <span class="c1"># Left: soil moisture vs depth. Above zero depth: surface water and snow cover fractions.</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">ytime</span><span class="p">,</span> <span class="n">zsoi</span><span class="p">,</span> <span class="n">sm</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_profile</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="s1">'both'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ytime</span><span class="p">,</span> <span class="n">ts</span><span class="p">[</span><span class="s1">'ZWT'</span><span class="p">][:,</span> <span class="n">c</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Water table'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ytime</span><span class="p">,</span> <span class="n">ts</span><span class="p">[</span><span class="s1">'FROST_TABLE'</span><span class="p">][:,</span> <span class="n">c</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">'r'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Frost table'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ytime</span><span class="p">,</span> <span class="o">-</span><span class="n">ts</span><span class="p">[</span><span class="s1">'FH2OSFC'</span><span class="p">][:,</span> <span class="n">c</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">'slategray'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Surface water fraction'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ytime</span><span class="p">,</span> <span class="o">-</span><span class="n">ts</span><span class="p">[</span><span class="s1">'FSNO'</span><span class="p">][:,</span> <span class="n">c</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">'turquoise'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Snow cover fraction'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Column </span><span class="si">{</span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">  (elevation </span><span class="si">{</span><span class="n">hillslope_elev</span><span class="p">[</span><span class="n">cols</span><span class="p">][</span><span class="n">c</span><span class="p">]</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> m, '</span>
+                 <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">hillslope_dist</span><span class="p">[</span><span class="n">cols</span><span class="p">][</span><span class="n">c</span><span class="p">]</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1"> m from channel)'</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">'left'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Depth (m)'</span><span class="p">)</span>
+
+    <span class="c1"># Right: surface water and snow</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ytime</span><span class="p">,</span> <span class="n">ts</span><span class="p">[</span><span class="s1">'H2OSFC'</span><span class="p">][:,</span> <span class="n">c</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">'tab:red'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'H2OSFC (surface water)'</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ytime</span><span class="p">,</span> <span class="n">ts</span><span class="p">[</span><span class="s1">'H2OSNO'</span><span class="p">][:,</span> <span class="n">c</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">'tab:blue'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'H2OSNO (snow)'</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'mm'</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">zbedrock</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>     <span class="c1"># depth increases downward</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">surface_max</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">'lower left'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">'horizontal'</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">sm_label</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">aspect</span><span class="si">}</span><span class="s1"> hillslope at </span><span class="si">{</span><span class="n">point_label</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">save_fig</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s1">'soil_moisture_profiles'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="compare-aspects-at-the-same-point">
+<h3>Compare aspects at the same point<a class="headerlink" href="#compare-aspects-at-the-same-point" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">snow</span> <span class="o">=</span> <span class="n">read_columns</span><span class="p">(</span><span class="n">h1_files</span><span class="p">,</span> <span class="p">[</span><span class="s1">'H2OSNO'</span><span class="p">],</span> <span class="n">at_point</span><span class="p">)[</span><span class="s1">'H2OSNO'</span><span class="p">]</span>     <span class="c1"># [time, all columns at the point]</span>
+<span class="n">hill_idx_pt</span> <span class="o">=</span> <span class="n">hill_idx</span><span class="p">[</span><span class="n">at_point</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">1.8</span> <span class="o">*</span> <span class="n">ncols</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                         <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">h</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">aspect_names</span><span class="p">):</span>
+    <span class="n">members</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">hill_idx_pt</span> <span class="o">==</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>          <span class="c1"># columns of this hillslope, in order</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncols</span><span class="p">):</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ytime</span><span class="p">,</span> <span class="n">snow</span><span class="p">[:,</span> <span class="n">members</span><span class="p">[</span><span class="n">c</span><span class="p">]],</span> <span class="n">c</span><span class="o">=</span><span class="n">aspect_colors</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Column </span><span class="si">{</span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">'left'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'H2OSNO (mm)'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ncol</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Snow water equivalent by aspect at </span><span class="si">{</span><span class="n">point_label</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">save_fig</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s1">'aspect_comparison'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+<strong>To what do the different colors correspond? Do the magnitudes match your physical intuition?</strong>
+</div>
+<div class="alert alert-success">
+<details>
+<summary>Answer</summary>
+<p>The colors indicate the aspect (azimuthal orientation) of each column.</p>
+<p>In the northern hemisphere, north-facing columns receive the least sunlight and should hold the most snow, while south-facing columns should hold the least.</p>
+</details>
+</div></section>
+<section id="hillslope-profiles">
+<h3>Hillslope profiles<a class="headerlink" href="#hillslope-profiles" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">h</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">aspect_names</span><span class="p">):</span>
+    <span class="n">members</span> <span class="o">=</span> <span class="n">at_point</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hill_idx</span> <span class="o">==</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hillslope_dist</span><span class="p">[</span><span class="n">members</span><span class="p">],</span> <span class="n">hillslope_elev</span><span class="p">[</span><span class="n">members</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">c</span><span class="o">=</span><span class="n">aspect_colors</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Distance from channel (m)'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Height above channel (m)'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Hillslope profiles at </span><span class="si">{</span><span class="n">point_label</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">save_fig</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s1">'hillslope_profiles'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="save-figures-to-a-single-pdf">
+<h2>4. Save figures to a single PDF<a class="headerlink" href="#save-figures-to-a-single-pdf" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">save_figures</span><span class="p">:</span>
+    <span class="n">pdf_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">plot_dir</span><span class="si">}</span><span class="s1">/hillslope_figures.pdf'</span>
+    <span class="k">with</span> <span class="n">PdfPages</span><span class="p">(</span><span class="n">pdf_filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">pdf</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">fig</span> <span class="ow">in</span> <span class="n">figures</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">pdf</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">'tight'</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">figures</span><span class="p">)</span><span class="si">}</span><span class="s1"> figures saved to </span><span class="si">{</span><span class="n">pdf_filename</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "npl-2026a"
+        },
+        kernelOptions: {
+            name: "npl-2026a",
+            path: "./notebooks/diagnostics/hillslope"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'npl-2026a'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../fates/fates_plotting_2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Investigating vegetation demographics with FATES</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../neon/neon_overview.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">NEON</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-tutorial-shows-how-to-visualize-hillslope-history-output-from-clm">This tutorial shows how to visualize hillslope history output from CLM.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">1. Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#options-select-from-one-of-the-experiments-below">Options (select from one of the experiments below)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#helper-functions">Helper functions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maps-of-hillslope-columns-gridded-output">2. Maps of hillslope columns (gridded output)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-files-and-set-up-the-map-grid">Find files and set up the map grid</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#select-a-variable">Select a variable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-mean-map-of-each-column-in-one-hillslope-aspect">Time-mean map of each column in one hillslope aspect</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#difference-between-difference-columns-elevations">Difference between difference columns / elevations</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#look-at-the-surface-water-directly">Look at the surface water directly</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-hillslopes-aspects">Compare hillslopes (aspects)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hillslope-columns-vs-gridcell-mean">Hillslope columns vs. gridcell mean</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-series-and-profiles-at-a-point-vector-output">3. Time series and profiles at a point (vector output)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-data-at-one-gridcell">Read data at one gridcell</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soil-moisture-profiles-in-each-column">Soil moisture profiles in each column</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-aspects-at-the-same-point">Compare aspects at the same point</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hillslope-profiles">Hillslope profiles</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-figures-to-a-single-pdf">4. Save figures to a single PDF</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NCAR/CGD Staff
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

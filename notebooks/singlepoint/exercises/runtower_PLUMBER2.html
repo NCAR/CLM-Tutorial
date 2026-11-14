@@ -1,0 +1,776 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Run_tower: PLUMBER2 &#8212; CLM Tutorial</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=6a604523" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script data-sd-tabs-storage-prefix="sphinx-design-tab-id-" src="../../../_static/design-tabs.js?v=fcb327ea"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/singlepoint/exercises/runtower_PLUMBER2';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="FATES Satellite Phenology (FATES-SP) simulations at NEON sites" href="FATESsp_NEON.html" />
+    <link rel="prev" title="Run_tower: NEON" href="runtower_NEON.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/ncar_logo.png" class="logo__image only-light" alt="CLM Tutorial - Home"/>
+    <img src="../../../_static/ncar_logo.png" class="logo__image only-dark pst-js-only" alt="CLM Tutorial - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../intro/intro_overview.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../intro/components.html">What is CESM ?</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/coupling.html">CIME (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../intro/cesm_webpage.html">CESM Webpage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/project.html">CESM Working Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/getting_involved.html">Getting Involved</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/getting_help.html">Getting Help</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../prereqs/prereqs_overview.html">Prerequisites for Success</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../prereqs/exercises.html">Exercise Overview</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../basics/basics_overview.html">Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../basics/ctsm_workspaces.html">Workspaces</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../basics/code_overview.html">CLM code</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/code/git_download_ctsm.html">Download CLM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/code/ctsm_code_explore.html">Explore CLM Code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../basics/ctsm_workflow.html">CTSM Workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/create_newcase.html">Create New Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/case_setup.html">Case Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/case_build.html">Case Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/case_submit.html">Case Submit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/model_output.html">Model Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/checking_jobs_and_status.html">Checking Your Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/create_clone.html">Create Clone (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../basics/exercises_overview.html">Exercise Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/first_I1850.html">Your first CLM run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/second_I1850.html">Extending your run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/change_compsets.html">Change component set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/examine_history_I1850.html">Examine History Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/extra.html">Explore Further</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/review_questions.html">Review Questions</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modifications/modifications.html">Modifying Your Case</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../modifications/xml/overview.html">XML Modifications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/xml/xml_basics.html">How to Modify XML Files</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/xml/run_length.html">Controlling Run Length</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/starting_and_stopping.html">Starting and Stopping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/restarting.html">Restarting a Run</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/changing_run_length.html">Changing Run Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/timing_files.html">Using Timing Files</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/xml/modify_run_type.html">Modifying the Type of Run</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/modify_run_type/hybrid_branch_restart.html">Hybrid, Branch, and Startup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/modify_run_type/run_variables.html">Variables Related to Run Type</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/xml/other_xml_variables.html">Other Useful XML Variables</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/xml/exercises.html">XML Modification Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/exercises/xml_length_exercise.html">Exercise 1: Modify run length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/exercises/xml_runtype_exercise.html">Exercise 2: Modify run type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/exercises/xml_datm_exercise.html">Exercise 3: Modifying DATM variables</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../modifications/namelist/overview.html">Namelist Modifications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/namelist/documentation.html">Namelist Variable Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/namelist/output.html">Customizing Output</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/namelist/exercises_overview.html">Exercises Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_clm_history_vars.html">Exercise 1: History Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_clm_history_frequency.html">Exercise 2: Modify History Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_fates_complexity.html">Exercise 3: Change a FATES complexity variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_hillslope.html">Exercise 4: Configure a Hillslope Hydrology simulation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../singlepoint_overview.html">Single Point Overview</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="runtower_NEON.html">Run_tower: NEON</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Run_tower: PLUMBER2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FATESsp_NEON.html">FATES Satellite Phenology (FATES-SP) simulations at NEON sites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GenericSinglePoint.html">Generic Single Point</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../sensitivity/01_sensitivity_overview.html">Parameter Sensitivity Experiments</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../sensitivity/02_create_param_ensembles.html">Create an Ensemble of Parameter Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sensitivity/03_submit_ensemble.html">Submit a Parameter Ensemble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sensitivity/04_ensemble_analysis.html">Analyze a Parameter Ensemble</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../diagnostics/diagnostics_intro.html">Diagnostics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../diagnostics/basics/basic_plotting_clm.html">Plotting basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/basics/unstructured_plotting.html">Plotting data from unstructured grids</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../diagnostics/fates/fates_overview.html">FATES</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/fates/fates_plotting_1.html">Investigating Output: CLM and CLM-FATES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/fates/fates_plotting_2.html">Investigating vegetation demographics with FATES</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../diagnostics/hillslope/hillslope_plotting.html">Hillslope Hydrology</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../diagnostics/neon/neon_overview.html">NEON</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/neon/neon_basic_plots.html">NEON: Basic Plotting</a></li>
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/neon/plot_neon_climatology.html">Climatology plots for NEON sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/neon/neon_lh_components.html">NEON Hourly Averages</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../diagnostics/ldf/ldf_basics.html">LDF</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../diagnostics/cupid/cupid_basics.html">CUPiD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/cupid/clm_cupid_ldf_ilamb.html">Land</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../diagnostics/additional/additional.html">Additional Topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/additional/postprocessing.html">Postprocessing data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/additional/analysis_tools.html">CESM analysis tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/additional/adf.html">ADF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/additional/uxarray.html">UXarray</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../resources/resources_overview.html">Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../resources/ncar_hpc.html">NCAR Supercomputer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/ncar_hpc_module.html">Modules on NCAR HPC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/tutorial_one_time_setup.html">Tutorial one time setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/tutorial_queue_account.html">Tutorial queue and account</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/terminals.html">Terminal Windows</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../resources/unix.html">UNIX</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/unix-cheatsheet.html">UNIX cheatsheet</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/text_editors.html">Text Editors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/github.html">Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/fortran.html">Fortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/netcdf.html">NetCDF files</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../troubleshooting/troubleshooting.html">Troubleshooting runtime errors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting/log_files.html">The log files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting/debugging_flag.html">Adding debugging info</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/singlepoint/exercises/runtower_PLUMBER2.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Run_tower: PLUMBER2</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assumptions">Assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-started">Get started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-understanding">Test your understanding</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="run-tower-plumber2">
+<h1>Run_tower: PLUMBER2<a class="headerlink" href="#run-tower-plumber2" title="Link to this heading">#</a></h1>
+<div class="alert alert-info">
+<strong>Exercise: use the <code>run_tower</code> script to run a single point case at a PLUMBER site</strong><br><br>
+<p>Create a case called <strong>BR-Sa3.test0</strong> using the <code class="docutils literal notranslate"><span class="pre">run_tower</span></code> script in <code class="docutils literal notranslate"><span class="pre">tools/site_and_regional</span></code>.</p>
+<p><em>Note:</em> You will need to activate the <code class="docutils literal notranslate"><span class="pre">ctsm_pylib</span></code> conda environment to use the <code class="docutils literal notranslate"><span class="pre">run_tower</span></code> script. After creating your case you can check the status of the run after submitting.</p>
+<p><i>Please ensure that you have completed all steps in the <a href="https://ncar.github.io/CLM-Tutorial/notebooks/basics/code/git_download_ctsm.html#">Download CTSM Tutorial</a> before starting this exercise!</i></p>
+</div>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
+<p>PLUMBER2 sites include the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AR</span><span class="o">-</span><span class="n">SLu</span><span class="p">,</span><span class="n">AT</span><span class="o">-</span><span class="n">Neu</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">ASM</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Cow</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Cpr</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Ctr</span><span class="p">,</span>
+<span class="n">AU</span><span class="o">-</span><span class="n">Cum</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">DaP</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">DaS</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Dry</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Emr</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">GWW</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Gin</span><span class="p">,</span>
+<span class="n">AU</span><span class="o">-</span><span class="n">How</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Lit</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Otw</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Rig</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Rob</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Sam</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Stp</span><span class="p">,</span>
+<span class="n">AU</span><span class="o">-</span><span class="n">TTE</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Tum</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Whr</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Wrr</span><span class="p">,</span><span class="n">AU</span><span class="o">-</span><span class="n">Ync</span><span class="p">,</span><span class="n">BE</span><span class="o">-</span><span class="n">Bra</span><span class="p">,</span><span class="n">BE</span><span class="o">-</span><span class="n">Lon</span><span class="p">,</span>
+<span class="n">BE</span><span class="o">-</span><span class="n">Vie</span><span class="p">,</span><span class="n">BR</span><span class="o">-</span><span class="n">Sa3</span><span class="p">,</span><span class="n">BW</span><span class="o">-</span><span class="n">Ma1</span><span class="p">,</span><span class="n">CA</span><span class="o">-</span><span class="n">NS1</span><span class="p">,</span><span class="n">CA</span><span class="o">-</span><span class="n">NS2</span><span class="p">,</span><span class="n">CA</span><span class="o">-</span><span class="n">NS4</span><span class="p">,</span><span class="n">CA</span><span class="o">-</span><span class="n">NS5</span><span class="p">,</span>
+<span class="n">CA</span><span class="o">-</span><span class="n">NS6</span><span class="p">,</span><span class="n">CA</span><span class="o">-</span><span class="n">NS7</span><span class="p">,</span><span class="n">CA</span><span class="o">-</span><span class="n">Qcu</span><span class="p">,</span><span class="n">CA</span><span class="o">-</span><span class="n">Qfo</span><span class="p">,</span><span class="n">CA</span><span class="o">-</span><span class="n">SF1</span><span class="p">,</span><span class="n">CA</span><span class="o">-</span><span class="n">SF2</span><span class="p">,</span><span class="n">CA</span><span class="o">-</span><span class="n">SF3</span><span class="p">,</span>
+<span class="n">CH</span><span class="o">-</span><span class="n">Cha</span><span class="p">,</span><span class="n">CH</span><span class="o">-</span><span class="n">Dav</span><span class="p">,</span><span class="n">CH</span><span class="o">-</span><span class="n">Fru</span><span class="p">,</span><span class="n">CH</span><span class="o">-</span><span class="n">Oe1</span><span class="p">,</span><span class="n">CN</span><span class="o">-</span><span class="n">Cha</span><span class="p">,</span><span class="n">CN</span><span class="o">-</span><span class="n">Cng</span><span class="p">,</span><span class="n">CN</span><span class="o">-</span><span class="n">Dan</span><span class="p">,</span>
+<span class="n">CN</span><span class="o">-</span><span class="n">Din</span><span class="p">,</span><span class="n">CN</span><span class="o">-</span><span class="n">Du2</span><span class="p">,</span><span class="n">CN</span><span class="o">-</span><span class="n">HaM</span><span class="p">,</span><span class="n">CN</span><span class="o">-</span><span class="n">Qia</span><span class="p">,</span><span class="n">CZ</span><span class="o">-</span><span class="n">wet</span><span class="p">,</span><span class="n">DE</span><span class="o">-</span><span class="n">Bay</span><span class="p">,</span><span class="n">DE</span><span class="o">-</span><span class="n">Geb</span><span class="p">,</span>
+<span class="n">DE</span><span class="o">-</span><span class="n">Gri</span><span class="p">,</span><span class="n">DE</span><span class="o">-</span><span class="n">Hai</span><span class="p">,</span><span class="n">DE</span><span class="o">-</span><span class="n">Kli</span><span class="p">,</span><span class="n">DE</span><span class="o">-</span><span class="n">Meh</span><span class="p">,</span><span class="n">DE</span><span class="o">-</span><span class="n">Obe</span><span class="p">,</span><span class="n">DE</span><span class="o">-</span><span class="n">Seh</span><span class="p">,</span><span class="n">DE</span><span class="o">-</span><span class="n">SfN</span><span class="p">,</span>
+<span class="n">DE</span><span class="o">-</span><span class="n">Tha</span><span class="p">,</span><span class="n">DE</span><span class="o">-</span><span class="n">Wet</span><span class="p">,</span><span class="n">DK</span><span class="o">-</span><span class="n">Fou</span><span class="p">,</span><span class="n">DK</span><span class="o">-</span><span class="n">Lva</span><span class="p">,</span><span class="n">DK</span><span class="o">-</span><span class="n">Ris</span><span class="p">,</span><span class="n">DK</span><span class="o">-</span><span class="n">Sor</span><span class="p">,</span><span class="n">DK</span><span class="o">-</span><span class="n">ZaH</span><span class="p">,</span>
+<span class="n">ES</span><span class="o">-</span><span class="n">ES1</span><span class="p">,</span><span class="n">ES</span><span class="o">-</span><span class="n">ES2</span><span class="p">,</span><span class="n">ES</span><span class="o">-</span><span class="n">LMa</span><span class="p">,</span><span class="n">ES</span><span class="o">-</span><span class="n">LgS</span><span class="p">,</span><span class="n">ES</span><span class="o">-</span><span class="n">VDA</span><span class="p">,</span><span class="n">FI</span><span class="o">-</span><span class="n">Hyy</span><span class="p">,</span>
+<span class="n">FI</span><span class="o">-</span><span class="n">Kaa</span><span class="p">,</span><span class="n">FI</span><span class="o">-</span><span class="n">Lom</span><span class="p">,</span><span class="n">FI</span><span class="o">-</span><span class="n">Sod</span><span class="p">,</span><span class="n">FR</span><span class="o">-</span><span class="n">Fon</span><span class="p">,</span><span class="n">FR</span><span class="o">-</span><span class="n">Gri</span><span class="p">,</span><span class="n">FR</span><span class="o">-</span><span class="n">Hes</span><span class="p">,</span><span class="n">FR</span><span class="o">-</span><span class="n">LBr</span><span class="p">,</span>
+<span class="n">FR</span><span class="o">-</span><span class="n">Lq1</span><span class="p">,</span><span class="n">FR</span><span class="o">-</span><span class="n">Lq2</span><span class="p">,</span><span class="n">FR</span><span class="o">-</span><span class="n">Pue</span><span class="p">,</span><span class="n">GF</span><span class="o">-</span><span class="n">Guy</span><span class="p">,</span><span class="n">HU</span><span class="o">-</span><span class="n">Bug</span><span class="p">,</span><span class="n">ID</span><span class="o">-</span><span class="n">Pag</span><span class="p">,</span><span class="n">IE</span><span class="o">-</span><span class="n">Ca1</span><span class="p">,</span>
+<span class="n">IE</span><span class="o">-</span><span class="n">Dri</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">Amp</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">BCi</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">CA1</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">CA2</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">CA3</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">Col</span><span class="p">,</span>
+<span class="n">IT</span><span class="o">-</span><span class="n">Cpz</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">Isp</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">LMa</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">Lav</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">MBo</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">Mal</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">Noe</span><span class="p">,</span>
+<span class="n">IT</span><span class="o">-</span><span class="n">Non</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">PT1</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">Ren</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">Ro1</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">Ro2</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">SR2</span><span class="p">,</span><span class="n">IT</span><span class="o">-</span><span class="n">SRo</span><span class="p">,</span>
+<span class="n">JP</span><span class="o">-</span><span class="n">SMF</span><span class="p">,</span><span class="n">NL</span><span class="o">-</span><span class="n">Ca1</span><span class="p">,</span><span class="n">NL</span><span class="o">-</span><span class="n">Hor</span><span class="p">,</span><span class="n">NL</span><span class="o">-</span><span class="n">Loo</span><span class="p">,</span><span class="n">PL</span><span class="o">-</span><span class="n">wet</span><span class="p">,</span><span class="n">PT</span><span class="o">-</span><span class="n">Esp</span><span class="p">,</span><span class="n">PT</span><span class="o">-</span><span class="n">Mi1</span><span class="p">,</span>
+<span class="n">PT</span><span class="o">-</span><span class="n">Mi2</span><span class="p">,</span><span class="n">RU</span><span class="o">-</span><span class="n">Che</span><span class="p">,</span><span class="n">RU</span><span class="o">-</span><span class="n">Fyo</span><span class="p">,</span><span class="n">RU</span><span class="o">-</span><span class="n">Zot</span><span class="p">,</span><span class="n">SD</span><span class="o">-</span><span class="n">Dem</span><span class="p">,</span><span class="n">SE</span><span class="o">-</span><span class="n">Deg</span><span class="p">,</span><span class="n">UK</span><span class="o">-</span><span class="n">Gri</span><span class="p">,</span>
+<span class="n">UK</span><span class="o">-</span><span class="n">Ham</span><span class="p">,</span><span class="n">UK</span><span class="o">-</span><span class="n">PL3</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">AR1</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">AR2</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">ARM</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Aud</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Bar</span><span class="p">,</span>
+<span class="n">US</span><span class="o">-</span><span class="n">Bkg</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Blo</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Bo1</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Cop</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">FPe</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">GLE</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Goo</span><span class="p">,</span>
+<span class="n">US</span><span class="o">-</span><span class="n">Ha1</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Ho1</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">KS2</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Los</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">MMS</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">MOz</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Me2</span><span class="p">,</span>
+<span class="n">US</span><span class="o">-</span><span class="n">Me4</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Me6</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Myb</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">NR1</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Ne1</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Ne2</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Ne3</span><span class="p">,</span>
+<span class="n">US</span><span class="o">-</span><span class="n">PFa</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Prr</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">SP1</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">SP2</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">SP3</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">SRG</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">SRM</span><span class="p">,</span>
+<span class="n">US</span><span class="o">-</span><span class="n">Syv</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Ton</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Tw4</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Twt</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">UMB</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Var</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">WCr</span><span class="p">,</span>
+<span class="n">US</span><span class="o">-</span><span class="n">Whs</span><span class="p">,</span><span class="n">US</span><span class="o">-</span><span class="n">Wkg</span><span class="p">,</span><span class="n">ZA</span><span class="o">-</span><span class="n">Kru</span><span class="p">,</span><span class="n">ZM</span><span class="o">-</span><span class="n">Mon</span>
+</pre></div>
+</div>
+<p>You can find out more information about the PLUMBER2 dataset and project in <a class="reference external" href="https://doi.org/10.5194/essd-14-449-2022">Ukkola et al (2022)</a> with <a class="reference external" href="https://researchdata.edu.au/plumber2-forcing-evaluation-surface-models/1656048">data available from this site</a> (last accessed Oct 2026).</p>
+</section>
+<section id="assumptions">
+<h2>Assumptions<a class="headerlink" href="#assumptions" title="Link to this heading">#</a></h2>
+<p>Here are some assumptions we’ve built into PLUMBER2 simulations that use the <code class="docutils literal notranslate"><span class="pre">run_tower</span></code> script:</p>
+<ul class="simple">
+<li><p><strong>Surface datasets</strong>: may have one or several multiple PFTs, depending on the site. They have not been otherwise modified.</p></li>
+<li><p><strong>Data Atmosphere (DATM)</strong>: Are of various lengths and set individually for each site.</p></li>
+<li><p><strong>Compset</strong>: You’ll be running a BGC case, but if you run an SP case we have LAI streams for each site.</p></li>
+<li><p><strong>Parameter files</strong>: Are default for the physics version of CLM being used. They <strong>have not</strong> been calibrated to site-level observations.</p></li>
+<li><p><strong>Initial conditions</strong>: Are not provided, you’ll need to do your own spinup for PLUMBER2 cases, therefore the default <em>run-type</em> is for accelerated decomposition (AD) mode.</p></li>
+</ul>
+</section>
+<section id="get-started">
+<h2>Get started<a class="headerlink" href="#get-started" title="Link to this heading">#</a></h2>
+<p>Let’s use <code class="docutils literal notranslate"><span class="pre">run_tower</span></code> at a PLUMBER2 site.</p>
+<div class="alert alert-warning">  
+<details>
+<summary> <font face="Times New Roman" color='blue'>Click here for hints</font> </summary>
+<p><strong>Is my workspace set up?</strong></p>
+<p>Did you already create a <code class="docutils literal notranslate"><span class="pre">cases</span></code> directory where you will put all new cases? Note that you will need to use a <code class="docutils literal notranslate"><span class="pre">run_tower</span></code> option to put your created cases there!</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/glade/u/home/<span class="nv">$USER</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>cases
+</pre></div>
+</div>
+<p><strong>How do you use run_tower?</strong></p>
+<p>activate <code class="docutils literal notranslate"><span class="pre">ctsm_pylib</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>ctsm_pylib
+</pre></div>
+</div>
+<p>move into the tools/site_and_regional directory and ask for help!</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/glade/u/home/<span class="nv">$USER</span>/code/my_clm_code/tools/site_and_regional
+./run_tower<span class="w"> </span>--help
+</pre></div>
+</div>
+<p>Look at all the options you have for running tower sites!</p>
+<p>HINT: use the <code class="docutils literal notranslate"><span class="pre">--experiment</span></code> flag to add <code class="docutils literal notranslate"><span class="pre">test0</span></code> to your case name.</p>
+<p><strong>Use <code class="docutils literal notranslate"><span class="pre">run_tower</span></code> to create, setup, build and submit a case</strong></p>
+<p>A single <code class="docutils literal notranslate"><span class="pre">run_tower</span></code> command handles the whole CTSM workflow (create, setup, build, and submit). For a PLUMBER2 site it does four things, in order:</p>
+<ol class="arabic simple">
+<li><p><strong>Builds a base case</strong> This compiles CTSM once and takes a few minutes.</p></li>
+<li><p><strong>Clones the base case</strong> into the case you’ll actually run.</p></li>
+<li><p><strong>Configures the case</strong> to use the correct surface dataset and DATM data. We have copies of these files for PLUMBER2 sites.</p></li>
+<li><p><strong>Submits</strong> the case to the queue.</p></li>
+</ol>
+<p><strong>How do I check my job status?</strong></p>
+<p>You can check job status using the command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>qstat<span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span>
+</pre></div>
+</div>
+</details>
+</div><div class="alert alert-success">   
+<details>
+<summary><font face="Times New Roman" color='blue'>Click here for the solution</font></summary><br>
+<p>Create a new case <font face="Courier" color='purple'><strong>BR-Sa3.test0 </strong></font> with the command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/glade/u/home/<span class="nv">$USER</span>/code/my_clm_code/tools/site_and_regional
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_tower<span class="w"> </span>--plumber-sites<span class="w"> </span>BR-Sa3<span class="w"> </span><span class="se">\</span>
+--output-root<span class="w"> </span>/glade/u/home/<span class="nv">$USER</span>/cases<span class="w"> </span><span class="se">\</span>
+--experiment<span class="w"> </span>test0<span class="w"> </span><span class="se">\</span>
+--xmlchange<span class="w"> </span><span class="nv">PROJECT</span><span class="o">=</span>UCGD0011
+</pre></div>
+</div>
+<p>Move to your case directory: <font face="Courier" color='purple'><strong>BR-Sa3.test0.ad</strong></font>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/glade/u/home/<span class="nv">$USER</span>/cases/BR-Sa3.test0.ad
+</pre></div>
+</div>
+<p>Check the status:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>qstat<span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span>
+</pre></div>
+</div>
+<p>When the run is completed, look into the archive directory for:
+<font face="Courier" color='purple'><strong>BR-Sa3.test0.ad</strong></font>.</p>
+<p>Check that your archive directory contains outputs:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cases/archive/BR-Sa3.test0.ad
+ls<span class="w"> </span>
+</pre></div>
+</div>
+</details>
+</div>
+</section>
+<section id="test-your-understanding">
+<h2>Test your understanding<a class="headerlink" href="#test-your-understanding" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Did your run complete successfully?</p></li>
+<li><p>What sorts of files did you get as output?</p></li>
+<li><p>How long is the simulation?</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/singlepoint/exercises"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="runtower_NEON.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Run_tower: NEON</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="FATESsp_NEON.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">FATES Satellite Phenology (FATES-SP) simulations at NEON sites</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assumptions">Assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-started">Get started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-understanding">Test your understanding</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NCAR/CGD Staff
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

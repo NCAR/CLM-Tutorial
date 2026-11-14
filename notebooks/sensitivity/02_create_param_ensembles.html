@@ -1,0 +1,817 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Create an Ensemble of Parameter Files &#8212; CLM Tutorial</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=6a604523" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script data-sd-tabs-storage-prefix="sphinx-design-tab-id-" src="../../_static/design-tabs.js?v=fcb327ea"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/sensitivity/02_create_param_ensembles';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Submit a Parameter Ensemble" href="03_submit_ensemble.html" />
+    <link rel="prev" title="Parameter Sensitivity Experiments" href="01_sensitivity_overview.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/ncar_logo.png" class="logo__image only-light" alt="CLM Tutorial - Home"/>
+    <img src="../../_static/ncar_logo.png" class="logo__image only-dark pst-js-only" alt="CLM Tutorial - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../intro/intro_overview.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../intro/components.html">What is CESM ?</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intro/coupling.html">CIME (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../intro/cesm_webpage.html">CESM Webpage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intro/project.html">CESM Working Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../intro/getting_involved.html">Getting Involved</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../intro/getting_help.html">Getting Help</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../prereqs/prereqs_overview.html">Prerequisites for Success</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../prereqs/exercises.html">Exercise Overview</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basics/basics_overview.html">Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../basics/ctsm_workspaces.html">Workspaces</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basics/code_overview.html">CLM code</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basics/code/git_download_ctsm.html">Download CLM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/code/ctsm_code_explore.html">Explore CLM Code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basics/ctsm_workflow.html">CTSM Workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/create_newcase.html">Create New Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/case_setup.html">Case Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/case_build.html">Case Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/case_submit.html">Case Submit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/model_output.html">Model Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/checking_jobs_and_status.html">Checking Your Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/create_clone.html">Create Clone (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basics/exercises_overview.html">Exercise Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/first_I1850.html">Your first CLM run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/second_I1850.html">Extending your run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/change_compsets.html">Change component set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/examine_history_I1850.html">Examine History Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/extra.html">Explore Further</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/review_questions.html">Review Questions</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modifications/modifications.html">Modifying Your Case</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modifications/xml/overview.html">XML Modifications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modifications/xml/xml_basics.html">How to Modify XML Files</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modifications/xml/run_length.html">Controlling Run Length</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/run_length/starting_and_stopping.html">Starting and Stopping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/run_length/restarting.html">Restarting a Run</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/run_length/changing_run_length.html">Changing Run Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/run_length/timing_files.html">Using Timing Files</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modifications/xml/modify_run_type.html">Modifying the Type of Run</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/modify_run_type/hybrid_branch_restart.html">Hybrid, Branch, and Startup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/modify_run_type/run_variables.html">Variables Related to Run Type</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../modifications/xml/other_xml_variables.html">Other Useful XML Variables</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modifications/xml/exercises.html">XML Modification Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/exercises/xml_length_exercise.html">Exercise 1: Modify run length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/exercises/xml_runtype_exercise.html">Exercise 2: Modify run type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/exercises/xml_datm_exercise.html">Exercise 3: Modifying DATM variables</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modifications/namelist/overview.html">Namelist Modifications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modifications/namelist/documentation.html">Namelist Variable Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modifications/namelist/output.html">Customizing Output</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modifications/namelist/exercises_overview.html">Exercises Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/namelist/exercises/exercise_clm_history_vars.html">Exercise 1: History Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/namelist/exercises/exercise_clm_history_frequency.html">Exercise 2: Modify History Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/namelist/exercises/exercise_fates_complexity.html">Exercise 3: Change a FATES complexity variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/namelist/exercises/exercise_hillslope.html">Exercise 4: Configure a Hillslope Hydrology simulation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../singlepoint/singlepoint_overview.html">Single Point Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../singlepoint/exercises/runtower_NEON.html">Run_tower: NEON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../singlepoint/exercises/runtower_PLUMBER2.html">Run_tower: PLUMBER2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../singlepoint/exercises/FATESsp_NEON.html">FATES Satellite Phenology (FATES-SP) simulations at NEON sites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../singlepoint/exercises/GenericSinglePoint.html">Generic Single Point</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="01_sensitivity_overview.html">Parameter Sensitivity Experiments</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Create an Ensemble of Parameter Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_submit_ensemble.html">Submit a Parameter Ensemble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_ensemble_analysis.html">Analyze a Parameter Ensemble</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../diagnostics/diagnostics_intro.html">Diagnostics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../diagnostics/basics/basic_plotting_clm.html">Plotting basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/basics/unstructured_plotting.html">Plotting data from unstructured grids</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../diagnostics/fates/fates_overview.html">FATES</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/fates/fates_plotting_1.html">Investigating Output: CLM and CLM-FATES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/fates/fates_plotting_2.html">Investigating vegetation demographics with FATES</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../diagnostics/hillslope/hillslope_plotting.html">Hillslope Hydrology</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../diagnostics/neon/neon_overview.html">NEON</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/neon/neon_basic_plots.html">NEON: Basic Plotting</a></li>
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/neon/plot_neon_climatology.html">Climatology plots for NEON sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/neon/neon_lh_components.html">NEON Hourly Averages</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../diagnostics/ldf/ldf_basics.html">LDF</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../diagnostics/cupid/cupid_basics.html">CUPiD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/cupid/clm_cupid_ldf_ilamb.html">Land</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../diagnostics/additional/additional.html">Additional Topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/additional/postprocessing.html">Postprocessing data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/additional/analysis_tools.html">CESM analysis tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/additional/adf.html">ADF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/additional/uxarray.html">UXarray</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../resources/resources_overview.html">Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../resources/ncar_hpc.html">NCAR Supercomputer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../resources/ncar_hpc_module.html">Modules on NCAR HPC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../resources/tutorial_one_time_setup.html">Tutorial one time setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../resources/tutorial_queue_account.html">Tutorial queue and account</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/terminals.html">Terminal Windows</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../resources/unix.html">UNIX</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../resources/unix-cheatsheet.html">UNIX cheatsheet</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/text_editors.html">Text Editors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/github.html">Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/fortran.html">Fortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/netcdf.html">NetCDF files</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting runtime errors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/log_files.html">The log files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/debugging_flag.html">Adding debugging info</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/sensitivity/02_create_param_ensembles.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Create an Ensemble of Parameter Files</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-investigate-parameter-ranges">Step 1: Investigate parameter ranges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-generate-parameter-files">Step 2: Generate parameter files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-that-the-files-were-created-correctly">Check that the files were created correctly</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-out-the-parameter-files">Check out the parameter files</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="create-an-ensemble-of-parameter-files">
+<h1>Create an Ensemble of Parameter Files<a class="headerlink" href="#create-an-ensemble-of-parameter-files" title="Link to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">meristem.paramgen</span></code> generates a set of parameter files for CLM or CLM-FATES from a spreadsheet of parameters and their ranges. It supports three sampling designs:</p>
+<ul class="simple">
+<li><p><strong>Latin Hypercube</strong>: samples the parameter space evenly, so each parameter’s range is well covered across the ensemble.</p></li>
+<li><p><strong>One-at-a-time (OAT)</strong>: varies one parameter at a time between its minimum and maximum while holding all others at their defaults.</p></li>
+<li><p><strong>Morris</strong>: generates trajectories through parameter space that change one parameter at a time, for Morris (elementary effects) global sensitivity analysis.</p></li>
+</ul>
+<p>In this notebook we will build a one-at-a-time ensemble. The same workflow applies to the other designs, with a different <code class="docutils literal notranslate"><span class="pre">ensemble_type</span></code> and a few design-specific settings. For all of the options, including Latin Hypercube, Morris, grouping parameters, and posterior sampling, see <code class="docutils literal notranslate"><span class="pre">docs/paramgen.md</span></code>.</p>
+<div class="alert alert-warning">
+  Make sure that the kernel for this notebook is "meristem" (see upper right corner, above).
+</div><section id="step-1-investigate-parameter-ranges">
+<h2>Step 1: Investigate parameter ranges<a class="headerlink" href="#step-1-investigate-parameter-ranges" title="Link to this heading">#</a></h2>
+<p>The first step in a one-at-a-time sensitivity experiment is to select which parameters you want to modify and what minimum and maximum values to use for each.</p>
+<ul class="simple">
+<li><p>Here we will start with three CLM-FATES parameters:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">fates_leaf_stomatal_intercept</span></code> : <em>minimum unstressed stomatal conductance for Medlyn stomatal model</em> (μmol H<sub>2</sub>0 m<sup>-2</sup> s<sup>-1</sup>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fates_leaf_vcmax25top</span></code> : <em>maximum carboxylation rate of Rubisco at 25 °C, canopy top</em> (μmol CO<sub>2</sub> m<sup>-2</sup> s<sup>-1</sup>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fates_rad_leaf_clumping_index</span></code> : <em>self-occlusion of leaf scattering elements decreasing light interception</em> (unitless)</p></li>
+</ul>
+</li>
+</ul>
+<p>CLM and FATES provide suggested ranges for many parameters, but these ranges may not be appropriate for your ecosystem or experiment so you may modify them. In this experiment we will use the default minimum and maximum for each parameter. For more information about the suggested ranges see <a class="reference external" href="https://doi.org/10.1029/2024MS004715">Kennedy et al., 2025</a> and <a class="reference external" href="https://doi.org/10.1029/2025MS005590">Foster et al., 2026</a>.</p>
+<p>Open and inspect the default parameter ranges set in this file:</p>
+<p><code class="docutils literal notranslate"><span class="pre">meristem/examples/paramgen/fates_example/fates_param_dir/main.csv</span></code></p>
+<div class="alert alert-info">
+<strong>What are the minimum and maximum settings for the three parameters we've selected?</strong><br><br>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="n">user</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'USER'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"username is </span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s2">, update to your username if this is not correct"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="n">meristem_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/glade/u/home/</span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s2">/code/meristem"</span><span class="p">)</span>
+<span class="n">meristem_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">csv_path</span> <span class="o">=</span> <span class="n">meristem_dir</span> <span class="o">/</span> <span class="s2">"examples/paramgen/fates_example/fates_param_dir/main.csv"</span>
+
+<span class="n">param_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_path</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'fates_leaf_stomatal_intercept'</span><span class="p">,</span> <span class="s1">'fates_leaf_vcmax25top'</span><span class="p">,</span> <span class="s1">'fates_rad_leaf_clumping_index'</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">param_name</span><span class="p">,</span> <span class="s2">"minimum = "</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">param_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">param_name</span><span class="p">,</span> <span class="s1">'param_min'</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">param_name</span><span class="p">,</span> <span class="s2">"maximum = "</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">param_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">param_name</span><span class="p">,</span> <span class="s1">'param_max'</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"----"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<p>Did you notice that the <code class="docutils literal notranslate"><span class="pre">fates_leaf_vcmax25top</span></code> just says “pft”? This is because the ranges differ for each plant functional type. The parameter ranges per pft are in their own csv file:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vcmax_path</span> <span class="o">=</span> <span class="n">meristem_dir</span> <span class="o">/</span> <span class="s2">"examples/paramgen/fates_example/fates_param_dir/fates_leaf_vcmax25top.csv"</span>
+<span class="n">vcmax_pft_params</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">vcmax_path</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">vcmax_pft_params</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Each PFT has its own minimum and maximum for <code class="docutils literal notranslate"><span class="pre">fates_leaf_vcmax25top</span></code>, but in this example the PFTs are not varied independently. <code class="docutils literal notranslate"><span class="pre">fates_leaf_vcmax25top</span></code> is treated as a single parameter, so in the “minimum” ensemble member every PFT is set to its own minimum at the same time, and in the “maximum” member every PFT is set to its own maximum. That is why this parameter still contributes just two members (one minimum, one maximum) to the ensemble (see below).</p>
+<p>If you wanted each PFT to vary on its own, you would set <code class="docutils literal notranslate"><span class="pre">expand_dim</span></code> to <code class="docutils literal notranslate"><span class="pre">fates_pft</span></code> for this parameter in <code class="docutils literal notranslate"><span class="pre">main.csv</span></code>. <code class="docutils literal notranslate"><span class="pre">paramgen</span></code> would then treat each PFT as a separate parameter, with its own minimum and maximum member. See the “Expand by index” section of <code class="docutils literal notranslate"><span class="pre">docs/paramgen.md</span></code> for details.</p>
+</section>
+<hr class="docutils" />
+<section id="step-2-generate-parameter-files">
+<h2>Step 2: Generate parameter files<a class="headerlink" href="#step-2-generate-parameter-files" title="Link to this heading">#</a></h2>
+<p>Now we are going to use <code class="docutils literal notranslate"><span class="pre">meristem.paramgen</span></code> to generate parameter files for our OAT sensitivity experiment. Given a set of parameters and their ranges, this module produces a collection of parameter files (NetCDF or FATES JSON) that can be fed directly into an ensemble of CLM/FATES model runs.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">meristem</span></code> package has a built in sampling design for one-at-a-time minimum maximum sampling. We just have to set the <code class="docutils literal notranslate"><span class="pre">ensemble_type</span></code> and provide paths to our parameter information:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">meristem.paramgen</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParamEnsemble</span>
+
+<span class="n">fates_example_dir</span> <span class="o">=</span> <span class="n">meristem_dir</span> <span class="o">/</span> <span class="s2">"examples/paramgen/fates_example"</span>
+<span class="n">out_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/glade/u/home/</span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s2">/paramfiles_OAT"</span><span class="p">)</span>
+
+<span class="n">ensemble</span> <span class="o">=</span> <span class="n">ParamEnsemble</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span>
+    <span class="s2">"ensemble_type"</span><span class="p">:</span> <span class="s2">"OAT"</span><span class="p">,</span>                                               <span class="c1"># What type of sampling design to use? One-at-a-time (OAT) </span>
+    <span class="s2">"param_dir"</span><span class="p">:</span> <span class="n">fates_example_dir</span> <span class="o">/</span> <span class="s2">"fates_param_dir"</span><span class="p">,</span>                   <span class="c1"># Where are the csv files with the parameter information and values stored? </span>
+    <span class="s2">"default_param_file"</span><span class="p">:</span> <span class="n">fates_example_dir</span> <span class="o">/</span> <span class="s2">"default_fates_param.json"</span><span class="p">,</span> <span class="c1"># Where is the default fates parameter you want to start from? </span>
+    <span class="s2">"ensemble_dir"</span><span class="p">:</span> <span class="n">out_dir</span><span class="p">,</span>                                              <span class="c1"># Where do you want the generated parameter files to be stored?</span>
+    <span class="s2">"file_prefix"</span><span class="p">:</span> <span class="s2">"fates_oat"</span><span class="p">,</span>                                           <span class="c1"># What should we call your experiment? This will be used as a prefix for the generated parameter files.</span>
+    <span class="s2">"param_list"</span><span class="p">:</span> <span class="n">params</span><span class="p">,</span>                                                 <span class="c1"># Which parameters do you want to modify? </span>
+<span class="p">})</span>
+ 
+<span class="n">ensemble</span><span class="o">.</span><span class="n">create_ensemble</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="check-that-the-files-were-created-correctly">
+<h3>Check that the files were created correctly<a class="headerlink" href="#check-that-the-files-were-created-correctly" title="Link to this heading">#</a></h3>
+<p>Check that the files were created by listing the output directory:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">out_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You should see 6 parameter files, <code class="docutils literal notranslate"><span class="pre">fates_oat_000.json</span></code> through <code class="docutils literal notranslate"><span class="pre">fates_oat_0005.json</span></code>. Our one-at-a-time design varies one parameter at a time while holding all others at default, and runs each parameter at its minimum and maximum values. With three parameters, this gives 3 x 2 = 6 ensemble members, each saved as its own parameter files.</p>
+<p><code class="docutils literal notranslate"><span class="pre">paramgen</span></code> also writes three other files alongside the parameter files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fates_oat_key.csv</span></code>: a “key” recording which parameter was changed in each file, and whether it was set to its minimum or maximum.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fates_oat.txt</span></code>: a plain text list of the ensemble member names, one per line. This is handy for scripting, such as looping over members when you set up model runs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fates_oat_config.yaml</span></code>: metadata about the created parameter ensemble that can be used to reproduce your results</p></li>
+</ul>
+</section>
+<section id="check-out-the-parameter-files">
+<h3>Check out the parameter files<a class="headerlink" href="#check-out-the-parameter-files" title="Link to this heading">#</a></h3>
+<p>Now let’s look inside the parameter files. Each file is a copy of the default parameter file with one parameter changed. Below we read the value of <code class="docutils literal notranslate"><span class="pre">fates_leaf_stomatal_intercept</span></code> from the default file and from every file in the ensemble.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_param</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Read one parameter's entry from a FATES JSON parameter file."""</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="s1">'parameters'</span><span class="p">][</span><span class="n">name</span><span class="p">][</span><span class="s1">'data'</span><span class="p">]</span>
+
+<span class="n">param_name</span> <span class="o">=</span> <span class="s1">'fates_leaf_stomatal_intercept'</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"default:"</span><span class="p">,</span> <span class="n">get_param</span><span class="p">(</span><span class="n">fates_example_dir</span> <span class="o">/</span> <span class="s2">"default_fates_param.json"</span><span class="p">,</span> <span class="n">param_name</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">out_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"fates_oat_*.json"</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">get_param</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">param_name</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Most of the files match the default value, because in a one-at-a-time design each file only changes one parameter. Only two files differ for <code class="docutils literal notranslate"><span class="pre">fates_leaf_stomatal_intercept</span></code>: the one where it was set to its minimum, and the one where it was set to its maximum. Compare these values with the min and max you looked up in <code class="docutils literal notranslate"><span class="pre">main.csv</span></code> earlier.</p>
+<p>The key file can be used to understand what was done in the ensemble. It has one row per ensemble member, in the same order as the parameter files (row 0 corresponds to <code class="docutils literal notranslate"><span class="pre">fates_oat_0000.json</span></code>, etc.). For a one-at-a-time ensemble there is a <code class="docutils literal notranslate"><span class="pre">direction</span></code> column saying whether the perturbed parameter was set to its <code class="docutils literal notranslate"><span class="pre">minimum</span></code> or its <code class="docutils literal notranslate"><span class="pre">maximum</span></code>. All other parameters in that member were left at their default values.</p>
+<p>Use the key to match the files you just looked at to their perturbations. Find the rows where <code class="docutils literal notranslate"><span class="pre">fates_leaf_stomatal_intercept</span></code> was changed, check their <code class="docutils literal notranslate"><span class="pre">direction</span></code>, and confirm that the minimum and maximum values you saw in the JSON files line up with those rows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">key_path</span> <span class="o">=</span> <span class="n">out_dir</span> <span class="o">/</span> <span class="s2">"fates_oat_key.csv"</span>
+<span class="n">param_key</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">key_path</span><span class="p">)</span>
+<span class="n">param_key</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<p>You now have a set of parameter files, one per ensemble member. The next notebook shows how to use <code class="docutils literal notranslate"><span class="pre">meristem.ensemble</span></code> to set up and submit model runs with them.</p>
+<p>For more sampling designs and options, see <code class="docutils literal notranslate"><span class="pre">docs/paramgen.md</span></code>.</p>
+<p>Click <a class="reference internal" href="03_submit_ensemble.html"><span class="std std-doc">here</span></a> to go to the next chapter.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "conda-env-meristem-py"
+        },
+        kernelOptions: {
+            name: "conda-env-meristem-py",
+            path: "./notebooks/sensitivity"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'conda-env-meristem-py'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_sensitivity_overview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Parameter Sensitivity Experiments</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_submit_ensemble.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Submit a Parameter Ensemble</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-investigate-parameter-ranges">Step 1: Investigate parameter ranges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-generate-parameter-files">Step 2: Generate parameter files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-that-the-files-were-created-correctly">Check that the files were created correctly</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-out-the-parameter-files">Check out the parameter files</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NCAR/CGD Staff
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

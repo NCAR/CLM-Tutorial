@@ -1,0 +1,780 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Parameter Sensitivity Experiments &#8212; CLM Tutorial</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=6a604523" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script data-sd-tabs-storage-prefix="sphinx-design-tab-id-" src="../../_static/design-tabs.js?v=fcb327ea"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/sensitivity/01_sensitivity_overview';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Create an Ensemble of Parameter Files" href="02_create_param_ensembles.html" />
+    <link rel="prev" title="Generic Single Point" href="../singlepoint/exercises/GenericSinglePoint.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/ncar_logo.png" class="logo__image only-light" alt="CLM Tutorial - Home"/>
+    <img src="../../_static/ncar_logo.png" class="logo__image only-dark pst-js-only" alt="CLM Tutorial - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../intro/intro_overview.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../intro/components.html">What is CESM ?</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intro/coupling.html">CIME (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../intro/cesm_webpage.html">CESM Webpage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intro/project.html">CESM Working Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../intro/getting_involved.html">Getting Involved</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../intro/getting_help.html">Getting Help</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../prereqs/prereqs_overview.html">Prerequisites for Success</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../prereqs/exercises.html">Exercise Overview</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../basics/basics_overview.html">Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../basics/ctsm_workspaces.html">Workspaces</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basics/code_overview.html">CLM code</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basics/code/git_download_ctsm.html">Download CLM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/code/ctsm_code_explore.html">Explore CLM Code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basics/ctsm_workflow.html">CTSM Workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/create_newcase.html">Create New Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/case_setup.html">Case Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/case_build.html">Case Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/case_submit.html">Case Submit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/model_output.html">Model Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/checking_jobs_and_status.html">Checking Your Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/ctsm_workflow/create_clone.html">Create Clone (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basics/exercises_overview.html">Exercise Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/first_I1850.html">Your first CLM run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/second_I1850.html">Extending your run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/change_compsets.html">Change component set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/examine_history_I1850.html">Examine History Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/extra.html">Explore Further</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basics/exercises/review_questions.html">Review Questions</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modifications/modifications.html">Modifying Your Case</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modifications/xml/overview.html">XML Modifications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modifications/xml/xml_basics.html">How to Modify XML Files</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modifications/xml/run_length.html">Controlling Run Length</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/run_length/starting_and_stopping.html">Starting and Stopping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/run_length/restarting.html">Restarting a Run</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/run_length/changing_run_length.html">Changing Run Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/run_length/timing_files.html">Using Timing Files</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modifications/xml/modify_run_type.html">Modifying the Type of Run</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/modify_run_type/hybrid_branch_restart.html">Hybrid, Branch, and Startup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/modify_run_type/run_variables.html">Variables Related to Run Type</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../modifications/xml/other_xml_variables.html">Other Useful XML Variables</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modifications/xml/exercises.html">XML Modification Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/exercises/xml_length_exercise.html">Exercise 1: Modify run length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/exercises/xml_runtype_exercise.html">Exercise 2: Modify run type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/xml/exercises/xml_datm_exercise.html">Exercise 3: Modifying DATM variables</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modifications/namelist/overview.html">Namelist Modifications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modifications/namelist/documentation.html">Namelist Variable Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modifications/namelist/output.html">Customizing Output</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modifications/namelist/exercises_overview.html">Exercises Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/namelist/exercises/exercise_clm_history_vars.html">Exercise 1: History Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/namelist/exercises/exercise_clm_history_frequency.html">Exercise 2: Modify History Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/namelist/exercises/exercise_fates_complexity.html">Exercise 3: Change a FATES complexity variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modifications/namelist/exercises/exercise_hillslope.html">Exercise 4: Configure a Hillslope Hydrology simulation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../singlepoint/singlepoint_overview.html">Single Point Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../singlepoint/exercises/runtower_NEON.html">Run_tower: NEON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../singlepoint/exercises/runtower_PLUMBER2.html">Run_tower: PLUMBER2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../singlepoint/exercises/FATESsp_NEON.html">FATES Satellite Phenology (FATES-SP) simulations at NEON sites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../singlepoint/exercises/GenericSinglePoint.html">Generic Single Point</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Parameter Sensitivity Experiments</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="02_create_param_ensembles.html">Create an Ensemble of Parameter Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_submit_ensemble.html">Submit a Parameter Ensemble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_ensemble_analysis.html">Analyze a Parameter Ensemble</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../diagnostics/diagnostics_intro.html">Diagnostics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../diagnostics/basics/basic_plotting_clm.html">Plotting basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/basics/unstructured_plotting.html">Plotting data from unstructured grids</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../diagnostics/fates/fates_overview.html">FATES</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/fates/fates_plotting_1.html">Investigating Output: CLM and CLM-FATES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/fates/fates_plotting_2.html">Investigating vegetation demographics with FATES</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../diagnostics/hillslope/hillslope_plotting.html">Hillslope Hydrology</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../diagnostics/neon/neon_overview.html">NEON</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/neon/neon_basic_plots.html">NEON: Basic Plotting</a></li>
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/neon/plot_neon_climatology.html">Climatology plots for NEON sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/neon/neon_lh_components.html">NEON Hourly Averages</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../diagnostics/ldf/ldf_basics.html">LDF</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../diagnostics/cupid/cupid_basics.html">CUPiD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/cupid/clm_cupid_ldf_ilamb.html">Land</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../diagnostics/additional/additional.html">Additional Topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/additional/postprocessing.html">Postprocessing data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/additional/analysis_tools.html">CESM analysis tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/additional/adf.html">ADF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../diagnostics/additional/uxarray.html">UXarray</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../resources/resources_overview.html">Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../resources/ncar_hpc.html">NCAR Supercomputer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../resources/ncar_hpc_module.html">Modules on NCAR HPC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../resources/tutorial_one_time_setup.html">Tutorial one time setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../resources/tutorial_queue_account.html">Tutorial queue and account</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/terminals.html">Terminal Windows</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../resources/unix.html">UNIX</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../resources/unix-cheatsheet.html">UNIX cheatsheet</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/text_editors.html">Text Editors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/github.html">Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/fortran.html">Fortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/netcdf.html">NetCDF files</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting runtime errors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/log_files.html">The log files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/debugging_flag.html">Adding debugging info</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/sensitivity/01_sensitivity_overview.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Parameter Sensitivity Experiments</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-meristem">Getting started with <code class="docutils literal notranslate"><span class="pre">meristem</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-meristem-does">What <code class="docutils literal notranslate"><span class="pre">meristem</span></code> does</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#scope">Scope</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-meristem">Installing <code class="docutils literal notranslate"><span class="pre">meristem</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#option-1-the-provided-conda-environment-recommended">Option 1: the provided conda environment (recommended)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#option-2-install-into-an-existing-environment">Option 2: install into an existing environment</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-this-notebook-in-the-meristem-environment">Running this notebook in the meristem environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-the-installation">Check the installation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="parameter-sensitivity-experiments">
+<h1>Parameter Sensitivity Experiments<a class="headerlink" href="#parameter-sensitivity-experiments" title="Link to this heading">#</a></h1>
+<p>Often we want to understand how parameter settings influence our model output. One way to do this is a parameter sensitivity analysis, which quantifies how much the model output changes as parameter settings are adjusted.</p>
+<p>There are many types of sensitivity experiments, and they differ in objective and cost. Here we will use an one-at-a-time (OAT) design, perturbing each parameter only to its minimum and maximum values. This approach only requires 2N + 1 simulations for N parameters, and it is easy to interpret since each change in output can be attributed to a single parameter. However, it has limitations, results depend on the default values of the other parameters, it cannot detect parameter interactions, and sampling only the endpoints misses any nonlinear responses. OAT is therefore best viewed as a first screening step to identify which parameters merit further investigation.</p>
+<p>In this section we will introduce a new python tool, <code class="docutils literal notranslate"><span class="pre">meristem</span></code>, which assists in creating and managing parameter ensembles for CLM and CLM-FATES. We will use this tool to create and submit ensembles at a site (single-point case), but the tool can work for any configuration of CLM.</p>
+<hr class="docutils" />
+<p>For more information on one-at-a-time sensitivity experiments with CLM and CLM-FATES see:</p>
+<p>Kennedy, D., Dagon, K., Lawrence, D. M., Fisher, R. A., Sanderson, B. M., Collier, N., Hoffman, F. M., Koven, C. D., Kluzek, E., Levis, S., Lu, X., Oleson, K. W., Zarakas, C. M., Cheng, Y., Foster, A. C., Fowler, M. D., Hawkins, L. R., Kavoo, T., Kumar, S., … Wood, A. W. (2025). One-at-a-Time Parameter Perturbation Ensemble of the Community Land Model, Version 5.1. Journal of Advances in Modeling Earth Systems, 17(8), e2024MS004715. <a class="reference external" href="https://doi.org/10.1029/2024MS004715">https://doi.org/10.1029/2024MS004715</a></p>
+<p>Foster, A. C., Hawkins, L. R., Kennedy, D., Bonan, G. B., Fisher, R. A., Needham, J. F., Knox, R. G., Koven, C. D., Wieder, W. R., Dagon, K., &amp; Lawrence, D. M. (2026). Contrasting Parametric Sensitivities in Two Global Vegetation Models Using Parameter Perturbation Ensembles. Journal of Advances in Modeling Earth Systems, 18(3), e2025MS005590. <a class="reference external" href="https://doi.org/10.1029/2025MS005590">https://doi.org/10.1029/2025MS005590</a></p>
+<hr class="docutils" />
+<section id="getting-started-with-meristem">
+<h2>Getting started with <code class="docutils literal notranslate"><span class="pre">meristem</span></code><a class="headerlink" href="#getting-started-with-meristem" title="Link to this heading">#</a></h2>
+<p><strong>meristem</strong> is a Python toolkit for building and running parameter ensembles with the Community Land Model (CLM) and CLM-FATES. It turns a spreadsheet of parameter ranges into ready-to-run parameter files, using Latin Hypercube, one-at-a-time, or Morris sampling. It can then use those parameter files and submit and track an ensemble of CLM and CLM-FATES cases.
+It can also chain the stages of a model run, such as spinup and transient, into PBS jobs that submit themselves one after another.</p>
+<blockquote>
+<div><p>A <em>meristem</em> is the growing tissue in plants that gives rise to new organs.</p>
+</div></blockquote>
+<p>In this notebook you will:</p>
+<ol class="arabic simple">
+<li><p>Learn what <code class="docutils literal notranslate"><span class="pre">meristem</span></code> does and how it is organized</p></li>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">meristem</span></code></p></li>
+<li><p>Confirm the installation works</p></li>
+</ol>
+<section id="what-meristem-does">
+<h3>What <code class="docutils literal notranslate"><span class="pre">meristem</span></code> does<a class="headerlink" href="#what-meristem-does" title="Link to this heading">#</a></h3>
+<p>meristem has three parts:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Module</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Where it runs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">meristem.paramgen</span></code></p></td>
+<td><p>Generate parameter files. Describe parameters and their ranges in a CSV, choose a sampling design, and get one parameter file per ensemble member plus a key of the sampled values.</p></td>
+<td><p>Anywhere</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">meristem.run</span></code></p></td>
+<td><p>Run one model run. Describe its stages (e.g. spinup → transient) in a YAML file and submit them as a chain of PBS jobs that advance on success and stop cleanly on failure.</p></td>
+<td><p>PBS cluster with CESM/CTSM</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">meristem.ensemble</span></code></p></td>
+<td><p>Run an ensemble: one run per paramgen parameter file, each with one or more stages, submitted and tracked together.</p></td>
+<td><p>PBS cluster with CESM/CTSM</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="scope">
+<h4>Scope<a class="headerlink" href="#scope" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">meristem</span></code> is developed for CLM and CLM-FATES, but its core is model-agnostic:</p>
+<ul class="simple">
+<li><p><strong>Sampling</strong> works on normalized parameter values in [0, 1] and knows nothing about the model.</p></li>
+<li><p><strong>Parameter files</strong> are read and written through a small <code class="docutils literal notranslate"><span class="pre">ParameterDataset</span></code> interface. NetCDF (CLM) and FATES JSON are currently supported.</p></li>
+<li><p><strong>Job chaining</strong> runs each stage’s setup script and submits the next stage on success. Job chaining currently requires a PBS scheduler.</p></li>
+</ul>
+</section>
+</section>
+<section id="installing-meristem">
+<h3>Installing <code class="docutils literal notranslate"><span class="pre">meristem</span></code><a class="headerlink" href="#installing-meristem" title="Link to this heading">#</a></h3>
+<p>meristem requires <strong>Python 3.12 or newer</strong>. It is not yet on PyPI or conda-forge, so you install it from source. It is currently housed in a personal GitHub repository, but the plan is to move it to an official NCAR repository once it is finalized.</p>
+<section id="option-1-the-provided-conda-environment-recommended">
+<h4>Option 1: the provided conda environment (recommended)<a class="headerlink" href="#option-1-the-provided-conda-environment-recommended" title="Link to this heading">#</a></h4>
+<p>Run these commands in a terminal (not in this notebook):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/glade/u/home/<span class="nv">$USER</span>/code
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/adrifoster/meristem.git
+<span class="nb">cd</span><span class="w"> </span>meristem
+conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
+conda<span class="w"> </span>activate<span class="w"> </span>meristem
+</pre></div>
+</div>
+<p>This installs <code class="docutils literal notranslate"><span class="pre">meristem</span></code> in editable mode, along with its dependencies and the development tools (pytest, pylint, black).</p>
+</section>
+<section id="option-2-install-into-an-existing-environment">
+<h4>Option 2: install into an existing environment<a class="headerlink" href="#option-2-install-into-an-existing-environment" title="Link to this heading">#</a></h4>
+<p>From the repository root, with your environment activated:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+</section>
+<section id="running-this-notebook-in-the-meristem-environment">
+<h3>Running this notebook in the meristem environment<a class="headerlink" href="#running-this-notebook-in-the-meristem-environment" title="Link to this heading">#</a></h3>
+<p>From here on, you should use JupyterLab to run the actual cells of this notebook. Follow the steps laid out in <a class="reference internal" href="../diagnostics/diagnostics_intro.html"><span class="std std-doc">our diagnostics tutorial</span></a> to launch Jupyter from the OnDemand website.</p>
+<p>Then navigate to <code class="docutils literal notranslate"><span class="pre">notebooks/sensitivity</span></code> and open</p>
+<p>Once you are there, select <code class="docutils literal notranslate"><span class="pre">meristem</span></code> as the kernel.</p>
+</section>
+<section id="check-the-installation">
+<h3>Check the installation<a class="headerlink" href="#check-the-installation" title="Link to this heading">#</a></h3>
+<p>If the install worked, the cell below runs without errors.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">meristem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">meristem.paramgen</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParamEnsemble</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"meristem imported from:"</span><span class="p">,</span> <span class="n">meristem</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="next-steps">
+<h3>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h3>
+<p>Next we will explore how to use <code class="docutils literal notranslate"><span class="pre">meristem</span></code> to create suites of parameter files.</p>
+<p>Click <a class="reference internal" href="02_create_param_ensembles.html"><span class="std std-doc">here</span></a> to go to the next chapter.</p>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "conda-env-meristem-py"
+        },
+        kernelOptions: {
+            name: "conda-env-meristem-py",
+            path: "./notebooks/sensitivity"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'conda-env-meristem-py'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../singlepoint/exercises/GenericSinglePoint.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Generic Single Point</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02_create_param_ensembles.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Create an Ensemble of Parameter Files</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-meristem">Getting started with <code class="docutils literal notranslate"><span class="pre">meristem</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-meristem-does">What <code class="docutils literal notranslate"><span class="pre">meristem</span></code> does</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#scope">Scope</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-meristem">Installing <code class="docutils literal notranslate"><span class="pre">meristem</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#option-1-the-provided-conda-environment-recommended">Option 1: the provided conda environment (recommended)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#option-2-install-into-an-existing-environment">Option 2: install into an existing environment</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-this-notebook-in-the-meristem-environment">Running this notebook in the meristem environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-the-installation">Check the installation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NCAR/CGD Staff
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

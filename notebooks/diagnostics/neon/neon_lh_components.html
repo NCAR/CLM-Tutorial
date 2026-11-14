@@ -1,0 +1,1360 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NEON Hourly Averages &#8212; CLM Tutorial</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=6a604523" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script data-sd-tabs-storage-prefix="sphinx-design-tab-id-" src="../../../_static/design-tabs.js?v=fcb327ea"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/diagnostics/neon/neon_lh_components';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="LDF" href="../ldf/ldf_basics.html" />
+    <link rel="prev" title="Climatology plots for NEON sites" href="plot_neon_climatology.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/ncar_logo.png" class="logo__image only-light" alt="CLM Tutorial - Home"/>
+    <img src="../../../_static/ncar_logo.png" class="logo__image only-dark pst-js-only" alt="CLM Tutorial - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../intro/intro_overview.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../intro/components.html">What is CESM ?</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/coupling.html">CIME (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../intro/cesm_webpage.html">CESM Webpage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/project.html">CESM Working Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/getting_involved.html">Getting Involved</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/getting_help.html">Getting Help</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../prereqs/prereqs_overview.html">Prerequisites for Success</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../prereqs/exercises.html">Exercise Overview</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../basics/basics_overview.html">Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../basics/ctsm_workspaces.html">Workspaces</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../basics/code_overview.html">CLM code</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/code/git_download_ctsm.html">Download CLM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/code/ctsm_code_explore.html">Explore CLM Code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../basics/ctsm_workflow.html">CTSM Workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/create_newcase.html">Create New Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/case_setup.html">Case Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/case_build.html">Case Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/case_submit.html">Case Submit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/model_output.html">Model Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/checking_jobs_and_status.html">Checking Your Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/create_clone.html">Create Clone (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../basics/exercises_overview.html">Exercise Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/first_I1850.html">Your first CLM run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/second_I1850.html">Extending your run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/change_compsets.html">Change component set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/examine_history_I1850.html">Examine History Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/extra.html">Explore Further</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/review_questions.html">Review Questions</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modifications/modifications.html">Modifying Your Case</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../modifications/xml/overview.html">XML Modifications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/xml/xml_basics.html">How to Modify XML Files</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/xml/run_length.html">Controlling Run Length</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/starting_and_stopping.html">Starting and Stopping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/restarting.html">Restarting a Run</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/changing_run_length.html">Changing Run Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/timing_files.html">Using Timing Files</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/xml/modify_run_type.html">Modifying the Type of Run</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/modify_run_type/hybrid_branch_restart.html">Hybrid, Branch, and Startup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/modify_run_type/run_variables.html">Variables Related to Run Type</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/xml/other_xml_variables.html">Other Useful XML Variables</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/xml/exercises.html">XML Modification Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/exercises/xml_length_exercise.html">Exercise 1: Modify run length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/exercises/xml_runtype_exercise.html">Exercise 2: Modify run type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/exercises/xml_datm_exercise.html">Exercise 3: Modifying DATM variables</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../modifications/namelist/overview.html">Namelist Modifications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/namelist/documentation.html">Namelist Variable Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/namelist/output.html">Customizing Output</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/namelist/exercises_overview.html">Exercises Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_clm_history_vars.html">Exercise 1: History Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_clm_history_frequency.html">Exercise 2: Modify History Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_fates_complexity.html">Exercise 3: Change a FATES complexity variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_hillslope.html">Exercise 4: Configure a Hillslope Hydrology simulation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../singlepoint/singlepoint_overview.html">Single Point Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../singlepoint/exercises/runtower_NEON.html">Run_tower: NEON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../singlepoint/exercises/runtower_PLUMBER2.html">Run_tower: PLUMBER2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../singlepoint/exercises/FATESsp_NEON.html">FATES Satellite Phenology (FATES-SP) simulations at NEON sites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../singlepoint/exercises/GenericSinglePoint.html">Generic Single Point</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../sensitivity/01_sensitivity_overview.html">Parameter Sensitivity Experiments</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../sensitivity/02_create_param_ensembles.html">Create an Ensemble of Parameter Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sensitivity/03_submit_ensemble.html">Submit a Parameter Ensemble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sensitivity/04_ensemble_analysis.html">Analyze a Parameter Ensemble</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../diagnostics_intro.html">Diagnostics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basics/basic_plotting_clm.html">Plotting basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basics/unstructured_plotting.html">Plotting data from unstructured grids</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../fates/fates_overview.html">FATES</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../fates/fates_plotting_1.html">Investigating Output: CLM and CLM-FATES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fates/fates_plotting_2.html">Investigating vegetation demographics with FATES</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../hillslope/hillslope_plotting.html">Hillslope Hydrology</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="neon_overview.html">NEON</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="neon_basic_plots.html">NEON: Basic Plotting</a></li>
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="plot_neon_climatology.html">Climatology plots for NEON sites</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">NEON Hourly Averages</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../ldf/ldf_basics.html">LDF</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../cupid/cupid_basics.html">CUPiD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cupid/clm_cupid_ldf_ilamb.html">Land</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../additional/additional.html">Additional Topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../additional/postprocessing.html">Postprocessing data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../additional/analysis_tools.html">CESM analysis tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../additional/adf.html">ADF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../additional/uxarray.html">UXarray</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../resources/resources_overview.html">Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../resources/ncar_hpc.html">NCAR Supercomputer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/ncar_hpc_module.html">Modules on NCAR HPC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/tutorial_one_time_setup.html">Tutorial one time setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/tutorial_queue_account.html">Tutorial queue and account</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/terminals.html">Terminal Windows</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../resources/unix.html">UNIX</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/unix-cheatsheet.html">UNIX cheatsheet</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/text_editors.html">Text Editors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/github.html">Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/fortran.html">Fortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/netcdf.html">NetCDF files</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../troubleshooting/troubleshooting.html">Troubleshooting runtime errors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting/log_files.html">The log files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting/debugging_flag.html">Adding debugging info</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/diagnostics/neon/neon_lh_components.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>NEON Hourly Averages</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">NEON Hourly Averages</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diurnal-cycle-of-latent-heat-and-components">Diurnal Cycle of latent heat and components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-diel-cycle-plots-for-neon-sites">Creating Diel Cycle Plots for NEON sites</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports:</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dask-cluster">Dask Cluster</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-functions-and-objects">Useful Functions and Objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-to-create-plots">Variables to create plots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-diurnal-cycle-plots">Make Diurnal Cycle Plots</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="neon-hourly-averages">
+<h1>NEON Hourly Averages<a class="headerlink" href="#neon-hourly-averages" title="Link to this heading">#</a></h1>
+<section id="diurnal-cycle-of-latent-heat-and-components">
+<h2>Diurnal Cycle of latent heat and components<a class="headerlink" href="#diurnal-cycle-of-latent-heat-and-components" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Alternate variables at different times of year</p></li>
+</ul>
+<p>This activity provides examples for making an a diel cycle of the components of latent heat at NEON sites.  Work here follows results published in Figure 6 of <a class="reference external" href="https://doi.org/10.5194/egusphere-2023-271">Lombardozzi et al. 2023</a>.</p>
+<ul class="simple">
+<li><p>Author : Negin Sobhani &#64;negin513</p></li>
+<li><p>Modified: Will Wieder &#64;wwieder</p></li>
+<li><p>Last updated: 2026-11-10</p></li>
+</ul>
+<p><img alt="Hourly latent heat at Abby Road" src="../../../_images/ABBY_EFLX_LH_TOT_composition_diel_cyle_Annual.png" /></p>
+<p><em><p style="text-align: center;">Mean hourly latent heat flux at the NEON Abby Road site (ABBY) in Washington</p></em><br></p>
+</section>
+<hr class="docutils" />
+<section id="creating-diel-cycle-plots-for-neon-sites">
+<h2>Creating Diel Cycle Plots for NEON sites<a class="headerlink" href="#creating-diel-cycle-plots-for-neon-sites" title="Link to this heading">#</a></h2>
+<p>This notebooks have the scripts for:</p>
+<ol class="arabic simple">
+<li><p>Reading Evaluation (NEON) and model (CLM) data for all neon sites</p></li>
+<li><p>Making diurnal cycle plots for latent heat flux and components for all neon sites</p></li>
+<li><p>Making diurnal cycle plots for all variables without the components.</p></li>
+</ol>
+<p>BEFORE BEGINNING THIS EXERCISE - Check that your kernel (upper right corner, above) is <code class="docutils literal notranslate"><span class="pre">NPL2026a</span></code>. This should be the default kernel, but if it is not, click on that button and select <code class="docutils literal notranslate"><span class="pre">NPL2026a</span></code>.</p>
+<p><strong>NOTE:</strong> Results from a series of older CLM simulations and NEON observations are provided <code class="docutils literal notranslate"><span class="pre">/glade/campaign/cgd/tss/tutorials/neon_v3/</span></code> for students to use.</p>
+<p><em>This is a more advanced plotting script.</em></p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="imports">
+<h1>Imports:<a class="headerlink" href="#imports" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">glob</span><span class="w"> </span><span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">join</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">gridspec</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.dates</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mdates</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">calendar</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">tqdm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cftime</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">neon_utils</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">'xarray '</span><span class="o">+</span><span class="n">xr</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="c1">##-- was working with 2025.12.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="dask-cluster">
+<h2>Dask Cluster<a class="headerlink" href="#dask-cluster" title="Link to this heading">#</a></h2>
+<p>The following will spin up a dask cluster,  only works on NCAR machines.
+16 workers worked best for NEON.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#from distributed import Client</span>
+<span class="c1">#from ncar_jobqueue import NCARCluster</span>
+
+<span class="c1">#cluster = NCARCluster()</span>
+<span class="c1">#cluster.scale(16)</span>
+<span class="c1">#client = Client(cluster)</span>
+<span class="c1">#client</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="useful-functions-and-objects">
+<h2>Useful Functions and Objects<a class="headerlink" href="#useful-functions-and-objects" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">diel_cycle_plot</span><span class="p">(</span><span class="n">diel_df_mean</span><span class="p">,</span> <span class="n">diel_df_std</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">plot_dir</span><span class="p">,</span><span class="n">color1</span><span class="o">=</span> <span class="s1">'#e28743'</span><span class="p">,</span><span class="n">color2</span><span class="o">=</span><span class="s1">'#1d657e'</span><span class="p">,</span><span class="n">season</span> <span class="o">=</span> <span class="s2">"Annual"</span><span class="p">,</span> <span class="n">save_switch</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    
+    <span class="c1"># Plot annual average diel cycle and bias</span>
+    <span class="n">bias_var_name</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">obs_var</span> <span class="o">+</span><span class="s1">'_bias'</span>
+
+    <span class="n">diel_df_mean</span> <span class="p">[</span><span class="n">bias_var_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">sim_var</span><span class="p">]</span><span class="o">-</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="p">]</span>
+    
+    <span class="n">fig</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s1">'w'</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+
+    <span class="c1"># -- subplot 1 : Diurnal average + standard dev as shaded regions</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>    
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span> <span class="p">(</span> <span class="n">diel_df_mean</span><span class="o">.</span><span class="n">local_hour</span><span class="p">,</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="p">],</span> <span class="n">marker</span> <span class="o">=</span> <span class="s1">'o'</span> <span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">color1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">"NEON"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span> <span class="p">(</span> <span class="n">diel_df_mean</span><span class="o">.</span><span class="n">local_hour</span><span class="p">,</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">sim_var</span><span class="p">]</span> <span class="p">,</span> <span class="n">marker</span> <span class="o">=</span> <span class="s1">'o'</span> <span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">color2</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">"CTSM"</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s1">'dashed'</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">diel_df_mean</span><span class="o">.</span><span class="n">local_hour</span><span class="p">,</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="p">]</span><span class="o">-</span><span class="n">diel_df_std</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="p">],</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="p">]</span><span class="o">+</span><span class="n">diel_df_std</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="p">]</span> <span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">color1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">diel_df_mean</span><span class="o">.</span><span class="n">local_hour</span><span class="p">,</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">sim_var</span><span class="p">]</span><span class="o">-</span><span class="n">diel_df_std</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">sim_var</span><span class="p">],</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">sim_var</span><span class="p">]</span><span class="o">+</span><span class="n">diel_df_std</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">sim_var</span><span class="p">]</span> <span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">color2</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">long_name</span><span class="o">+</span><span class="s2">" ["</span><span class="o">+</span><span class="n">var</span><span class="o">.</span><span class="n">unit</span><span class="o">+</span><span class="s2">"]"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    
+    <span class="c1"># -- vertical line at noon</span>
+    <span class="c1"># plt.axvline(x=12, color = 'gray',linestyle='dashed',alpha=0.75)</span>
+
+    <span class="k">if</span> <span class="n">season</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"DJF"</span><span class="p">,</span> <span class="s2">"MAM"</span><span class="p">,</span><span class="s2">"JJA"</span><span class="p">,</span><span class="s2">"SON"</span><span class="p">]:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Diel Cycle of "</span><span class="o">+</span> <span class="n">var</span><span class="o">.</span><span class="n">long_name</span> <span class="o">+</span><span class="s2">"</span><span class="se">\n</span><span class="s2"> "</span> <span class="o">+</span><span class="n">neon_site</span><span class="o">+</span><span class="s2">" "</span><span class="o">+</span><span class="s2">"[2018-2021] "</span> <span class="o">+</span><span class="n">season</span> <span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">'bold'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Diel Cycle of "</span><span class="o">+</span> <span class="n">var</span><span class="o">.</span><span class="n">long_name</span> <span class="o">+</span><span class="s2">"</span><span class="se">\n</span><span class="s2"> "</span> <span class="o">+</span><span class="n">neon_site</span><span class="o">+</span><span class="s2">" "</span><span class="o">+</span><span class="s2">"[2018-2021]"</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">'bold'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+    <span class="c1"># -- adjusting tick properties.    </span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'both'</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">'both'</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">length</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span><span class="n">direction</span><span class="o">=</span><span class="s2">"in"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">'both'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'y'</span><span class="p">,</span><span class="n">direction</span><span class="o">=</span><span class="s2">"out"</span><span class="p">,</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">7</span><span class="p">)</span>
+
+    <span class="c1"># -- x-axis range and ticks</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">24</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># -- y axis label location</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_label_coords</span><span class="p">(</span><span class="o">-</span><span class="mf">0.06</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="c1"># -- add legends</span>
+    <span class="n">legend_labels</span><span class="p">,</span> <span class="n">_</span><span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+    <span class="c1"># -- remove tick labels for x axis</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">()]</span>
+    <span class="n">empty_string_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">''</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">empty_string_labels</span><span class="p">)</span>   
+    
+    <span class="c1"># ----------------------</span>
+    <span class="c1"># -- Subplot 2: Bias Plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+
+    <span class="n">diel_df_mean</span><span class="o">.</span><span class="n">plot</span> <span class="p">(</span> <span class="n">x</span><span class="o">=</span> <span class="s1">'local_hour'</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">bias_var_name</span> <span class="p">,</span> <span class="n">marker</span> <span class="o">=</span> <span class="s1">'o'</span> <span class="p">,</span><span class="n">ax</span> <span class="o">=</span><span class="n">ax</span> <span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">'black'</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">'Bias'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Local Time'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Bias'</span><span class="o">+</span><span class="s2">" ["</span><span class="o">+</span><span class="n">var</span><span class="o">.</span><span class="n">unit</span><span class="o">+</span><span class="s2">"]"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+    <span class="c1"># -- horizontal line at 0 </span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">'gray'</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">'dashed'</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+
+    <span class="c1">#-- vertical line at noon</span>
+    <span class="c1">#plt.axvline(x=12, color = 'gray',linestyle='dashed',alpha=0.75)</span>
+    
+    <span class="c1"># -- Changing tick properties:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'both'</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">'both'</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">length</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span><span class="n">which</span> <span class="o">=</span><span class="s1">'both'</span><span class="p">,</span><span class="n">direction</span><span class="o">=</span><span class="s2">"out"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'y'</span><span class="p">,</span><span class="n">direction</span><span class="o">=</span><span class="s2">"out"</span><span class="p">,</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">7</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">'both'</span><span class="p">)</span>
+
+    <span class="c1"># -- x-axis range and ticks</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">24</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># -- changing x axis tick labels to custom labels</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">diel_df_mean</span><span class="o">.</span><span class="n">local_hour_dt</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%H:%M"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">rotation</span> <span class="o">=</span> <span class="mi">45</span><span class="p">)</span>
+    
+    <span class="c1"># -- y axis label location</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_label_coords</span><span class="p">(</span><span class="o">-</span><span class="mf">0.06</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="c1"># -- remove legend</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>  
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">save_switch</span><span class="p">:</span>
+        <span class="n">plot_name</span> <span class="o">=</span> <span class="n">neon_site</span><span class="o">+</span><span class="s1">'_'</span><span class="o">+</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="o">+</span><span class="s1">'_composition_diel_cyle'</span><span class="o">+</span><span class="s1">'_'</span><span class="o">+</span><span class="n">season</span><span class="o">+</span><span class="s1">'.png'</span>
+        <span class="n">plot_dir1</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">,</span> <span class="s1">'png'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">plot_dir1</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">plot_dir1</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                        
+        <span class="nb">print</span> <span class="p">(</span><span class="s1">'Saving '</span><span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plot_dir1</span><span class="p">,</span><span class="n">plot_name</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plot_dir1</span><span class="p">,</span><span class="n">plot_name</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">'tight'</span><span class="p">)</span> 
+        
+
+        <span class="n">plot_name</span> <span class="o">=</span> <span class="n">neon_site</span><span class="o">+</span><span class="s1">'_'</span><span class="o">+</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="o">+</span><span class="s1">'_composition_diel_cyle'</span><span class="o">+</span><span class="s1">'_'</span><span class="o">+</span><span class="n">season</span><span class="o">+</span><span class="s1">'.pdf'</span>
+        <span class="n">plot_dir2</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">,</span> <span class="s1">'pdf'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">plot_dir2</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">plot_dir2</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                        
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plot_dir2</span><span class="p">,</span><span class="n">plot_name</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">'tight'</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s1">'pdf'</span><span class="p">)</span>  
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s1">'all'</span><span class="p">)</span>        
+
+<span class="k">def</span><span class="w"> </span><span class="nf">diel_cycle_lh</span><span class="p">(</span><span class="n">diel_df_mean</span><span class="p">,</span> <span class="n">diel_df_std</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">plot_dir</span><span class="p">,</span><span class="n">color1</span><span class="o">=</span> <span class="s1">'#e28743'</span><span class="p">,</span><span class="n">color2</span><span class="o">=</span><span class="s1">'#1d657e'</span><span class="p">,</span><span class="n">season</span> <span class="o">=</span> <span class="s2">"Annual"</span><span class="p">,</span> <span class="n">save_switch</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+    <span class="c1"># Plot annual average diel cycle and bias</span>
+    <span class="n">bias_var_name</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">obs_var</span> <span class="o">+</span><span class="s1">'_bias'</span>
+
+    <span class="n">diel_df_mean</span> <span class="p">[</span><span class="n">bias_var_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">sim_var</span><span class="p">]</span><span class="o">-</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="p">]</span>
+    
+    <span class="n">fig</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s1">'w'</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+
+    <span class="c1"># -- subplot 1 : Diurnal average + standard dev as shaded regions</span>
+    <span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">height_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">2.25</span><span class="p">])</span> 
+    <span class="n">ax</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span> <span class="p">(</span> <span class="n">diel_df_mean</span><span class="o">.</span><span class="n">local_hour</span><span class="p">,</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="p">],</span> <span class="n">marker</span> <span class="o">=</span> <span class="s1">'o'</span> <span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">color1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">"NEON"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span> <span class="p">(</span> <span class="n">diel_df_mean</span><span class="o">.</span><span class="n">local_hour</span><span class="p">,</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">sim_var</span><span class="p">]</span> <span class="p">,</span> <span class="n">marker</span> <span class="o">=</span> <span class="s1">'o'</span> <span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">color2</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">"CTSM"</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s1">'dashed'</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">diel_df_mean</span><span class="o">.</span><span class="n">local_hour</span><span class="p">,</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="p">]</span><span class="o">-</span><span class="n">diel_df_std</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="p">],</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="p">]</span><span class="o">+</span><span class="n">diel_df_std</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="p">]</span> <span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">color1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">diel_df_mean</span><span class="o">.</span><span class="n">local_hour</span><span class="p">,</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">sim_var</span><span class="p">]</span><span class="o">-</span><span class="n">diel_df_std</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">sim_var</span><span class="p">],</span> <span class="n">diel_df_mean</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">sim_var</span><span class="p">]</span><span class="o">+</span><span class="n">diel_df_std</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">sim_var</span><span class="p">]</span> <span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">color2</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">long_name</span><span class="o">+</span><span class="s2">" ["</span><span class="o">+</span><span class="n">var</span><span class="o">.</span><span class="n">unit</span><span class="o">+</span><span class="s2">"]"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    
+    <span class="c1"># -- vertical line at noon</span>
+    <span class="c1">#plt.axvline(x=12, color = 'gray',linestyle='dashed',alpha=0.75)</span>
+
+    <span class="k">if</span> <span class="n">season</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"DJF"</span><span class="p">,</span> <span class="s2">"MAM"</span><span class="p">,</span><span class="s2">"JJA"</span><span class="p">,</span><span class="s2">"SON"</span><span class="p">]:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Diurnal Cycle of "</span><span class="o">+</span> <span class="n">var</span><span class="o">.</span><span class="n">long_name</span> <span class="o">+</span><span class="s2">"</span><span class="se">\n</span><span class="s2"> "</span> <span class="o">+</span><span class="n">neon_site</span><span class="o">+</span><span class="s2">" "</span><span class="o">+</span><span class="s2">"[2018-2021] "</span> <span class="o">+</span><span class="n">season</span> <span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">'bold'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Diurnal Cycle of "</span><span class="o">+</span> <span class="n">var</span><span class="o">.</span><span class="n">long_name</span> <span class="o">+</span><span class="s2">"</span><span class="se">\n</span><span class="s2"> "</span> <span class="o">+</span><span class="n">neon_site</span><span class="o">+</span><span class="s2">" "</span><span class="o">+</span><span class="s2">"[2018-2021]"</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">'bold'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+    <span class="c1"># -- Changing tick properties:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'both'</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">'both'</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">length</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span><span class="n">which</span> <span class="o">=</span><span class="s1">'both'</span><span class="p">,</span><span class="n">direction</span><span class="o">=</span><span class="s2">"in"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'y'</span><span class="p">,</span><span class="n">direction</span><span class="o">=</span><span class="s2">"out"</span><span class="p">,</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">7</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">'both'</span><span class="p">)</span>
+
+    <span class="c1"># -- x-axis range and ticks</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">24</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># -- y axis label location</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_label_coords</span><span class="p">(</span><span class="o">-</span><span class="mf">0.07</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+    
+    <span class="c1"># -- add legends</span>
+    <span class="n">legend_labels</span><span class="p">,</span> <span class="n">_</span><span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+    <span class="c1"># -- add letters</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.01</span><span class="p">,</span><span class="mf">0.935</span><span class="p">,</span><span class="s1">'(a)'</span><span class="p">,</span>
+        <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">'left'</span><span class="p">,</span>
+        <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">'bold'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+
+    <span class="c1"># -- remove tick labels for x axis</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">()]</span>
+    <span class="n">empty_string_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">''</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">empty_string_labels</span><span class="p">)</span>   
+    
+    <span class="c1"># ----------------------</span>
+    <span class="c1"># -- Subplot 2: Bias Plot</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">diel_df_mean</span><span class="o">.</span><span class="n">plot</span> <span class="p">(</span> <span class="n">x</span><span class="o">=</span> <span class="s1">'local_hour'</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">'EFLX_LH_TOT_bias'</span> <span class="p">,</span> <span class="n">marker</span> <span class="o">=</span> <span class="s1">'o'</span> <span class="p">,</span><span class="n">ax</span> <span class="o">=</span><span class="n">ax</span> <span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">'black'</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">'Bias'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Bias'</span><span class="o">+</span><span class="s2">" ["</span><span class="o">+</span><span class="n">var</span><span class="o">.</span><span class="n">unit</span><span class="o">+</span><span class="s2">"]"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    
+    <span class="c1"># -- horizontal line at 0 </span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">'gray'</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">'dashed'</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+
+    <span class="c1">#-- vertical line at noon</span>
+    <span class="c1">#plt.axvline(x=12, color = 'gray',linestyle='dashed',alpha=0.75)</span>
+
+    <span class="c1"># -- Changing tick properties:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'both'</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">'both'</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">length</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span><span class="n">which</span> <span class="o">=</span><span class="s1">'both'</span><span class="p">,</span><span class="n">direction</span><span class="o">=</span><span class="s2">"in"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'y'</span><span class="p">,</span><span class="n">direction</span><span class="o">=</span><span class="s2">"out"</span><span class="p">,</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">7</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">'both'</span><span class="p">)</span>
+
+    <span class="c1"># -- x-axis range and ticks</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">24</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># -- y axis label location</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_label_coords</span><span class="p">(</span><span class="o">-</span><span class="mf">0.07</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="c1"># -- remove legend</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+
+    <span class="c1"># -- add letters</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.01</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="s1">'(b)'</span><span class="p">,</span>
+        <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">'left'</span><span class="p">,</span>
+        <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">'bold'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+    <span class="c1"># -- remove tick labels for x axis</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">()]</span>
+    <span class="n">empty_string_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">''</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">empty_string_labels</span><span class="p">)</span>    
+
+    <span class="c1"># ----------------------</span>
+    <span class="c1"># -- Subplot 3: Latent Heat Flux Composition Plots</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">diel_df_mean</span><span class="p">[[</span><span class="s1">'local_hour'</span><span class="p">,</span><span class="s1">'sim_FCEV'</span><span class="p">,</span><span class="s1">'sim_FCTR'</span><span class="p">,</span><span class="s1">'sim_FGEV'</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span> <span class="p">(</span> 
+        <span class="n">x</span><span class="o">=</span> <span class="s1">'local_hour'</span><span class="p">,</span><span class="n">stacked</span><span class="o">=</span><span class="s1">'True'</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">rot</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">'tab:blue'</span><span class="p">,</span><span class="s1">'tab:green'</span><span class="p">,</span><span class="s1">'tab:orange'</span><span class="p">])</span>
+    
+    <span class="c1">#-- vertical line at noon</span>
+    <span class="c1">#plt.axvline(x=12, color = 'gray',linestyle='dashed',alpha=0.75)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Latent Heat Components'</span><span class="o">+</span><span class="s2">" ["</span><span class="o">+</span><span class="n">var</span><span class="o">.</span><span class="n">unit</span><span class="o">+</span><span class="s2">"]"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Local Time'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+    <span class="c1"># -- Changing tick properties:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'both'</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">'both'</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">length</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span><span class="n">which</span> <span class="o">=</span><span class="s1">'both'</span><span class="p">,</span><span class="n">direction</span><span class="o">=</span><span class="s2">"out"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'y'</span><span class="p">,</span><span class="n">direction</span><span class="o">=</span><span class="s2">"out"</span><span class="p">,</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">7</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">'both'</span><span class="p">)</span>
+
+    <span class="c1"># -- x-axis range and ticks</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">24</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># -- changing x axis tick labels to custom labels</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">diel_df_mean</span><span class="o">.</span><span class="n">local_hour_dt</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%H:%M"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+
+    <span class="c1"># -- y axis label location</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_label_coords</span><span class="p">(</span><span class="o">-</span><span class="mf">0.07</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="c1"># -- add legends</span>
+    <span class="n">legend_labels</span><span class="p">,</span> <span class="n">_</span><span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">legend_labels</span><span class="p">,</span> <span class="p">[</span><span class="s1">'Canopy Evaporation'</span><span class="p">,</span><span class="s1">'Canopy Transpiration'</span><span class="p">,</span> <span class="s1">'Ground Evaporation'</span><span class="p">],</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+    <span class="c1"># -- add letters </span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.01</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="s1">'(c)'</span><span class="p">,</span>
+        <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">'left'</span><span class="p">,</span>
+        <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">'bold'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    
+    <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        
+    <span class="k">if</span> <span class="n">save_switch</span><span class="p">:</span>
+        <span class="n">plot_name</span> <span class="o">=</span> <span class="n">neon_site</span><span class="o">+</span><span class="s1">'_'</span><span class="o">+</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="o">+</span><span class="s1">'_composition_diel_cyle'</span><span class="o">+</span><span class="s1">'_'</span><span class="o">+</span><span class="n">season</span><span class="o">+</span><span class="s1">'.png'</span>
+        <span class="n">plot_dir1</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">,</span> <span class="s1">'png'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">plot_dir1</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">plot_dir1</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                        
+        <span class="nb">print</span> <span class="p">(</span><span class="s1">'Saving '</span><span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plot_dir1</span><span class="p">,</span><span class="n">plot_name</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plot_dir1</span><span class="p">,</span><span class="n">plot_name</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">'tight'</span><span class="p">)</span> 
+        
+
+        <span class="n">plot_name</span> <span class="o">=</span> <span class="n">neon_site</span><span class="o">+</span><span class="s1">'_'</span><span class="o">+</span><span class="n">var</span><span class="o">.</span><span class="n">obs_var</span><span class="o">+</span><span class="s1">'_composition_diel_cyle'</span><span class="o">+</span><span class="s1">'_'</span><span class="o">+</span><span class="n">season</span><span class="o">+</span><span class="s1">'.pdf'</span>
+        <span class="n">plot_dir2</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">,</span> <span class="s1">'pdf'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">plot_dir2</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">plot_dir2</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                        
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plot_dir2</span><span class="p">,</span><span class="n">plot_name</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">'tight'</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s1">'pdf'</span><span class="p">)</span>  
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s1">'all'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">PlotVariable</span> <span class="p">():</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">short_name</span><span class="p">,</span> <span class="n">long_name</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">short_name</span> <span class="o">=</span> <span class="n">short_name</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">long_name</span> <span class="o">=</span> <span class="n">long_name</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="n">unit</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">obs_var</span> <span class="o">=</span> <span class="n">short_name</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">sim_var</span> <span class="o">=</span> <span class="s1">'sim_'</span><span class="o">+</span><span class="n">short_name</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="variables-to-create-plots">
+<h2>Variables to create plots<a class="headerlink" href="#variables-to-create-plots" title="Link to this heading">#</a></h2>
+<p>Create a list of variables instances for the plots.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_vars</span><span class="o">=</span> <span class="p">[]</span> 
+
+<span class="n">plot_var</span> <span class="o">=</span> <span class="s1">'Rnet'</span>
+<span class="n">sim_var</span> <span class="o">=</span> <span class="s1">'sim_'</span><span class="o">+</span><span class="n">plot_var</span>
+<span class="n">plot_var_desc</span> <span class="o">=</span> <span class="s2">"Net Radiation"</span>
+<span class="n">plot_var_unit</span><span class="o">=</span> <span class="s2">"Wm⁻²"</span>
+<span class="n">this_var</span> <span class="o">=</span> <span class="n">PlotVariable</span><span class="p">(</span><span class="n">plot_var</span><span class="p">,</span> <span class="n">plot_var_desc</span><span class="p">,</span> <span class="n">plot_var_unit</span><span class="p">)</span>
+<span class="n">all_vars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_var</span><span class="p">)</span>
+
+<span class="n">plot_var</span> <span class="o">=</span> <span class="s1">'FSH'</span>
+<span class="n">sim_var</span> <span class="o">=</span> <span class="s1">'sim_'</span><span class="o">+</span><span class="n">plot_var</span>
+<span class="n">plot_var_desc</span> <span class="o">=</span> <span class="s1">'Sensible Heat Flux'</span>
+<span class="n">plot_var_unit</span><span class="o">=</span> <span class="s2">"Wm⁻²"</span>
+<span class="n">this_var</span> <span class="o">=</span> <span class="n">PlotVariable</span><span class="p">(</span><span class="n">plot_var</span><span class="p">,</span> <span class="n">plot_var_desc</span><span class="p">,</span> <span class="n">plot_var_unit</span><span class="p">)</span>
+<span class="n">all_vars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_var</span><span class="p">)</span>
+
+<span class="n">plot_var</span> <span class="o">=</span> <span class="s1">'EFLX_LH_TOT'</span>
+<span class="n">sim_var</span> <span class="o">=</span> <span class="s1">'sim_'</span><span class="o">+</span><span class="n">plot_var</span>
+<span class="n">plot_var_desc</span> <span class="o">=</span> <span class="s2">"Latent Heat Flux"</span>
+<span class="n">plot_var_unit</span><span class="o">=</span> <span class="s2">"Wm⁻²"</span>
+<span class="n">this_var</span> <span class="o">=</span> <span class="n">PlotVariable</span><span class="p">(</span><span class="n">plot_var</span><span class="p">,</span> <span class="n">plot_var_desc</span><span class="p">,</span> <span class="n">plot_var_unit</span><span class="p">)</span>
+<span class="n">all_vars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_var</span><span class="p">)</span>
+
+
+
+<span class="n">plot_var</span> <span class="o">=</span> <span class="s1">'GPP'</span>
+<span class="n">sim_var</span> <span class="o">=</span> <span class="s1">'sim_'</span><span class="o">+</span><span class="n">plot_var</span>
+<span class="n">plot_var_desc</span> <span class="o">=</span> <span class="s2">"Gross Primary Production"</span>
+<span class="n">plot_var_unit</span><span class="o">=</span> <span class="s2">"gCm⁻²day⁻¹"</span>
+<span class="n">this_var</span> <span class="o">=</span> <span class="n">PlotVariable</span><span class="p">(</span><span class="n">plot_var</span><span class="p">,</span> <span class="n">plot_var_desc</span><span class="p">,</span> <span class="n">plot_var_unit</span><span class="p">)</span>
+<span class="n">all_vars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_var</span><span class="p">)</span>
+
+
+<span class="n">plot_var</span> <span class="o">=</span> <span class="s1">'NEE'</span>
+<span class="n">sim_var</span> <span class="o">=</span> <span class="s1">'sim_'</span><span class="o">+</span><span class="n">plot_var</span>
+<span class="n">plot_var_desc</span> <span class="o">=</span> <span class="s2">"Net Ecosystem Exchange"</span>
+<span class="n">plot_var_unit</span><span class="o">=</span> <span class="s2">"gCm⁻²day⁻¹"</span>
+<span class="n">this_var</span> <span class="o">=</span> <span class="n">PlotVariable</span><span class="p">(</span><span class="n">plot_var</span><span class="p">,</span> <span class="n">plot_var_desc</span><span class="p">,</span> <span class="n">plot_var_unit</span><span class="p">)</span>
+<span class="n">all_vars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_var</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="make-diurnal-cycle-plots">
+<h2>Make Diurnal Cycle Plots<a class="headerlink" href="#make-diurnal-cycle-plots" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># -- read only these variables from the whole netcdf files</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">preprocess</span> <span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+    <span class="n">variables</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'FCEV'</span><span class="p">,</span> <span class="s1">'FCTR'</span><span class="p">,</span> <span class="s1">'FGEV'</span><span class="p">,</span><span class="s1">'FSH'</span><span class="p">,</span><span class="s1">'GPP'</span><span class="p">,</span><span class="s1">'FSA'</span><span class="p">,</span><span class="s1">'FIRA'</span><span class="p">,</span><span class="s1">'AR'</span><span class="p">,</span><span class="s1">'HR'</span><span class="p">,</span><span class="s1">'ELAI'</span><span class="p">]</span>
+
+    <span class="n">ds_new</span><span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">variables</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">ds_new</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># -- fix timestamp on CTSM files so they can be matched with eval files</span>
+<span class="c1"># Note, this is not needed with newer version of CLM (CTSM5.3 and later)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fix_time</span> <span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">'''</span>
+<span class="sd">    fix time formatting with reading multiple cesm files.</span>
+<span class="sd">    '''</span>
+    <span class="n">nsteps</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+    <span class="n">yr0</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">'time.year'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">month0</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">'time.month'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">day0</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">'time.day'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="n">date</span> <span class="o">=</span> <span class="n">cftime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">yr0</span><span class="p">,</span><span class="n">month0</span><span class="p">,</span><span class="n">day0</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span> 
+    <span class="n">ds</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="n">nsteps</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">'30min'</span><span class="p">,</span> <span class="n">use_cftime</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ds</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]</span><span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ds</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_dir</span> <span class="o">=</span> <span class="s1">'~/NEON_figures/diel_cycle'</span>
+<span class="n">plot_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">))</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">"figures directory does not exist... creating it now!"</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"figures directory already exists"</span><span class="p">)</span>
+    
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span> <span class="p">(</span><span class="n">plot_dir</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">"plot directory does not exist... creating it now!"</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">plot_dir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## -- Setting some defaults for our figures:</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"font.weight"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"bold"</span>    
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"axes.labelweight"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"bold"</span>
+<span class="n">font</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'weight'</span> <span class="p">:</span> <span class="s1">'bold'</span><span class="p">,</span>
+        <span class="s1">'size'</span>   <span class="p">:</span> <span class="mi">15</span><span class="p">}</span> 
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">'font'</span><span class="p">,</span> <span class="o">**</span><span class="n">font</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Going Through the list of sites &amp; years to make plots for all of them.</p>
+<p>If you want to save your plots change <code class="docutils literal notranslate"><span class="pre">save_switch</span> <span class="pre">=</span> <span class="pre">True</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># -- read list of sites:</span>
+<span class="c1">#neon_sites_pft = pd.read_csv('/glade/scratch/negins/preprocessed_neon_csv_data/neon_sites_dompft.csv')</span>
+<span class="c1">#neon_sites_pft = pd.read_csv('/glade/u/home/wwieder/CTSM/tools/site_and_regional/neon_sites_dompft.csv')</span>
+<span class="c1">#neon_sites = neon_sites_pft['Site'].to_list()</span>
+
+<span class="c1">#Just do this for one site here</span>
+<span class="n">neon_sites</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'ABBY'</span><span class="p">]</span> <span class="c1"># list of the sites you want to plot</span>
+<span class="n">case</span> <span class="o">=</span> <span class="s1">'.transient'</span>   <span class="c1"># this should be the rest of your case name for each neon_site </span>
+                      <span class="c1"># (e.g. "site.transient" or "site.experiment.transient")</span>
+
+<span class="n">years</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"2018"</span><span class="p">,</span><span class="s2">"2019"</span><span class="p">,</span><span class="s2">"2020"</span><span class="p">,</span><span class="s2">"2021"</span><span class="p">]</span>
+<span class="n">save_switch</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">failed_sites</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># -- list for saving failed sites</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">neon_site</span> <span class="ow">in</span> <span class="n">neon_sites</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span> 
+        <span class="n">start_site</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="nb">print</span> <span class="p">(</span><span class="s1">'---------------------------'</span><span class="p">)</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">"Making plots for "</span><span class="o">+</span><span class="n">neon_site</span><span class="p">)</span>
+        <span class="n">sim_files</span> <span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">years</span><span class="p">:</span>
+            <span class="n">sim_path</span> <span class="o">=</span> <span class="s2">"/glade/campaign/cgd/tss/tutorials/neon_v3/hist_files/"</span><span class="o">+</span><span class="n">neon_site</span><span class="o">+</span><span class="n">case</span><span class="o">+</span><span class="s2">"/lnd/hist/"</span>
+            <span class="n">sim_files</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">sim_path</span><span class="p">,</span><span class="n">neon_site</span><span class="o">+</span><span class="s2">".transient.clm2.h1."</span><span class="o">+</span><span class="n">year</span><span class="o">+</span><span class="s2">"*.nc"</span><span class="p">))))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"All simulation files for all years: ["</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sim_files</span><span class="p">),</span> <span class="s2">"files]"</span><span class="p">)</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">"Start reading v3 simulation files..."</span><span class="p">)</span>
+        
+        
+        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="n">ds_ctsm</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">(</span><span class="n">sim_files</span><span class="p">,</span> <span class="n">decode_times</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">combine</span><span class="o">=</span><span class="s1">'by_coords'</span><span class="p">,</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">preprocess</span><span class="o">=</span><span class="n">preprocess</span><span class="p">,</span> <span class="n">use_cftime</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ds_ctsm</span> <span class="o">=</span> <span class="n">fix_time</span> <span class="p">(</span><span class="n">ds_ctsm</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Reading all simulation files took:"</span><span class="p">,</span> <span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="p">,</span> <span class="s2">"s."</span><span class="p">)</span>
+
+        <span class="n">eval_files</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">years</span><span class="p">:</span>
+            <span class="n">eval_dir</span> <span class="o">=</span> <span class="s2">"/glade/campaign/cgd/tss/tutorials/neon_v3/eval_files/"</span><span class="o">+</span><span class="n">neon_site</span>
+            <span class="n">eval_files</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">eval_dir</span><span class="p">,</span><span class="n">neon_site</span><span class="o">+</span><span class="s2">"_eval_"</span><span class="o">+</span><span class="n">year</span><span class="o">+</span><span class="s2">"*.nc"</span><span class="p">))))</span>
+
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">"All evaluation files for all years: ["</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">eval_files</span><span class="p">),</span> <span class="s2">"files]"</span><span class="p">)</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">"Start reading v3 evaluation files..."</span><span class="p">)</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="n">ds_eval</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">(</span><span class="n">eval_files</span><span class="p">,</span> <span class="n">decode_times</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">combine</span><span class="o">=</span><span class="s1">'by_coords'</span><span class="p">)</span>
+
+        <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Reading all observation files took:"</span><span class="p">,</span> <span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="p">,</span> <span class="s2">"s."</span><span class="p">)</span>
+
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">"Processing data..."</span><span class="p">)</span>
+        <span class="c1">#Convert CTSM data to a Pandas Dataframe for easier handling:</span>
+        <span class="n">ctsm_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'FCEV'</span><span class="p">,</span> <span class="s1">'FCTR'</span><span class="p">,</span> <span class="s1">'FGEV'</span><span class="p">,</span><span class="s1">'FSH'</span><span class="p">,</span><span class="s1">'GPP'</span><span class="p">,</span><span class="s1">'FSA'</span><span class="p">,</span><span class="s1">'FIRA'</span><span class="p">,</span><span class="s1">'AR'</span><span class="p">,</span><span class="s1">'HR'</span><span class="p">,</span><span class="s1">'ELAI'</span><span class="p">]</span>
+
+        <span class="n">df_ctsm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'time'</span><span class="p">:</span><span class="n">ds_ctsm</span><span class="o">.</span><span class="n">time</span><span class="p">})</span>
+        <span class="n">df_ctsm</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_ctsm</span><span class="p">[</span><span class="s1">'time'</span><span class="p">],</span><span class="nb">format</span><span class="o">=</span> <span class="s1">'%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S'</span> <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">ctsm_vars</span><span class="p">:</span>
+            <span class="n">sim_var_name</span> <span class="o">=</span> <span class="s2">"sim_"</span><span class="o">+</span><span class="n">var</span>
+            <span class="n">field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span> <span class="p">(</span> <span class="n">ds_ctsm</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="p">)</span>     
+            <span class="n">df_ctsm</span><span class="p">[</span><span class="n">sim_var_name</span><span class="p">]</span><span class="o">=</span><span class="n">field</span>
+            <span class="c1">#-- shift simulation data by one</span>
+            <span class="n">df_ctsm</span><span class="p">[</span><span class="n">sim_var_name</span><span class="p">]</span><span class="o">=</span><span class="n">df_ctsm</span><span class="p">[</span><span class="n">sim_var_name</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+            
+        <span class="c1">#Convert NEON data to a Pandas Dataframe for easier handling:</span>
+        <span class="n">eval_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'NEE'</span><span class="p">,</span><span class="s1">'FSH'</span><span class="p">,</span><span class="s1">'EFLX_LH_TOT'</span><span class="p">,</span><span class="s1">'GPP'</span><span class="p">,</span><span class="s1">'Rnet'</span><span class="p">]</span>
+        <span class="n">df_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'time'</span><span class="p">:</span><span class="n">ds_eval</span><span class="o">.</span><span class="n">time</span><span class="p">})</span>
+
+        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">eval_vars</span><span class="p">:</span>
+            <span class="n">field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span> <span class="p">(</span><span class="n">ds_eval</span><span class="p">[</span><span class="n">var</span><span class="p">])</span>
+            <span class="n">df_all</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">=</span><span class="n">field</span>
+        
+        <span class="n">df_all</span><span class="o">=</span><span class="n">df_all</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_ctsm</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'time'</span><span class="p">),</span> <span class="n">on</span><span class="o">=</span><span class="s1">'time'</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'left'</span><span class="p">)</span>
+        
+        <span class="n">clm_var</span> <span class="o">=</span> <span class="s1">'sim_EFLX_LH_TOT'</span>
+        <span class="c1"># -- Latent Heat Flux:</span>
+        <span class="c1"># -- EFLX_LH_TOT = FCEV + FCTR +FGEV</span>
+        <span class="n">df_all</span> <span class="p">[</span><span class="n">clm_var</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s1">'sim_FCEV'</span><span class="p">]</span><span class="o">+</span> <span class="n">df_all</span><span class="p">[</span><span class="s1">'sim_FCTR'</span><span class="p">]</span><span class="o">+</span> <span class="n">df_all</span><span class="p">[</span><span class="s1">'sim_FGEV'</span><span class="p">]</span>
+
+        <span class="n">clm_var</span> <span class="o">=</span> <span class="s1">'sim_Rnet'</span>
+        <span class="c1"># -- Net Radiation:</span>
+        <span class="c1"># -- Rnet = FSA-FIRA</span>
+        <span class="n">df_all</span> <span class="p">[</span><span class="n">clm_var</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span> <span class="p">[</span><span class="s1">'sim_FSA'</span><span class="p">]</span><span class="o">-</span><span class="n">df_all</span><span class="p">[</span><span class="s1">'sim_FIRA'</span><span class="p">]</span>
+
+        <span class="n">clm_var</span> <span class="o">=</span> <span class="s1">'sim_NEE'</span>
+        <span class="c1"># Net Ecosystem Exchange</span>
+        <span class="c1"># NEE = GPP- (AR+HR)</span>
+        <span class="c1"># It seems like the sign are opposite so we calculated negative NEE</span>
+        <span class="n">df_all</span> <span class="p">[</span><span class="n">clm_var</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">df_all</span> <span class="p">[</span><span class="s1">'sim_GPP'</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s1">'sim_AR'</span><span class="p">]</span><span class="o">+</span><span class="n">df_all</span><span class="p">[</span><span class="s1">'sim_HR'</span><span class="p">]))</span>
+
+        <span class="c1"># convert NEE units from  umolm-2s-1 to gc/m2/s</span>
+        <span class="n">df_all</span> <span class="p">[</span><span class="s1">'NEE'</span><span class="p">]</span><span class="o">=</span> <span class="n">df_all</span> <span class="p">[</span><span class="s1">'NEE'</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mf">12.01</span><span class="o">/</span><span class="mi">1000000</span><span class="p">)</span>
+        <span class="n">df_all</span> <span class="p">[</span><span class="s1">'GPP'</span><span class="p">]</span><span class="o">=</span> <span class="n">df_all</span> <span class="p">[</span><span class="s1">'GPP'</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mf">12.01</span><span class="o">/</span><span class="mi">1000000</span><span class="p">)</span>
+        
+        <span class="c1"># -- convert gc/m2/s to gc/m2/day</span>
+        <span class="n">df_all</span> <span class="p">[</span><span class="s1">'NEE'</span><span class="p">]</span><span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s1">'NEE'</span><span class="p">]</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span>
+        <span class="n">df_all</span> <span class="p">[</span><span class="s1">'sim_NEE'</span><span class="p">]</span><span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s1">'sim_NEE'</span><span class="p">]</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span>
+
+        <span class="n">df_all</span> <span class="p">[</span><span class="s1">'GPP'</span><span class="p">]</span><span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s1">'GPP'</span><span class="p">]</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span>
+        <span class="n">df_all</span> <span class="p">[</span><span class="s1">'sim_GPP'</span><span class="p">]</span><span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s1">'sim_GPP'</span><span class="p">]</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span>
+
+        <span class="c1">#-- extract year, month, day, hour information from time</span>
+        <span class="n">df_all</span><span class="p">[</span><span class="s1">'year'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+        <span class="n">df_all</span><span class="p">[</span><span class="s1">'month'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span>
+        <span class="n">df_all</span><span class="p">[</span><span class="s1">'day'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span>
+        <span class="n">df_all</span><span class="p">[</span><span class="s1">'hour'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span>
+        
+        <span class="n">df_all</span><span class="p">[</span><span class="s1">'season'</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">df_all</span><span class="p">[</span><span class="s1">'month'</span><span class="p">]</span><span class="o">%</span><span class="k">12</span>+3)//3).map({1:'DJF', 2: 'MAM', 3:'JJA', 4:'SON'})
+        <span class="n">seasons</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Annual'</span><span class="p">,</span><span class="s1">'DJF'</span><span class="p">,</span> <span class="s1">'MAM'</span><span class="p">,</span> <span class="s1">'JJA'</span><span class="p">,</span> <span class="s1">'SON'</span><span class="p">]</span>
+
+        <span class="c1">#-- convert to local time</span>
+        <span class="n">tzone_shift</span> <span class="o">=</span> <span class="n">ds_eval</span><span class="o">.</span><span class="n">TimeDiffUtcLt</span>
+        <span class="n">df_all</span><span class="p">[</span><span class="s1">'local_time'</span><span class="p">]</span><span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">tzone_shift</span><span class="p">))</span>
+        <span class="n">df_all</span><span class="p">[</span><span class="s1">'local_hour'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s1">'local_time'</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span>
+
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">"Making diurnal cycle plots..."</span><span class="p">)</span>
+        <span class="n">color1</span> <span class="o">=</span> <span class="s1">'#e28743'</span>
+        <span class="c1">#color1 = '#f7aa15'</span>
+        <span class="n">color2</span> <span class="o">=</span> <span class="s1">'#1d657e'</span>
+
+        <span class="k">for</span> <span class="n">season</span> <span class="ow">in</span> <span class="n">seasons</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">season</span><span class="o">==</span><span class="s2">"Annual"</span><span class="p">:</span>
+                <span class="n">df_numeric</span> <span class="o">=</span> <span class="n">df_all</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s1">'object'</span><span class="p">,</span> <span class="s1">'string'</span><span class="p">])</span>
+                <span class="c1">#-- Calculate annual average diel cycle and bias</span>
+                <span class="n">diel_df_mean</span> <span class="o">=</span> <span class="n">df_numeric</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'local_hour'</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                <span class="n">diel_df_std</span> <span class="o">=</span> <span class="n">df_numeric</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'local_hour'</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+            
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">df_season</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="n">df_all</span><span class="p">[</span><span class="s1">'season'</span><span class="p">]</span><span class="o">==</span><span class="n">season</span><span class="p">]</span>
+                <span class="n">df_season_numeric</span> <span class="o">=</span> <span class="n">df_season</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s1">'object'</span><span class="p">,</span> <span class="s1">'string'</span><span class="p">])</span>
+
+                <span class="c1">#-- Calculate annual average diel cycle and bias</span>
+                <span class="n">diel_df_mean</span> <span class="o">=</span> <span class="n">df_season_numeric</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'local_hour'</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                <span class="n">diel_df_std</span> <span class="o">=</span> <span class="n">df_season_numeric</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'local_hour'</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                
+            <span class="n">diel_df_mean</span><span class="p">[</span><span class="s1">'local_hour_dt'</span><span class="p">]</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">diel_df_mean</span><span class="p">[</span><span class="s1">'local_hour'</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">'%H'</span><span class="p">)</span>
+
+
+            <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">all_vars</span><span class="p">:</span>
+
+                <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">obs_var</span> <span class="o">==</span> <span class="s2">"EFLX_LH_TOT"</span><span class="p">:</span>
+                    <span class="nb">print</span> <span class="p">(</span><span class="s2">"making latent heat component plots"</span><span class="p">)</span>
+                    <span class="n">diel_cycle_lh</span><span class="p">(</span><span class="n">diel_df_mean</span><span class="p">,</span> <span class="n">diel_df_std</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">plot_dir</span><span class="p">,</span><span class="n">color1</span><span class="p">,</span><span class="n">color2</span><span class="p">,</span> <span class="n">season</span><span class="p">,</span> <span class="n">save_switch</span><span class="p">)</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">diel_cycle_plot</span><span class="p">(</span><span class="n">diel_df_mean</span><span class="p">,</span> <span class="n">diel_df_std</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">plot_dir</span><span class="p">,</span><span class="n">color1</span><span class="p">,</span><span class="n">color2</span><span class="p">,</span> <span class="n">season</span><span class="p">,</span> <span class="n">save_switch</span><span class="p">)</span>
+        
+        
+        <span class="n">end_site</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Making these plots for "</span><span class="o">+</span><span class="n">neon_site</span><span class="o">+</span><span class="s2">" took : "</span><span class="p">,</span> <span class="n">end_site</span><span class="o">-</span><span class="n">start_site</span><span class="p">,</span> <span class="s2">"s."</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s1">'all'</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"   Plots found in  "</span><span class="o">+</span><span class="n">plot_dir</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span> 
+        <span class="nb">print</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s1">'THIS SITE FAILED:'</span><span class="p">,</span> <span class="n">neon_site</span><span class="p">)</span>
+        <span class="n">failed_sites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neon_site</span><span class="p">)</span>
+        <span class="k">pass</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s2">"Making plots for "</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">failed_sites</span><span class="p">),</span> <span class="s2">"failed : "</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="o">*</span><span class="n">failed_sites</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">" </span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To look at these plots you have a few options:</p>
+<ol class="arabic simple">
+<li><p>Simplest may be to navigate to your NEON_figures directory using the sidebar on the left of the your OnDemand window and:</p></li>
+</ol>
+<ul class="simple">
+<li><p>Open one of the figures (directly), this typically doesn’t look very good</p></li>
+<li><p>Right click on a figure and download it locally (see image below)</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>Download the whole <code class="docutils literal notranslate"><span class="pre">png</span></code> directory to you local machine.  You can do this by:</p>
+<ul class="simple">
+<li><p>Open a new terminal window on your local machine</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">Desktop</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scp</span> <span class="pre">-r</span> <span class="pre">$USER&#64;casper.hpc.ucar.edu:/glade/u/home/$USER/NEON_figures/diel_cycle/png</span> <span class="pre">.</span></code></p></li>
+<li><p><strong>NOTE</strong> you’ll have to replace $USER with your actual username</p></li>
+</ul>
+</li>
+<li><p>Alternatively, if you have X11 forwarding enabled on your local machine you can visualize these figures on the terminal window with:</p></li>
+</ol>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">display</span> <span class="pre">/glade/u/home/$USER/NEON_figures/diel_cycle/png/ABBY_EFLX_LH_TOT_composition_diel_cyle_JJA.png</span></code></p></li>
+</ul>
+<figure>
+    <img src="../../../images/diagnostics/clm_ctsm/download_figures.png"
+         alt="Download figures"
+         width="500" height="600">
+    <figcaption>
+        <i>Download figures directly in OnDemand</i>
+    </figcaption>
+</figure></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "npl-2026a"
+        },
+        kernelOptions: {
+            name: "npl-2026a",
+            path: "./notebooks/diagnostics/neon"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'npl-2026a'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="plot_neon_climatology.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Climatology plots for NEON sites</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../ldf/ldf_basics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">LDF</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">NEON Hourly Averages</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diurnal-cycle-of-latent-heat-and-components">Diurnal Cycle of latent heat and components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-diel-cycle-plots-for-neon-sites">Creating Diel Cycle Plots for NEON sites</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports:</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dask-cluster">Dask Cluster</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-functions-and-objects">Useful Functions and Objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-to-create-plots">Variables to create plots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-diurnal-cycle-plots">Make Diurnal Cycle Plots</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NCAR/CGD Staff
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

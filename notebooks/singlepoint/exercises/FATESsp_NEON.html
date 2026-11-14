@@ -1,0 +1,900 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>FATES Satellite Phenology (FATES-SP) simulations at NEON sites &#8212; CLM Tutorial</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=6a604523" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script data-sd-tabs-storage-prefix="sphinx-design-tab-id-" src="../../../_static/design-tabs.js?v=fcb327ea"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/singlepoint/exercises/FATESsp_NEON';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Generic Single Point" href="GenericSinglePoint.html" />
+    <link rel="prev" title="Run_tower: PLUMBER2" href="runtower_PLUMBER2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/ncar_logo.png" class="logo__image only-light" alt="CLM Tutorial - Home"/>
+    <img src="../../../_static/ncar_logo.png" class="logo__image only-dark pst-js-only" alt="CLM Tutorial - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../intro/intro_overview.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../intro/components.html">What is CESM ?</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/coupling.html">CIME (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../intro/cesm_webpage.html">CESM Webpage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/project.html">CESM Working Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/getting_involved.html">Getting Involved</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/getting_help.html">Getting Help</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../prereqs/prereqs_overview.html">Prerequisites for Success</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../prereqs/exercises.html">Exercise Overview</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../basics/basics_overview.html">Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../basics/ctsm_workspaces.html">Workspaces</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../basics/code_overview.html">CLM code</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/code/git_download_ctsm.html">Download CLM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/code/ctsm_code_explore.html">Explore CLM Code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../basics/ctsm_workflow.html">CTSM Workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/create_newcase.html">Create New Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/case_setup.html">Case Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/case_build.html">Case Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/case_submit.html">Case Submit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/model_output.html">Model Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/checking_jobs_and_status.html">Checking Your Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/ctsm_workflow/create_clone.html">Create Clone (Advanced)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../basics/exercises_overview.html">Exercise Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/first_I1850.html">Your first CLM run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/second_I1850.html">Extending your run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/change_compsets.html">Change component set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/examine_history_I1850.html">Examine History Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/extra.html">Explore Further</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../basics/exercises/review_questions.html">Review Questions</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modifications/modifications.html">Modifying Your Case</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../modifications/xml/overview.html">XML Modifications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/xml/xml_basics.html">How to Modify XML Files</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/xml/run_length.html">Controlling Run Length</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/starting_and_stopping.html">Starting and Stopping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/restarting.html">Restarting a Run</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/changing_run_length.html">Changing Run Length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/run_length/timing_files.html">Using Timing Files</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/xml/modify_run_type.html">Modifying the Type of Run</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/modify_run_type/hybrid_branch_restart.html">Hybrid, Branch, and Startup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/modify_run_type/run_variables.html">Variables Related to Run Type</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/xml/other_xml_variables.html">Other Useful XML Variables</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/xml/exercises.html">XML Modification Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/exercises/xml_length_exercise.html">Exercise 1: Modify run length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/exercises/xml_runtype_exercise.html">Exercise 2: Modify run type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/xml/exercises/xml_datm_exercise.html">Exercise 3: Modifying DATM variables</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../modifications/namelist/overview.html">Namelist Modifications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/namelist/documentation.html">Namelist Variable Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modifications/namelist/output.html">Customizing Output</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modifications/namelist/exercises_overview.html">Exercises Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_clm_history_vars.html">Exercise 1: History Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_clm_history_frequency.html">Exercise 2: Modify History Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_fates_complexity.html">Exercise 3: Change a FATES complexity variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modifications/namelist/exercises/exercise_hillslope.html">Exercise 4: Configure a Hillslope Hydrology simulation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../singlepoint_overview.html">Single Point Overview</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="runtower_NEON.html">Run_tower: NEON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="runtower_PLUMBER2.html">Run_tower: PLUMBER2</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">FATES Satellite Phenology (FATES-SP) simulations at NEON sites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GenericSinglePoint.html">Generic Single Point</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../sensitivity/01_sensitivity_overview.html">Parameter Sensitivity Experiments</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../sensitivity/02_create_param_ensembles.html">Create an Ensemble of Parameter Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sensitivity/03_submit_ensemble.html">Submit a Parameter Ensemble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sensitivity/04_ensemble_analysis.html">Analyze a Parameter Ensemble</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../diagnostics/diagnostics_intro.html">Diagnostics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../diagnostics/basics/basic_plotting_clm.html">Plotting basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/basics/unstructured_plotting.html">Plotting data from unstructured grids</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../diagnostics/fates/fates_overview.html">FATES</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/fates/fates_plotting_1.html">Investigating Output: CLM and CLM-FATES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/fates/fates_plotting_2.html">Investigating vegetation demographics with FATES</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../diagnostics/hillslope/hillslope_plotting.html">Hillslope Hydrology</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../diagnostics/neon/neon_overview.html">NEON</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/neon/neon_basic_plots.html">NEON: Basic Plotting</a></li>
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/neon/plot_neon_climatology.html">Climatology plots for NEON sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/neon/neon_lh_components.html">NEON Hourly Averages</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../diagnostics/ldf/ldf_basics.html">LDF</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../diagnostics/cupid/cupid_basics.html">CUPiD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/cupid/clm_cupid_ldf_ilamb.html">Land</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../diagnostics/additional/additional.html">Additional Topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/additional/postprocessing.html">Postprocessing data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/additional/analysis_tools.html">CESM analysis tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/additional/adf.html">ADF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../diagnostics/additional/uxarray.html">UXarray</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../resources/resources_overview.html">Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../resources/ncar_hpc.html">NCAR Supercomputer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/ncar_hpc_module.html">Modules on NCAR HPC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/tutorial_one_time_setup.html">Tutorial one time setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/tutorial_queue_account.html">Tutorial queue and account</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/terminals.html">Terminal Windows</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../resources/unix.html">UNIX</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/unix-cheatsheet.html">UNIX cheatsheet</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/text_editors.html">Text Editors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/github.html">Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/fortran.html">Fortran</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/netcdf.html">NetCDF files</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../troubleshooting/troubleshooting.html">Troubleshooting runtime errors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting/log_files.html">The log files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting/debugging_flag.html">Adding debugging info</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/notebooks/singlepoint/exercises/FATESsp_NEON.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>FATES Satellite Phenology (FATES-SP) simulations at NEON sites</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usermods">Usermods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-started">Get Started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-understanding">Test your understanding</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="fates-satellite-phenology-fates-sp-simulations-at-neon-sites">
+<h1>FATES Satellite Phenology (FATES-SP) simulations at NEON sites<a class="headerlink" href="#fates-satellite-phenology-fates-sp-simulations-at-neon-sites" title="Link to this heading">#</a></h1>
+<div class="alert alert-info">
+<strong>Exercise: Use the CTSM workflow to run a single point FATES-sp case at a NEON site</strong><br><br>
+<p>Create and run a case called <strong><code class="docutils literal notranslate"><span class="pre">BONA.FATESsp</span></code></strong> using the:</p>
+<ul class="simple">
+<li><p>compset <code class="docutils literal notranslate"><span class="pre">I1PtClm60FatesRsGs</span></code>, the</p></li>
+<li><p>resolution <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT</span></code>, and that</p></li>
+<li><p>applies <code class="docutils literal notranslate"><span class="pre">USERMODS</span></code> to set up a NEON site.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">run_tower</span></code> script we’ve been using is very useful, but it simplifies a number of steps that users may want to take control of in their workflow.  We’ll introduce how you can control aspects of your case setup and configuration here. For example, you can use the CTSM workflow to configure your case to run a FATES case at a supported tower site.  We’ll use material from the basic tutorial and customizing your case for this example</p>
+</div><section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
+<p>For a Satellite Phenology (SP) case, we want to run NEON sites for a bit to let soil water and temperatures equilibrate before comparing to observations. Luckily, this only takes a few years (in most cases).</p>
+<section id="usermods">
+<h3>Usermods<a class="headerlink" href="#usermods" title="Link to this heading">#</a></h3>
+<p>A <strong>usermod directory</strong> (“user modifications” directory) is a bundle of case-specific settings that CLM/CIME can apply when you create or clone a case. It’s a convenient way to start from a known configuration rather than manually setting every option afterward. The usermods may include files such as CLM namelist settings (<code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code>), settings for other model components, and XML configuration changes.</p>
+<p>You pass the bundle to CIME when creating a case. For example:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./create_newcase<span class="w"> </span>...<span class="w"> </span>--user-mods-dir<span class="w"> </span>clm/NEON/FATES/BONA
+</pre></div>
+</div>
+<p>Have a look at the standard usermods we provide in CLM6 in the <code class="docutils literal notranslate"><span class="pre">cime_config</span></code> directory of your CTSM checkout:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>/glade/u/home/<span class="nv">$USER</span>/code/my_clm_code/cime_config/usermods_dirs/clm
+</pre></div>
+</div>
+<div class="alert alert-info">
+<strong>Exercise </strong><br>
+<ul class="simple">
+<li><p>Move into the NEON usermods directory:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd /glade/u/home/$USER/code/my_clm_code/cime_config/usermods_dirs/clm/NEON
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>List its contents:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ls</span> <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>You should see several directories, including:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ABBY</span>
+<span class="n">BARR</span>
+<span class="n">BART</span>
+<span class="n">BLAN</span>
+<span class="n">BONA</span>
+<span class="n">CLBJ</span>
+<span class="n">CPER</span>
+<span class="n">DCFS</span>
+<span class="n">defaults</span>
+<span class="n">DEJU</span>
+<span class="n">DELA</span>
+<span class="n">DSNY</span>
+<span class="n">FATES</span>
+<span class="n">GRSM</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>You’ll notice that FATES has its own directory.  Have a look inside.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ls</span> <span class="n">FATES</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">default</span></code> directory in NEON/FATES contains shell commands and <code class="docutils literal notranslate"><span class="pre">user_nl_*</span></code> settings that are shared across all sites. Look and see.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ls</span> <span class="o">-</span><span class="mi">1</span> <span class="n">FATES</span><span class="o">/</span><span class="n">defaults</span>
+</pre></div>
+</div>
+<p>expected output includes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shell_commands</span>
+<span class="n">user_nl_clm</span>
+<span class="n">user_nl_cpl</span>
+<span class="n">user_nl_datm</span>
+<span class="n">user_nl_datm_streams</span>
+</pre></div>
+</div>
+<p>You can look to see what default settings your NEON cases will inherit.</p>
+<ul class="simple">
+<li><p>Each NEON site also includes custom XML changes.  Look and see:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ls</span> <span class="o">-</span><span class="mi">1</span> <span class="n">FATES</span><span class="o">/</span><span class="n">BONA</span>
+</pre></div>
+</div>
+<p>expected output includes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">include_user_mods</span>
+<span class="n">shell_commands</span>
+</pre></div>
+</div>
+<p><strong>Check Your Understanding</strong></p>
+<p>How are NEON site-level details passed to CLM?</p>
+<p><em>Hint: look at the <code class="docutils literal notranslate"><span class="pre">shell_commands</span></code> in the CLM <code class="docutils literal notranslate"><span class="pre">usermods_dirs</span></code> for NEON defaults and sites</em></p>
+</div>
+</section>
+</section>
+<section id="get-started">
+<h2>Get Started<a class="headerlink" href="#get-started" title="Link to this heading">#</a></h2>
+<p>Let’s create a single-point FATES Satellite Phenology (FATES-SP) case at a NEON site.</p>
+<div class="alert alert-warning">  
+<p><strong>Single Point FATES-SP Overview</strong></p>
+<p><strong>How do you customize your case to run a FATES-SP experiment?</strong></p>
+<p>Specifically you’ll want to make namelist changes that:</p>
+<ul class="simple">
+<li><p>set up a FATES-SP case.</p>
+<ul>
+<li><p><strong>NOTE</strong> These should be done with a compset in CLM6, but we don’t have a single-point FATES-SP compset at this time.</p></li>
+</ul>
+</li>
+<li><p>modify history file output for an SP case to get some daily data to look at</p></li>
+</ul>
+<p>And XML changes to run:</p>
+<ul class="simple">
+<li><p>From a ‘cold start’ (as we don’t have initial conditions);</p>
+<ul>
+<li><p>see spinup lecture, and <a class="reference external" href="https://escomp.github.io/CTSM/users_guide/running-special-cases/Spinning-up-the-biogeochemistry-Bgc-spinup.html">users guide</a></p></li>
+</ul>
+</li>
+<li><p>A quick spinup to initialize the soil moisture state (4 years). This isn’t long enough, but OK for purposes of the tutorial;</p></li>
+<li><p>For the full observational record.</p></li>
+</ul>
+</div>
+<div class="alert alert-success">   
+<details>
+<summary><font face="Times New Roman" color='blue' size=+1>Click here for the solution</font></summary><br>
+<p><strong>Create a new case <font face="Courier" color='purple'><strong>BONA.FATESsp </strong></font></strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/glade/u/home/<span class="nv">$USER</span>/code/my_clm_code/cime/scripts
+</pre></div>
+</div>
+<p>Change the 4-character NEON site below:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">neon_site</span><span class="o">=</span><span class="s2">"BONA"</span>
+</pre></div>
+</div>
+<p>Then create a new case.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./create_newcase<span class="w"> </span>--case<span class="w"> </span>/glade/u/home/<span class="nv">$USER</span>/cases/<span class="si">${</span><span class="nv">neon_site</span><span class="si">}</span>.FATESsp<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--res<span class="w"> </span>CLM_USRDAT<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--compset<span class="w"> </span>I1PtClm60FatesRsGs<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--run-unsupported<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--user-mods-dir<span class="w"> </span>clm/NEON/FATES/<span class="si">${</span><span class="nv">neon_site</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--handle-preexisting-dirs<span class="w"> </span>r
+</pre></div>
+</div>
+<p><strong>Case <font face="Courier" color='purple'><strong>setup</strong></font></strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/glade/u/home/<span class="nv">$USER</span>/cases/BONA.FATESsp
+./case.setup
+</pre></div>
+</div>
+<p><strong>Case <font face="Courier" color='purple'><strong>customization</strong></font></strong></p>
+<p><strong>user_nl_clm</strong> changes.  We currently don’t have a single-point FATES-SP compset in CLM.  We’re working on it, but in the meantime you can request satellite phenology in the single-point compset we chose above by adding the following into <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">"use_fates_sp = .true."</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+</pre></div>
+</div>
+<p>The NEON FATES usermods already add a second history file (<code class="docutils literal notranslate"><span class="pre">h1</span></code>) to your case. Have a look:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span>-A3<span class="w"> </span>hist_<span class="w"> </span>user_nl_clm
+</pre></div>
+</div>
+<p>You’ll see a variable list (<code class="docutils literal notranslate"><span class="pre">hist_fincl2</span></code>) set up to write <strong>every model time step</strong> (<code class="docutils literal notranslate"><span class="pre">hist_nhtfrq(2)</span> <span class="pre">=</span> <span class="pre">1</span></code>), with 48 time steps per file (<code class="docutils literal notranslate"><span class="pre">hist_mfilt(2)</span> <span class="pre">=</span> <span class="pre">48</span></code>). That’s a lot of files for an 8-year run! We’ll keep the same variables, but switch to <strong>daily averages</strong>, with one year per file:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">"hist_nhtfrq(2) = -24"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"hist_mfilt(2)  = 365"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"hist_fincl2 = 'FCEV', 'FCTR', 'FGEV', 'FIRA', 'FSA', 'FSH', 'FATES_GPP', 'FATES_GPP_PF', 'H2OSOI', 'SNOW_DEPTH', 'TBOT', 'TSOI'"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+</pre></div>
+</div>
+<p>A negative <code class="docutils literal notranslate"><span class="pre">hist_nhtfrq</span></code> value is a number of hours, so <code class="docutils literal notranslate"><span class="pre">-24</span></code> means daily. Because the fields are averaged, these files will be named <code class="docutils literal notranslate"><span class="pre">*.clm2.h1a.*</span></code>.</p>
+<p>If you set the same variable twice in <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code>, <strong>the last entry wins</strong>, so these lines override the usermods settings.</p>
+<p>You’ll learn more about history settings in the namelist modifications exercise.</p>
+<p><strong>XML changes</strong>
+<br><br>
+First look and see what default settings are for:</p>
+<ul class="simple">
+<li><p>Running from a cold start (without initial conditions)</p></li>
+<li><p>What years of DATM data do we have?</p></li>
+<li><p>How long are we running the case?</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./xmlquery<span class="w"> </span>CLM_FORCE_COLDSTART
+./xmlquery<span class="w"> </span>DATM_YR_START<span class="w"> </span>DATM_YR_ALIGN<span class="w"> </span>DATM_YR_END
+./xmlquery<span class="w"> </span>STOP_OPTION<span class="w"> </span>STOP_N<span class="w"> </span>
+</pre></div>
+</div>
+<p>Expected results are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CLM_FORCE_COLDSTART</span><span class="p">:</span> <span class="n">off</span>
+
+<span class="n">DATM_YR_START</span><span class="p">:</span> <span class="mi">2018</span>
+<span class="n">DATM_YR_ALIGN</span><span class="p">:</span> <span class="mi">2018</span>
+<span class="n">DATM_YR_END</span><span class="p">:</span> <span class="mi">2021</span>
+
+<span class="n">STOP_OPTION</span><span class="p">:</span> <span class="n">ndays</span>
+<span class="n">STOP_N</span><span class="p">:</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>For most NEON sites we have at least 4 complete years of data to work with (2018-2021).
+Now we’ll change this to:</p>
+<ul class="simple">
+<li><p>Force a cold start</p></li>
+<li><p>Cycle over the full 4 years of DATM data available two times (once for spinup, and once for actual comparison to observations)</p></li>
+<li><p>Start the simulation in 2014</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./xmlchange<span class="w"> </span><span class="nv">CLM_FORCE_COLDSTART</span><span class="o">=</span>on
+./xmlchange<span class="w"> </span><span class="nv">STOP_OPTION</span><span class="o">=</span>nyears
+./xmlchange<span class="w"> </span><span class="nv">STOP_N</span><span class="o">=</span><span class="m">8</span><span class="w">  </span>
+./xmlchange<span class="w"> </span><span class="nv">RUN_STARTDATE</span><span class="o">=</span><span class="m">2014</span>-01-01<span class="w"> </span>
+</pre></div>
+</div>
+<p><strong><font face="Courier" color='purple'><strong>Preview namelist</strong></font></strong></p>
+<p>Run <code class="docutils literal notranslate"><span class="pre">./preview_namelists</span></code> to ensure these changes were applied correctly.</p>
+<p>Check that your <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code> file looks OK, e.g.:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">use_fates_sp</span> <span class="pre">=</span> <span class="pre">.true.</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fsurdat</span></code> should be one with 16pfts in the name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finidat</span> <span class="pre">=</span> <span class="pre">'</span> <span class="pre">'</span></code></p></li>
+<li><p>etc…</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span>use_fates_sp<span class="w"> </span>CaseDocs/lnd_in
+grep<span class="w"> </span>fsurdat<span class="w"> </span>CaseDocs/lnd_in
+grep<span class="w"> </span>finidat<span class="w"> </span>CaseDocs/lnd_in
+grep<span class="w"> </span>hist_fincl2<span class="w"> </span>CaseDocs/lnd_in
+grep<span class="w"> </span>hist_mfilt<span class="w"> </span>CaseDocs/lnd_in
+</pre></div>
+</div>
+<p><strong>Case <font face="Courier" color='purple'><strong>build</strong></font></strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>qcmd<span class="w"> </span>--<span class="w"> </span>./case.build<span class="w"> </span>
+</pre></div>
+</div>
+<p><strong>Case <font face="Courier" color='purple'><strong>submit</strong></font></strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./case.submit
+</pre></div>
+</div>
+<p>Check the status:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>qstat<span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span>
+</pre></div>
+</div>
+<p>When the run is completed, look into the archive directory for:
+<font face="Courier" color='purple'><strong>BONA.FATESsp</strong></font>.</p>
+<p>Check that your archive directory on derecho (the path will be different on other machines):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/glade/derecho/scratch/<span class="nv">$USER</span>/archive/BONA.FATESsp
+ls<span class="w"> </span>
+</pre></div>
+</div>
+</details>
+</div></section>
+<section id="test-your-understanding">
+<h2>Test your understanding<a class="headerlink" href="#test-your-understanding" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Did your run complete successfully?</p></li>
+<li><p>Where is your case directory?</p></li>
+<li><p>Where is your run directory?</p></li>
+<li><p>What sorts of files did you get as output?</p></li>
+<li><p>What years did you run over?</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "bash"
+        },
+        kernelOptions: {
+            name: "bash",
+            path: "./notebooks/singlepoint/exercises"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'bash'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="runtower_PLUMBER2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Run_tower: PLUMBER2</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="GenericSinglePoint.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Generic Single Point</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usermods">Usermods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-started">Get Started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-understanding">Test your understanding</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NCAR/CGD Staff
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
