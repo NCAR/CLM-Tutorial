@@ -41,8 +41,8 @@ jobs:
       run: |
         set -o pipefail
         mkdir -p build-logs
-        # Intentionally not using --quiet so that if it takes a long time we can see what the problem is
-        jupyter-book build -W --keep-going --nitpick --builder custom --custom-builder linkcheck . 2>&1 | tee >(sed -E $'s/\x1b\\[[0-9;]*[a-zA-Z]//g' > "${GITHUB_WORKSPACE}/build-logs/${LOGFILE_BASENAME}")
+        # If link check is really slow, delete --quiet for complete log
+        jupyter-book build --quiet -W --keep-going --nitpick --builder custom --custom-builder linkcheck . 2>&1 | tee >(sed -E $'s/\x1b\\[[0-9;]*[a-zA-Z]//g' > "${GITHUB_WORKSPACE}/build-logs/${LOGFILE_BASENAME}")
       # The tee writes the build log file for the PR comment (posted by
       # build-jupyter-book-failure-post-comment.yml); the inner sed strips ANSI color
       # codes that would otherwise render as garbage in the comment.
