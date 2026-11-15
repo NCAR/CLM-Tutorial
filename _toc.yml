@@ -25,23 +25,24 @@ chapters:
 - file: notebooks/prereqs/prereqs_overview
   sections:
   - file: notebooks/prereqs/exercises
+  - file: notebooks/prereqs/tutorial_one_time_setup
 
 - file: notebooks/basics/basics_overview
   sections:
-  - file: notebooks/basics/ctsm_workspaces
+  - file: notebooks/basics/clm_workspaces
   - file: notebooks/basics/code_overview
     sections:
-    - file: notebooks/basics/code/git_download_ctsm
-    - file: notebooks/basics/code/ctsm_code_explore
-  - file: notebooks/basics/ctsm_workflow
+    - file: notebooks/basics/code/git_download_clm
+    - file: notebooks/basics/code/clm_code_explore
+  - file: notebooks/basics/clm_workflow
     sections:
-    - file: notebooks/basics/ctsm_workflow/create_newcase
-    - file: notebooks/basics/ctsm_workflow/case_setup
-    - file: notebooks/basics/ctsm_workflow/case_build
-    - file: notebooks/basics/ctsm_workflow/case_submit
-    - file: notebooks/basics/ctsm_workflow/model_output
-    - file: notebooks/basics/ctsm_workflow/checking_jobs_and_status
-    - file: notebooks/basics/ctsm_workflow/create_clone
+    - file: notebooks/basics/clm_workflow/create_newcase
+    - file: notebooks/basics/clm_workflow/case_setup
+    - file: notebooks/basics/clm_workflow/case_build
+    - file: notebooks/basics/clm_workflow/case_submit
+    - file: notebooks/basics/clm_workflow/model_output
+    - file: notebooks/basics/clm_workflow/checking_jobs_and_status
+    - file: notebooks/basics/clm_workflow/create_clone
   - file: notebooks/basics/exercises_overview
     sections:
     - file: notebooks/basics/exercises/first_I1850
@@ -128,7 +129,6 @@ chapters:
   - file: notebooks/resources/ncar_hpc
     sections:
     - file: notebooks/resources/ncar_hpc_module
-    - file: notebooks/resources/tutorial_one_time_setup
     - file: notebooks/resources/tutorial_queue_account
   - file: notebooks/resources/terminals
   - file: notebooks/resources/unix
