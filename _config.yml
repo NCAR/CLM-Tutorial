@@ -6,13 +6,7 @@ author: NCAR/CGD Staff
 logo: images/ncar_logo.png
 
 exclude_patterns:
-  - notebooks/diagnostics/additional/cvdp.ipynb
-  - notebooks/intro/cesm_expts/**
-  - notebooks/intro/community_experiments.ipynb
-  - notebooks/sourcemods/**
   - notebooks/resources/ncar_hpc_login.ipynb
-  - notebooks/resources/porting.ipynb
-  - notebooks/resources/profile.ipynb
   - notebooks/resources/tutorial_specific.ipynb
   - notebooks/troubleshooting/exercises_overview.ipynb
   - notebooks/troubleshooting/exercises/troubleshooting_cam.ipynb
@@ -22,16 +16,23 @@ sphinx:
     html_show_copyright: false
     html_theme_options:
       show_navbar_depth: 1
+    myst_heading_anchors: 2   # Add anchors to headings up to level 2 so they can be referenced in links
     linkcheck_ignore:
       - 'http://.*.nc'  # netCDF files are not links
+      - 'https?://(www\.)?gnu\.org'  # Rate-limited, unreliable, SLOW
       # 403 "Forbidden" errors
       - 'https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2025MS005590'
       - 'https?://nco.sourceforge.net'
       - 'https://doi.org/.*'
     linkcheck_timeout: 60  # Was 10, but this takes very long: https://webext.cgd.ucar.edu/BLTHIST/b.e30_alpha08o.BHISTC_MTt4s.ne30_t232_wgx3.330_branch/lnd/b.e30_alpha08o.BHISTC_MTt4s.ne30_t232_wgx3.330_branch_1850_2021_vs_b.e30_alpha07g.BHISTC_LTso.ne30_t232_wgx3.271_1850_2013/website
-    linkcheck_retries: 2
+    linkcheck_retries: 4
     linkcheck_anchors: false   # skip checking #anchors, which is often flaky
     linkcheck_report_timeouts_as_broken: False
+    #
+    # Have the copy button appear on code blocks including the Jinja parse-literal blocks talked about below
+    # (Commented out as discussed below)
+    #
+    #copybutton_selector: "div.highlight pre, pre.literal-block"
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
@@ -67,19 +68,19 @@ html:
   use_multitoc_numbering    : true
   extra_navbar              : ""
 
-parse:
-  # Jinja-2 Substitutions to make throughout all notebooks
-  # For example add:
-  # {{ CTSM_TUTORIAL_TAG }}
-  # For code blocks (make the code block a parsed-literal and do this:
-  # {{ '`' + CTSM_TUTORIAL_TAG + '`' }}
-  # To have it substitute the above from the substitutions.yml file below
-  # NOTE: this won't work for raw HTML blocks in markdown, so make the substitution outside of raw HTML.
-  myst_substitutions:
-      CTSM_TUTORIAL_TAG: "`ctsm5.4.067`"
-      CTSM_CUPID_TAG: "`CUPiD.n01_ctsm5.4.017`"
-      PROJECT_CODE: "UCGD0011"
-      TUTORIAL_QUE: "tutorial"
+#parse:
+#  # Jinja-2 Substitutions that was a failed experiment
+#  # Leaving here commented-out so we can figure out what the substitutions were next time:
+#  #    See PR: https://github.com/NCAR/CLM-Tutorial/pull/141
+#  #    See Discussion: https://github.com/NCAR/CLM-Tutorial/discussions/142
+#  myst_substitutions:
+#     CTSM_TUTORIAL_TAG: "`ctsm5.4.067`"
+#     CLM_TUTORIAL_DIR: "/glade/campaign/cgd/tss/tutorials/clm_2026"
+#     CTSM_CUPID_TAG: "`CUPiD.n01_ctsm5.4.017`"
+#     PROJECT_CODE: "UCGD0011"
+#     TUTORIAL_QUE: "tutorial"
+# # END OF SUBSTITUTIONS:
+
 
 launch_buttons:
   binder             : false
